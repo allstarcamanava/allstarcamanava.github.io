@@ -1,0 +1,11 @@
+title: My Jekyll Site
+description: A clean, standard static site built with Jekyll and Minima.
+baseurl: ""
+url: ""
+
+# Standard Jekyll Theme Mapping
+theme: minima
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
