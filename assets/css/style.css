@@ -1238,8 +1238,11 @@ footer {
   margin: 24px 0;
 }
 
-/* Bulletin page top spacing */
-.bulletin-page-section {
+/* ============================================================
+   INDIVIDUAL BULLETIN PAGE
+   ============================================================ */
+
+.bulletin-detail-page {
   padding-top: 48px !important;
 }
 
