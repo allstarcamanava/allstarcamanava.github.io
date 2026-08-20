@@ -1,5 +1,22 @@
-<header>
-  <nav>
-    <a href="/">Home</a>
-  </nav>
-</header>
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="{{ '/' | relative_url }}" data-link data-page="home" aria-label="Rotary E-Club of All Star CAMANAVA — Home">
+      <svg class="gear" width="30" height="30" viewBox="0 0 100 100" aria-hidden="true">
+        <path fill="#00CCCC" d="M50 6l4 10 10-4 0 11 11 3-6 9 6 9-11 3 0 11-10-4-4 10-4-10-10 4 0-11-11-3 6-9-6-9 11-3 0-11 10 4z"/>
+        <circle cx="50" cy="50" r="15" fill="#0B2B2E"/>
+      </svg>
+      <span>Rotary E-Club<small>All Star CAMANAVA</small></span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="{{ '/' | relative_url }}" data-link data-page="home">Home</a></li>
+      <li><a href="{{ '/about' | relative_url }}" data-link data-page="about">About</a></li>
+      <li><a href="{{ '/services' | relative_url }}" data-link data-page="services">Services</a></li>
+      <li><a href="{{ '/contact' | relative_url }}" data-link data-page="contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
