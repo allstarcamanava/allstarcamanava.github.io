@@ -1239,7 +1239,7 @@ footer {
 }
 
 /* Bulletin page top spacing */
-section.block.bulletin-page-section {
+.bulletin-page-section {
   padding-top: 48px !important;
 }
 
