@@ -1053,6 +1053,12 @@ footer {
   color: #8FB4B4;
 }
 
+.footer-description {
+  font-size: .9rem;
+  color: #9FC7C7;
+  max-width: 34ch;
+}
+
 
 /* ============================================================
    RESPONSIVE — TABLET
