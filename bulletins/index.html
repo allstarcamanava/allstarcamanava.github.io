@@ -1,0 +1,105 @@
+---
+layout: default
+title: "Club Bulletins — Rotary E-Club of All Star CAMANAVA"
+description: "Browse bulletins, announcements, meeting updates and community news from Rotary E-Club of All Star CAMANAVA."
+permalink: /bulletins/
+---
+
+<section class="block" style="padding-top:120px;">
+  <div class="container">
+
+    <div class="block-head">
+
+      <span class="eyebrow">
+        <span
+          class="dot"
+          style="
+            background:var(--gold);
+            width:6px;
+            height:6px;
+            border-radius:50%;
+            display:inline-block;
+          "
+        ></span>
+
+        Club Archive
+      </span>
+
+      <h2>Bulletins & Announcements</h2>
+
+      <p>
+        Explore the latest news, meeting updates, community projects,
+        announcements and other publications from Rotary E-Club of
+        All Star CAMANAVA.
+      </p>
+
+    </div>
+
+
+    <div class="bulletins-archive-grid">
+
+      {% for post in site.posts %}
+
+        <article class="card bulletin-archive-item">
+
+          {% if post.image %}
+            <a
+              href="{{ post.url | relative_url }}"
+              class="bulletin-archive-image"
+            >
+              <img
+                src="{{ post.image | relative_url }}"
+                alt="{{ post.image_alt | default: post.title }}"
+              >
+            </a>
+          {% endif %}
+
+
+          <div class="bulletin-archive-content">
+
+            <span class="eyebrow">
+              {{ post.date | date: "%B %d, %Y" }}
+            </span>
+
+            <h3>
+              <a href="{{ post.url | relative_url }}">
+                {{ post.title }}
+              </a>
+            </h3>
+
+            {% if post.excerpt %}
+              <p>
+                {{ post.excerpt | strip_html | truncatewords: 30 }}
+              </p>
+            {% endif %}
+
+            <a
+              href="{{ post.url | relative_url }}"
+              class="btn btn-solid"
+            >
+              Read Bulletin
+            </a>
+
+          </div>
+
+        </article>
+
+      {% else %}
+
+        <div class="card">
+
+          <h3>No bulletins yet</h3>
+
+          <p>
+            Club bulletins and announcements will appear here once they
+            are published.
+          </p>
+
+        </div>
+
+      {% endfor %}
+
+    </div>
+
+  </div>
+</section>
