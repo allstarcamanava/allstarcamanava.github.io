@@ -61,18 +61,11 @@
   color:#8FB4B4;
 }
 
-.footer-grid {
-  ...
-}
-
-.footer-brand {
-  ...
-}
-
-.footer-col {
-  ...
-}
-
-.footer-bottom {
-  ...
+@media (max-width: 900px){
+  .home-grid,
+  .about-hero,
+  .contact-grid,
+  .footer-grid{
+    grid-template-columns:1fr;
+  }
 }
