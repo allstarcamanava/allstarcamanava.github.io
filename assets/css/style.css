@@ -1157,3 +1157,27 @@ footer {
     justify-content: center;
   }
 }
+
+/* About page */
+
+.about-section {
+  padding-top: 120px;
+}
+
+.about-section .eyebrow .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  display: inline-block;
+}
+
+.about-title {
+  font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+  margin-top: .4em;
+}
+
+.about-intro {
+  font-size: 1.05rem;
+  color: #3B5B5D;
+}
