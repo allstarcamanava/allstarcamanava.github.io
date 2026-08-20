@@ -185,13 +185,6 @@
   .nav-toggle.open span::before{ transform:translateY(7px) rotate(45deg); }
   .nav-toggle.open span::after{ transform:translateY(-7px) rotate(-45deg); }
 
-  .page{ display:none; animation:fadeIn .5s ease; }
-  .page.visible{ display:block; }
-  @keyframes fadeIn{
-    from{ opacity:0; transform:translateY(10px); }
-    to{ opacity:1; transform:translateY(0); }
-  }
-
   .hero{
     position:relative;
     min-height:min(86vh, 720px);
@@ -534,90 +527,21 @@
 <script>
 (function(){
   "use strict";
-
-  var BASE_URL = "{{ site.baseurl }}".replace(/\/$/, "");
-  var PAGES = ["home", "about", "services", "contact"];
-  var PATH_TO_PAGE = {};
-  PATH_TO_PAGE[BASE_URL + "/"] = "home";
-  PATH_TO_PAGE[BASE_URL] = "home";
-  PATH_TO_PAGE[""] = "home";
-  PATH_TO_PAGE[BASE_URL + "/about"] = "about";
-  PATH_TO_PAGE[BASE_URL + "/services"] = "services";
-  PATH_TO_PAGE[BASE_URL + "/contact"] = "contact";
-  var PAGE_TO_PATH = {
-    home: BASE_URL + "/",
-    about: BASE_URL + "/about",
-    services: BASE_URL + "/services",
-    contact: BASE_URL + "/contact"
-  };
-
   var navLinks = document.getElementById("navLinks");
   var navToggle = document.getElementById("navToggle");
 
-  function renderPage(pageId){
-    if (PAGES.indexOf(pageId) === -1) { pageId = "home"; }
-
-    var sections = document.querySelectorAll(".page");
-    for (var i = 0; i < sections.length; i++){
-      sections[i].classList.toggle("visible", sections[i].getAttribute("data-page") === pageId);
-    }
-
-    var links = document.querySelectorAll("[data-link]");
-    for (var j = 0; j < links.length; j++){
-      links[j].classList.toggle("active", links[j].getAttribute("data-page") === pageId);
-    }
-
-    document.title = pageId === "home"
-      ? "Rotary E-Club of All Star CAMANAVA"
-      : "Rotary E-Club of All Star CAMANAVA — " + pageId.charAt(0).toUpperCase() + pageId.slice(1);
-
-    navLinks.classList.remove("open");
-    navToggle.classList.remove("open");
-    navToggle.setAttribute("aria-expanded", "false");
-
-    window.scrollTo({ top: 0, behavior: "auto" });
+  if (navToggle && navLinks) {
+    navToggle.addEventListener("click", function(){
+      var isOpen = navLinks.classList.toggle("open");
+      navToggle.classList.toggle("open", isOpen);
+      navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
   }
 
-  function goToPage(pageId, pushHistory){
-    renderPage(pageId);
-    if (pushHistory === false) { return; }
-    var path = PAGE_TO_PATH[pageId] || "/";
-    try {
-      history.pushState({ page: pageId }, "", path);
-    } catch (err) {}
+  var yearEl = document.getElementById("year");
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
   }
-
-  document.addEventListener("click", function(e){
-    var link = e.target.closest ? e.target.closest("[data-link]") : null;
-    if (!link) { return; }
-    e.preventDefault();
-    var pageId = link.getAttribute("data-page");
-    goToPage(pageId, true);
-  });
-
-  navToggle.addEventListener("click", function(){
-    var isOpen = navLinks.classList.toggle("open");
-    navToggle.classList.toggle("open", isOpen);
-    navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
-  });
-
-  window.addEventListener("popstate", function(e){
-    var pageId = (e.state && e.state.page) || pageFromPath();
-    renderPage(pageId);
-  });
-
-  function pageFromPath(){
-    try {
-      var path = window.location.pathname || "/";
-      if (path.length > 1 && path.endsWith("/")) { path = path.slice(0, -1); }
-      return PATH_TO_PAGE[path] || "home";
-    } catch (err) {
-      return "home";
-    }
-  }
-
-  document.getElementById("year").textContent = new Date().getFullYear();
-  goToPage(pageFromPath(), false);
 })();
 </script>
 </body>
