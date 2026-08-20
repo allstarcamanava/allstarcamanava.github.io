@@ -1400,7 +1400,7 @@ footer {
   font-size: clamp(2rem, 4vw, 3rem);
 }
 
-.bulletin-archive-grid {
+.bulletins-archive-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 28px;
