@@ -1446,15 +1446,6 @@ footer {
   padding: 26px;
 }
 
-.bulletin-archive-date {
-  font-size: .78rem;
-  font-weight: 600;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--tiffany-dark);
-  margin-bottom: 8px;
-}
-
 .bulletin-archive-content h3 {
   font-size: 1.4rem;
   margin-bottom: 10px;
