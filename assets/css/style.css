@@ -1181,3 +1181,9 @@ footer {
   font-size: 1.05rem;
   color: #3B5B5D;
 }
+
+/* Contact page */
+
+.contact-section {
+  padding-top: 120px;
+}
