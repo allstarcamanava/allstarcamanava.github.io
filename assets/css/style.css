@@ -1238,8 +1238,9 @@ footer {
   margin: 24px 0;
 }
 
-.bulletin-page-section {
-  padding-top: 48px;
+/* Bulletin page top spacing */
+section.block.bulletin-page-section {
+  padding-top: 48px !important;
 }
 
 
