@@ -3,6 +3,7 @@ layout: bulletin
 title: "Weekly Fellowship Meeting"
 date: 2026-08-18
 category: "Club Bulletin"
+permalink: /bulletins/weekly-fellowship-meeting/
 image: "/assets/images/bulletins/weekly-fellowship.jpg"
 image_alt: "Rotary E-Club of All Star CAMANAVA members during a fellowship meeting"
 ---
