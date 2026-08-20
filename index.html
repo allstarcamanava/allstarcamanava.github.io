@@ -1,1127 +1,250 @@
 ---
-# Jekyll front matter — required so Jekyll processes this file (Liquid
-# tags below) instead of copying it through untouched. layout: null
-# means "render this file as-is, don't wrap it in any theme layout."
-layout: null
-title: Rotary E-Club of All Star CAMANAVA
+layout: default
+title: "Rotary E-Club of All Star CAMANAVA"
 description: "Rotary E-Club of All Star CAMANAVA — service above self. Bulletins, announcements, projects, club history and more."
 permalink: /
 ---
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{ page.title }}</title>
-<meta name="description" content="{{ page.description }}">
 
-<!-- Google Fonts: Fraunces (display) for civic/editorial character, Work Sans (body) for clean readability -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-  /* ============================================================
-     DESIGN TOKENS
-     Palette:
-       --tiffany:      #00CCCC  (brand primary — Rotary wheel teal)
-       --tiffany-dark: #049393  (deeper teal for text-on-light / hover)
-       --ink:          #0B2B2E  (near-black teal-charcoal, primary text)
-       --gold:         #E8A93B  (Rotary gold accent — the "wheel" spoke)
-       --paper:        #F6FBFB  (background, faint teal-tinted white)
-       --paper-alt:    #EAF6F6  (secondary surface)
-       --line:         #CFEAEA  (hairline borders)
-     Type: Fraunces (display, headlines) / Work Sans (body, UI)
-     Signature element: a rotating gear/cog motif (the "Rotary wheel"),
-     used as a section divider and hover flourish throughout the site.
-     ============================================================ */
-  :root{
-    --tiffany:#00CCCC;
-    --tiffany-dark:#049393;
-    --ink:#0B2B2E;
-    --gold:#E8A93B;
-    --paper:#F6FBFB;
-    --paper-alt:#EAF6F6;
-    --line:#CFEAEA;
-    --shadow: 0 10px 30px -12px rgba(0,80,80,0.25);
-    --radius: 14px;
-    --nav-h: 76px;
-  }
-
-  *,*::before,*::after{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
-
-  body{
-    margin:0;
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'Work Sans', sans-serif;
-    font-weight:400;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-
-  h1,h2,h3,h4{
-    font-family:'Fraunces', serif;
-    font-weight:700;
-    line-height:1.12;
-    margin:0 0 .5em;
-    letter-spacing:-0.01em;
-  }
-
-  p{ margin:0 0 1em; }
-
-  a{ color:inherit; text-decoration:none; }
-
-  img{ max-width:100%; display:block; }
-
-  ::selection{ background:var(--tiffany); color:#fff; }
-
-  :focus-visible{
-    outline:3px solid var(--gold);
-    outline-offset:3px;
-    border-radius:4px;
-  }
-
-  .container{
-    width:100%;
-    max-width:1160px;
-    margin:0 auto;
-    padding:0 24px;
-  }
-
-  .eyebrow{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    font-family:'Work Sans', sans-serif;
-    font-weight:600;
-    font-size:.78rem;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:var(--tiffany-dark);
-  }
-
-  /* ---------- Signature gear/wheel icon (used throughout) ---------- */
-  .gear{
-    display:inline-block;
-    animation:spin 14s linear infinite;
-    transform-origin:50% 50%;
-  }
-  @keyframes spin{ to{ transform:rotate(360deg); } }
-  @media (prefers-reduced-motion:reduce){
-    .gear{ animation:none; }
-    html{ scroll-behavior:auto; }
-  }
-
-  /* ============================================================
-     NAVIGATION — sticky, translucent, active-state underline
-     ============================================================ */
-  .site-nav{
-    position:sticky;
-    top:0;
-    z-index:100;
-    height:var(--nav-h);
-    display:flex;
-    align-items:center;
-    background:rgba(246,251,251,0.86);
-    backdrop-filter:blur(10px) saturate(140%);
-    -webkit-backdrop-filter:blur(10px) saturate(140%);
-    border-bottom:1px solid var(--line);
-  }
-  .nav-inner{
-    width:100%;
-    max-width:1160px;
-    margin:0 auto;
-    padding:0 24px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:16px;
-  }
-  .brand{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-family:'Fraunces', serif;
-    font-weight:700;
-    font-size:1.05rem;
-    color:var(--ink);
-    cursor:pointer;
-    white-space:nowrap;
-  }
-  .brand small{
-    display:block;
-    font-family:'Work Sans', sans-serif;
-    font-weight:500;
-    font-size:.66rem;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-    color:var(--tiffany-dark);
-  }
-
-  .nav-links{
-    display:flex;
-    align-items:center;
-    gap:4px;
-    list-style:none;
-    margin:0; padding:0;
-  }
-  .nav-links a{
-    position:relative;
-    display:inline-block;
-    padding:10px 16px;
-    font-weight:500;
-    font-size:.95rem;
-    color:var(--ink);
-    border-radius:999px;
-    transition:color .25s ease, background .25s ease;
-  }
-  .nav-links a::after{
-    content:"";
-    position:absolute;
-    left:16px; right:16px; bottom:6px;
-    height:2px;
-    background:var(--tiffany-dark);
-    transform:scaleX(0);
-    transform-origin:left;
-    transition:transform .3s ease;
-  }
-  .nav-links a:hover{ color:var(--tiffany-dark); background:var(--paper-alt); }
-  .nav-links a:hover::after{ transform:scaleX(1); }
-  .nav-links a.active{ color:var(--tiffany-dark); font-weight:600; }
-  .nav-links a.active::after{ transform:scaleX(1); background:var(--gold); height:3px; }
-
-  .nav-toggle{
-    display:none;
-    background:none; border:none;
-    width:42px; height:42px;
-    border-radius:10px;
-    align-items:center; justify-content:center;
-    cursor:pointer;
-  }
-  .nav-toggle:hover{ background:var(--paper-alt); }
-  .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after{
-    content:"";
-    display:block;
-    width:22px; height:2px;
-    background:var(--ink);
-    position:relative;
-    transition:transform .25s ease, opacity .25s ease;
-  }
-  .nav-toggle span::before{ position:absolute; top:-7px; }
-  .nav-toggle span::after{ position:absolute; top:7px; }
-  .nav-toggle.open span{ background:transparent; }
-  .nav-toggle.open span::before{ transform:translateY(7px) rotate(45deg); }
-  .nav-toggle.open span::after{ transform:translateY(-7px) rotate(-45deg); }
-
-  /* ============================================================
-     PAGES / SECTIONS — JS-driven single-page router
-     ============================================================ */
-  .page{ display:none; animation:fadeIn .5s ease; }
-  .page.visible{ display:block; }
-  @keyframes fadeIn{
-    from{ opacity:0; transform:translateY(10px); }
-    to{ opacity:1; transform:translateY(0); }
-  }
-
-  /* ---------- HERO (Home) ---------- */
-  .hero{
-    position:relative;
-    min-height:min(86vh, 720px);
-    display:flex;
-    align-items:center;
-    color:#fff;
-    overflow:hidden;
-    background:
-      linear-gradient(180deg, rgba(6,40,42,.72) 0%, rgba(3,64,66,.80) 55%, rgba(0,204,204,.55) 100%),
-      url('https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1600&q=80&fit=crop') center/cover no-repeat;
-  }
-  .hero::before{
-    /* decorative rotating gear watermark, purely CSS/SVG — no extra image */
-    content:"";
-    position:absolute;
-    right:-120px; top:50%;
-    width:520px; height:520px;
-    transform:translateY(-50%);
-    background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path fill='none' stroke='white' stroke-width='3' opacity='0.16' d='M50 6l4 10 10-4 0 11 11 3-6 9 6 9-11 3 0 11-10-4-4 10-4-10-10 4 0-11-11-3 6-9-6-9 11-3 0-11 10 4z'/><circle cx='50' cy='50' r='16' fill='none' stroke='white' stroke-width='3' opacity='0.16'/></svg>") no-repeat center/contain;
-    animation:spin 40s linear infinite;
-    pointer-events:none;
-  }
-  @media (prefers-reduced-motion:reduce){ .hero::before{ animation:none; } }
-
-  .hero-inner{
-    position:relative;
-    z-index:2;
-    max-width:680px;
-    padding:120px 24px 90px;
-    margin:0 auto;
-    width:100%;
-  }
-  .hero .eyebrow{ color:#B9F3F3; }
-  .hero .eyebrow .dot{
-    width:6px; height:6px; border-radius:50%; background:var(--gold);
-    display:inline-block;
-  }
-  .hero h1{
-    font-size:clamp(2.2rem, 5.4vw, 3.6rem);
-    color:#fff;
-    margin-top:.4em;
-  }
-  .hero h1 em{
-    font-style:italic;
-    color:var(--tiffany);
-    -webkit-text-stroke: 0.4px rgba(255,255,255,.4);
-  }
-  .hero p.lede{
-    font-size:1.12rem;
-    color:rgba(255,255,255,.88);
-    max-width:56ch;
-  }
-  .hero-cta{ display:flex; flex-wrap:wrap; gap:14px; margin-top:28px; }
-
-  .btn{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    padding:14px 26px;
-    border-radius:999px;
-    font-weight:600;
-    font-size:.96rem;
-    border:2px solid transparent;
-    cursor:pointer;
-    transition:transform .22s ease, box-shadow .22s ease, background .22s ease, color .22s ease, border-color .22s ease;
-  }
-  .btn:hover{ transform:translateY(-3px); }
-  .btn:active{ transform:translateY(-1px); }
-
-  .btn-primary{
-    background:var(--gold);
-    color:#22270a;
-    box-shadow:0 10px 24px -8px rgba(232,169,59,.55);
-  }
-  .btn-primary:hover{ box-shadow:0 16px 30px -8px rgba(232,169,59,.65); }
-
-  .btn-ghost{
-    background:rgba(255,255,255,.08);
-    color:#fff;
-    border-color:rgba(255,255,255,.55);
-  }
-  .btn-ghost:hover{ background:rgba(255,255,255,.16); border-color:#fff; }
-
-  .btn-solid{
-    background:var(--tiffany-dark);
-    color:#fff;
-  }
-  .btn-solid:hover{ background:var(--ink); }
-
-  .btn:disabled, .btn.is-disabled{
-    opacity:.55;
-    cursor:not-allowed;
-    transform:none !important;
-    box-shadow:none !important;
-  }
-
-  /* ---------- Generic section scaffolding ---------- */
-  section.block{ padding:88px 0; }
-  section.block.tight{ padding:64px 0; }
-  .block-head{ max-width:640px; margin:0 0 44px; }
-  .block-head h2{ font-size:clamp(1.7rem, 3.4vw, 2.4rem); color:var(--ink); }
-  .block-head p{ color:#3B5B5D; font-size:1.05rem; }
-
-  .alt-surface{ background:var(--paper-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-
-  /* ---------- Divider with gear ---------- */
-  .gear-divider{
-    display:flex; align-items:center; gap:16px;
-    color:var(--tiffany-dark);
-    margin:0 0 40px;
-  }
-  .gear-divider::before, .gear-divider::after{
-    content:""; flex:1; height:1px; background:var(--line);
-  }
-
-  /* ---------- Home: bulletin + highlights strip ---------- */
-  .home-grid{
-    display:grid;
-    grid-template-columns: 1.15fr .85fr;
-    gap:28px;
-    align-items:stretch;
-  }
-  .card{
-    background:#fff;
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    box-shadow:var(--shadow);
-    padding:30px;
-    transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
-  }
-  .card:hover{ transform:translateY(-4px); box-shadow:0 18px 36px -14px rgba(0,80,80,.3); border-color:var(--tiffany); }
-
-  .bulletin-card{ display:flex; flex-direction:column; }
-  .bulletin-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:18px; }
-  .bulletin-head h3{ font-size:1.3rem; margin:0; }
-  .badge{
-    font-size:.7rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
-    background:var(--tiffany); color:#04302f; padding:5px 12px; border-radius:999px;
-  }
-  .bulletin-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:16px; }
-  .bulletin-list li{
-    display:flex; gap:14px; align-items:flex-start;
-    padding-bottom:16px; border-bottom:1px dashed var(--line);
-  }
-  .bulletin-list li:last-child{ border-bottom:none; padding-bottom:0; }
-  .bulletin-ico{
-    flex:0 0 auto; width:38px; height:38px; border-radius:10px;
-    background:var(--paper-alt); display:flex; align-items:center; justify-content:center;
-    font-size:1.15rem;
-  }
-  .bulletin-text strong{ display:block; font-size:.98rem; }
-  .bulletin-text span{ font-size:.86rem; color:#4C6C6E; }
-
-  .side-stack{ display:flex; flex-direction:column; gap:20px; }
-  .stat-card{
-    background:linear-gradient(135deg, var(--tiffany-dark), var(--tiffany));
-    color:#fff; border-radius:var(--radius); padding:26px;
-    box-shadow:var(--shadow);
-  }
-  .stat-card .num{ font-family:'Fraunces', serif; font-size:2.1rem; font-weight:700; }
-  .stat-card .lbl{ font-size:.86rem; opacity:.9; }
-
-  .mini-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px; }
-  .mini-list li{ display:flex; gap:10px; align-items:center; font-size:.94rem; }
-  .mini-list svg{ flex:0 0 auto; }
-
-  /* ---------- Feature / value grid (About + Home) ---------- */
-  .feature-grid{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:22px;
-  }
-  .feature{
-    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
-    padding:26px; transition:transform .3s ease, box-shadow .3s ease;
-  }
-  .feature:hover{ transform:translateY(-4px); box-shadow:var(--shadow); }
-  .feature .icon{
-    width:48px; height:48px; border-radius:12px;
-    background:var(--paper-alt); display:flex; align-items:center; justify-content:center;
-    margin-bottom:14px; color:var(--tiffany-dark);
-  }
-  .feature h4{ font-size:1.06rem; margin-bottom:6px; }
-  .feature p{ font-size:.92rem; color:#4C6C6E; margin:0; }
-
-  /* ---------- About: timeline / pillars ---------- */
-  .about-hero{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:48px;
-    align-items:center;
-  }
-  .pillar-row{ display:flex; gap:16px; }
-  .pillar{
-    flex:1; text-align:center; padding:20px 12px;
-    border:1px solid var(--line); border-radius:var(--radius); background:#fff;
-  }
-  .pillar .letter{
-    font-family:'Fraunces', serif; font-weight:700; font-size:1.6rem;
-    color:var(--tiffany-dark);
-  }
-  .pillar .word{ font-size:.82rem; color:#3B5B5D; margin-top:4px; }
-
-  .quote-block{
-    border-left:4px solid var(--gold);
-    padding:8px 0 8px 22px;
-    font-family:'Fraunces', serif;
-    font-style:italic;
-    font-size:1.25rem;
-    color:var(--ink);
-    margin:36px 0;
-  }
-
-  .history-track{
-    display:flex; flex-direction:column; gap:0;
-    position:relative;
-  }
-  .history-track::before{
-    content:""; position:absolute; left:19px; top:8px; bottom:8px; width:2px;
-    background:var(--line);
-  }
-  .history-item{
-    display:flex; gap:20px; padding:0 0 34px; position:relative;
-  }
-  .history-item:last-child{ padding-bottom:0; }
-  .history-dot{
-    flex:0 0 auto; width:40px; height:40px; border-radius:50%;
-    background:var(--paper); border:2px solid var(--tiffany);
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Fraunces', serif; font-weight:700; font-size:.82rem; color:var(--tiffany-dark);
-    position:relative; z-index:1;
-  }
-  .history-content h4{ font-size:1.02rem; margin-bottom:4px; }
-  .history-content p{ font-size:.92rem; color:#4C6C6E; margin:0; }
-
-  /* ---------- Services grid ---------- */
-  .services-grid{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:24px;
-  }
-  .service-card{
-    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
-    padding:32px 26px; position:relative; overflow:hidden;
-    transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
-  }
-  .service-card:hover{ transform:translateY(-6px); box-shadow:0 20px 40px -16px rgba(0,80,80,.32); border-color:var(--tiffany); }
-  .service-card::after{
-    content:""; position:absolute; right:-30px; bottom:-30px; width:110px; height:110px;
-    background:var(--paper-alt); border-radius:50%; z-index:0;
-    transition:transform .4s ease;
-  }
-  .service-card:hover::after{ transform:scale(1.25); }
-  .service-num{
-    position:relative; z-index:1;
-    font-family:'Fraunces', serif; font-size:.78rem; font-weight:600;
-    color:var(--tiffany-dark); letter-spacing:.08em; text-transform:uppercase;
-  }
-  .service-emoji{ position:relative; z-index:1; font-size:2.1rem; margin:14px 0 10px; display:block; }
-  .service-card h3{ position:relative; z-index:1; font-size:1.18rem; margin-bottom:8px; }
-  .service-card p{ position:relative; z-index:1; font-size:.92rem; color:#4C6C6E; margin:0; }
-
-  /* ---------- Contact ---------- */
-  .contact-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:30px;
-  }
-  .contact-card{
-    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
-    padding:30px; display:flex; flex-direction:column; gap:14px;
-    box-shadow:var(--shadow);
-  }
-  .contact-card .icon-wrap{
-    width:54px; height:54px; border-radius:14px;
-    background:var(--paper-alt); display:flex; align-items:center; justify-content:center;
-    color:var(--tiffany-dark);
-  }
-  .contact-card h3{ font-size:1.15rem; margin-bottom:2px; }
-  .contact-card p.desc{ color:#4C6C6E; font-size:.92rem; }
-  .contact-note{
-    font-size:.82rem; color:#7C9A9C; margin-top:auto;
-  }
-
-  .address-card{
-    grid-column:1 / -1;
-    display:flex; align-items:flex-start; gap:18px;
-  }
-
-  .social-strip{
-    display:flex; align-items:center; gap:14px; margin-top:34px; flex-wrap:wrap;
-  }
-  .social-strip a{
-    display:inline-flex; align-items:center; gap:8px;
-    padding:10px 18px; border-radius:999px;
-    background:var(--paper-alt); border:1px solid var(--line);
-    font-size:.9rem; font-weight:500;
-    transition:background .25s ease, border-color .25s ease, transform .25s ease;
-  }
-  .social-strip a:hover{ background:var(--tiffany); border-color:var(--tiffany); color:#04302f; transform:translateY(-2px); }
-
-  /* ============================================================
-     FOOTER — always visible
-     ============================================================ */
-  footer{
-    background:var(--ink);
-    color:#DDEFEF;
-    padding:56px 0 26px;
-  }
-  .footer-grid{
-    display:grid;
-    grid-template-columns: 1.3fr 1fr 1fr;
-    gap:38px;
-    padding-bottom:34px;
-    border-bottom:1px solid rgba(255,255,255,.12);
-  }
-  .footer-brand{ display:flex; align-items:center; gap:10px; margin-bottom:12px; font-family:'Fraunces',serif; font-weight:700; font-size:1.1rem; color:#fff; }
-  .footer-col h5{
-    font-size:.78rem; text-transform:uppercase; letter-spacing:.12em;
-    color:#7FD9D9; margin:0 0 16px;
-  }
-  .footer-col ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
-  .footer-col a{ font-size:.92rem; color:#C6E6E6; transition:color .2s ease; }
-  .footer-col a:hover{ color:var(--gold); }
-  .footer-bottom{
-    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;
-    padding-top:22px; font-size:.82rem; color:#8FB4B4;
-  }
-
-  /* ============================================================
-     RESPONSIVE
-     ============================================================ */
-  @media (max-width: 900px){
-    .home-grid, .about-hero, .contact-grid, .footer-grid{ grid-template-columns:1fr; }
-    .feature-grid, .services-grid{ grid-template-columns:repeat(2, 1fr); }
-    .address-card{ grid-column:auto; }
-  }
-
-  @media (max-width: 720px){
-    .nav-links{
-      position:fixed;
-      top:var(--nav-h); left:0; right:0;
-      flex-direction:column;
-      align-items:stretch;
-      background:var(--paper);
-      border-bottom:1px solid var(--line);
-      padding:10px 20px 20px;
-      gap:4px;
-      transform:translateY(-140%);
-      opacity:0;
-      transition:transform .3s ease, opacity .3s ease;
-      box-shadow:0 20px 30px -20px rgba(0,0,0,.2);
-    }
-    .nav-links.open{ transform:translateY(0); opacity:1; }
-    .nav-links a{ width:100%; padding:14px 12px; }
-    .nav-toggle{ display:flex; }
-    .feature-grid, .services-grid{ grid-template-columns:1fr; }
-    .pillar-row{ flex-direction:column; }
-    section.block{ padding:64px 0; }
-    .hero-inner{ padding:100px 20px 70px; }
-  }
-
-  @media (max-width: 480px){
-    .hero-cta{ flex-direction:column; align-items:stretch; }
-    .btn{ justify-content:center; }
-  }
-</style>
-</head>
-<body>
-
-<!-- ============================================================
-     NAVIGATION
-     ============================================================ -->
-<nav class="site-nav">
-  <div class="nav-inner">
-    <a class="brand" href="{{ '/' | relative_url }}" data-link data-page="home" aria-label="Rotary E-Club of All Star CAMANAVA — Home">
-      <svg class="gear" width="30" height="30" viewBox="0 0 100 100" aria-hidden="true">
-        <path fill="#00CCCC" d="M50 6l4 10 10-4 0 11 11 3-6 9 6 9-11 3 0 11-10-4-4 10-4-10-10 4 0-11-11-3 6-9-6-9 11-3 0-11 10 4z"/>
-        <circle cx="50" cy="50" r="15" fill="#0B2B2E"/>
-      </svg>
-      <span>Rotary E-Club<small>All Star CAMANAVA</small></span>
-    </a>
-
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
-      <span></span>
-    </button>
-
-    <ul class="nav-links" id="navLinks">
-      <li><a href="{{ '/' | relative_url }}" data-link data-page="home">Home</a></li>
-      <li><a href="{{ '/about' | relative_url }}" data-link data-page="about">About</a></li>
-      <li><a href="{{ '/services' | relative_url }}" data-link data-page="services">Services</a></li>
-      <li><a href="{{ '/contact' | relative_url }}" data-link data-page="contact">Contact</a></li>
-    </ul>
-  </div>
-</nav>
-
-<!-- ============================================================
-     MAIN — each page is a <section class="page"> shown/hidden by JS
-     ============================================================ -->
-<main id="app">
-
-  <!-- ============================= HOME ============================= -->
-  <section class="page" id="page-home" data-page="home">
-
-    <div class="hero">
-      <div class="hero-inner">
-        <span class="eyebrow"><span class="dot"></span>Service Above Self</span>
-        <h1>Community <em>action</em>,<br>one project at a time.</h1>
-        <p class="lede">Rotary E-Club of All Star CAMANAVA is a non-governmental service organization connecting members across Caloocan, Malabon, Navotas and Valenzuela to serve, learn and grow together — online and on the ground.</p>
-        <div class="hero-cta">
-          <a href="{{ '/about' | relative_url }}" data-link data-page="about" class="btn btn-primary">
-            Meet the Club
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#22270a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-          <a href="{{ '/services' | relative_url }}" data-link data-page="services" class="btn btn-ghost">What We Do</a>
-        </div>
+<!-- HOME -->
+<section class="page" id="page-home" data-page="home">
+  <div class="hero">
+    <div class="hero-inner">
+      <span class="eyebrow"><span class="dot"></span>Service Above Self</span>
+      <h1>Community <em>action</em>,<br>one project at a time.</h1>
+      <p class="lede">Rotary E-Club of All Star CAMANAVA is a non-governmental service organization connecting members across Caloocan, Malabon, Navotas and Valenzuela to serve, learn and grow together — online and on the ground.</p>
+      <div class="hero-cta">
+        <a href="{{ '/about' | relative_url }}" data-link data-page="about" class="btn btn-primary">
+          Meet the Club
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#22270a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="{{ '/services' | relative_url }}" data-link data-page="services" class="btn btn-ghost">What We Do</a>
       </div>
     </div>
+  </div>
 
-    <!-- Bulletin + quick stats -->
-    <section class="block">
-      <div class="container">
-        <div class="gear-divider">
-          <svg class="gear" width="20" height="20" viewBox="0 0 100 100"><path fill="#049393" d="M50 6l4 10 10-4 0 11 11 3-6 9 6 9-11 3 0 11-10-4-4 10-4-10-10 4 0-11-11-3 6-9-6-9 11-3 0-11 10 4z"/></svg>
-          <span class="eyebrow">Club Bulletin</span>
+  <section class="block">
+    <div class="container">
+      <div class="gear-divider">
+        <svg class="gear" width="20" height="20" viewBox="0 0 100 100"><path fill="#049393" d="M50 6l4 10 10-4 0 11 11 3-6 9 6 9-11 3 0 11-10-4-4 10-4-10-10 4 0-11-11-3 6-9-6-9 11-3 0-11 10 4z"/></svg>
+        <span class="eyebrow">Club Bulletin</span>
+      </div>
+
+      <div class="home-grid">
+        <div class="card bulletin-card">
+          <div class="bulletin-head">
+            <h3>Recent Posts & Bulletins</h3>
+            <span class="badge">Latest</span>
+          </div>
+          <ul class="bulletin-list">
+            {% for post in site.posts limit:4 %}
+            <li>
+              <div class="bulletin-ico">📌</div>
+              <div class="bulletin-text">
+                <strong><a href="{{ post.url | relative_url }}">{{ post.title }}</a></strong>
+                <span>{{ post.date | date: "%B %d, %Y" }} — {{ post.excerpt | strip_html | truncatewords: 12 }}</span>
+              </div>
+            </li>
+            {% else %}
+            <li>
+              <div class="bulletin-ico">📌</div>
+              <div class="bulletin-text">
+                <strong>Weekly Fellowship Meeting</strong>
+                <span>Members gathered online to review ongoing community initiatives and upcoming projects.</span>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
         </div>
 
-        <div class="home-grid">
-          <div class="card bulletin-card">
-            <div class="bulletin-head">
-              <h3>This Week at CAMANAVA</h3>
-              <span class="badge">Latest</span>
-            </div>
-            <ul class="bulletin-list">
-              <li>
-                <div class="bulletin-ico">📌</div>
-                <div class="bulletin-text">
-                  <strong>Weekly Fellowship Meeting</strong>
-                  <span>Members gathered online to review ongoing community initiatives and upcoming projects.</span>
-                </div>
-              </li>
-              <li>
-                <div class="bulletin-ico">🎂</div>
-                <div class="bulletin-text">
-                  <strong>Member Birthdays</strong>
-                  <span>Celebrating our fellow Rotarians reaching another year of service and friendship.</span>
-                </div>
-              </li>
-              <li>
-                <div class="bulletin-ico">🏆</div>
-                <div class="bulletin-text">
-                  <strong>Recognition & Achievements</strong>
-                  <span>Shoutout to members recognized for outstanding contribution to club projects.</span>
-                </div>
-              </li>
-              <li>
-                <div class="bulletin-ico">🧠</div>
-                <div class="bulletin-text">
-                  <strong>Trivia Corner</strong>
-                  <span>Do you know which year Rotary International was founded? Test your knowledge in our next post.</span>
-                </div>
-              </li>
+        <div class="side-stack">
+          <div class="stat-card">
+            <div class="num">4</div>
+            <div class="lbl">Cities served — Caloocan, Malabon, Navotas & Valenzuela</div>
+          </div>
+          <div class="card">
+            <h4 style="margin-bottom:14px;">Explore the Club</h4>
+            <ul class="mini-list">
+              <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 19V5a2 2 0 012-2h9l5 5v11a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="#049393" stroke-width="1.8"/><path d="M13 3v5h5" stroke="#049393" stroke-width="1.8"/></svg> Bulletins & announcements</li>
+              <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h10" stroke="#049393" stroke-width="1.8" stroke-linecap="round"/></svg> Club blog & news</li>
+              <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#049393" stroke-width="1.8"/><path d="M12 7v5l3 2" stroke="#049393" stroke-width="1.8" stroke-linecap="round"/></svg> Club history archive</li>
             </ul>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-          <div class="side-stack">
-            <div class="stat-card">
-              <div class="num">4</div>
-              <div class="lbl">Cities served — Caloocan, Malabon, Navotas & Valenzuela</div>
-            </div>
-            <div class="card">
-              <h4 style="margin-bottom:14px;">Explore the Club</h4>
-              <ul class="mini-list">
-                <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 19V5a2 2 0 012-2h9l5 5v11a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="#049393" stroke-width="1.8"/><path d="M13 3v5h5" stroke="#049393" stroke-width="1.8"/></svg> Bulletins & announcements</li>
-                <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h10" stroke="#049393" stroke-width="1.8" stroke-linecap="round"/></svg> Club blog & news</li>
-                <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#049393" stroke-width="1.8"/><path d="M12 7v5l3 2" stroke="#049393" stroke-width="1.8" stroke-linecap="round"/></svg> Club history archive</li>
-              </ul>
-            </div>
+  <section class="block tight alt-surface">
+    <div class="container">
+      <div class="block-head">
+        <span class="eyebrow">Why It Matters</span>
+        <h2>A club built on fellowship and service</h2>
+        <p>Every post, project and bulletin reflects our members' commitment to the four communities we call home.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature">
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.35-9.5-8.5C.7 8.9 2.4 5 6 5c2 0 3.3 1.1 4 2.2C10.7 6.1 12 5 14 5c3.6 0 5.3 3.9 3.5 7.5C19 16.65 12 21 12 21z" stroke="#049393" stroke-width="1.7"/></svg></div>
+          <h4>Fellowship</h4>
+          <p>A tight-knit e-club where members connect, mentor, and support one another online.</p>
+        </div>
+        <div class="feature">
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z" stroke="#049393" stroke-width="1.7"/></svg></div>
+          <h4>Service Projects</h4>
+          <p>Community-driven initiatives that respond to real needs across CAMANAVA.</p>
+        </div>
+        <div class="feature">
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke="#049393" stroke-width="1.7"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" stroke="#049393" stroke-width="1.7"/></svg></div>
+          <h4>Club History</h4>
+          <p>An archive of postings, milestones and memories from years of service.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ABOUT -->
+<section class="page" id="page-about" data-page="about">
+  <section class="block" style="padding-top:120px;">
+    <div class="container">
+      <div class="about-hero">
+        <div>
+          <span class="eyebrow"><span class="dot" style="background:var(--gold);width:6px;height:6px;border-radius:50%;display:inline-block;"></span> About the Club</span>
+          <h2 style="font-size:clamp(1.8rem,3.6vw,2.6rem); margin-top:.4em;">Rotary E-Club of<br>All Star CAMANAVA</h2>
+          <p style="font-size:1.05rem; color:#3B5B5D;">We are a non-governmental service organization operating primarily online, uniting Rotarians across Caloocan, Malabon, Navotas and Valenzuela. Our e-club format means fellowship and service happen wherever our members are — through digital meetings, shared projects and an active online community.</p>
+          <div class="quote-block">"Service above self — delivered wherever our members log in."</div>
+        </div>
+        <div class="pillar-row">
+          <div class="pillar"><div class="letter">S</div><div class="word">Service</div></div>
+          <div class="pillar"><div class="letter">F</div><div class="word">Fellowship</div></div>
+          <div class="pillar"><div class="letter">I</div><div class="word">Integrity</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt-surface">
+    <div class="container">
+      <div class="block-head">
+        <span class="eyebrow">Club History</span>
+        <h2>Milestones & archived postings</h2>
+        <p>A running record of the club's journey — every entry here also lives in our archive of past bulletins and posts.</p>
+      </div>
+
+      <div class="history-track">
+        <div class="history-item">
+          <div class="history-dot">01</div>
+          <div class="history-content">
+            <h4>Club Chartered</h4>
+            <p>Rotary E-Club of All Star CAMANAVA is founded to serve members across four cities through an online-first model.</p>
+          </div>
+        </div>
+        <div class="history-item">
+          <div class="history-dot">02</div>
+          <div class="history-content">
+            <h4>First Community Projects</h4>
+            <p>Members launch the club's earliest service initiatives, setting the tone for years of local impact.</p>
+          </div>
+        </div>
+        <div class="history-item">
+          <div class="history-dot">03</div>
+          <div class="history-content">
+            <h4>Digital Bulletin Launched</h4>
+            <p>The club begins publishing regular bulletins and announcements to keep members connected between meetings.</p>
+          </div>
+        </div>
+        <div class="history-item">
+          <div class="history-dot">04</div>
+          <div class="history-content">
+            <h4>Growing the Archive</h4>
+            <p>Years of postings, trivia nights, and celebrations are preserved as a living record of the club's story.</p>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Highlights -->
-    <section class="block tight alt-surface">
-      <div class="container">
-        <div class="block-head">
-          <span class="eyebrow">Why It Matters</span>
-          <h2>A club built on fellowship and service</h2>
-          <p>Every post, project and bulletin reflects our members' commitment to the four communities we call home.</p>
-        </div>
-        <div class="feature-grid">
-          <div class="feature">
-            <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.35-9.5-8.5C.7 8.9 2.4 5 6 5c2 0 3.3 1.1 4 2.2C10.7 6.1 12 5 14 5c3.6 0 5.3 3.9 3.5 7.5C19 16.65 12 21 12 21z" stroke="#049393" stroke-width="1.7"/></svg></div>
-            <h4>Fellowship</h4>
-            <p>A tight-knit e-club where members connect, mentor, and support one another online.</p>
-          </div>
-          <div class="feature">
-            <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z" stroke="#049393" stroke-width="1.7"/></svg></div>
-            <h4>Service Projects</h4>
-            <p>Community-driven initiatives that respond to real needs across CAMANAVA.</p>
-          </div>
-          <div class="feature">
-            <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke="#049393" stroke-width="1.7"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" stroke="#049393" stroke-width="1.7"/></svg></div>
-            <h4>Club History</h4>
-            <p>An archive of postings, milestones and memories from years of service.</p>
-          </div>
-        </div>
+  <section class="block tight">
+    <div class="container">
+      <div class="feature-grid">
+        <div class="feature"><div class="icon">🌏</div><h4>Where We Serve</h4><p>Caloocan, Malabon, Navotas and Valenzuela — the CAMANAVA area.</p></div>
+        <div class="feature"><div class="icon">🤝</div><h4>How We Meet</h4><p>Primarily online, giving members flexibility to serve without borders.</p></div>
+        <div class="feature"><div class="icon">📰</div><h4>Stay Updated</h4><p>Follow our bulletins, blog posts and announcements right here on the site.</p></div>
       </div>
-    </section>
+    </div>
+  </section>
+</section>
 
-  </section><!-- /page-home -->
+<!-- SERVICES -->
+<section class="page" id="page-services" data-page="services">
+  <section class="block" style="padding-top:120px;">
+    <div class="container">
+      <div class="block-head">
+        <span class="eyebrow">What We Offer</span>
+        <h2>Everything the club shares, in one place</h2>
+        <p>From weekly bulletins to our full club history, here's what you'll find as a member or visitor of Rotary E-Club of All Star CAMANAVA.</p>
+      </div>
 
+      <div class="services-grid">
+        <div class="service-card"><span class="service-num">01</span><span class="service-emoji">📋</span><h3>Bulletins</h3><p>Regular club bulletins covering meeting recaps, updates and what's coming next.</p></div>
+        <div class="service-card"><span class="service-num">02</span><span class="service-emoji">📣</span><h3>Announcements</h3><p>Timely announcements about events, deadlines and club-wide news.</p></div>
+        <div class="service-card"><span class="service-num">03</span><span class="service-emoji">✍️</span><h3>Blog Posting</h3><p>Stories, reflections and updates from members, published to the club blog.</p></div>
+        <div class="service-card"><span class="service-num">04</span><span class="service-emoji">🌱</span><h3>Projects</h3><p>A look at ongoing and completed community service projects across CAMANAVA.</p></div>
+        <div class="service-card"><span class="service-num">05</span><span class="service-emoji">🧩</span><h3>Trivia</h3><p>Fun, member-friendly trivia to test your Rotary and community knowledge.</p></div>
+        <div class="service-card"><span class="service-num">06</span><span class="service-emoji">🏛️</span><h3>Club History</h3><p>An archive of milestones and postings from previous years of service.</p></div>
+      </div>
+    </div>
+  </section>
+</section>
 
-  <!-- ============================= ABOUT ============================= -->
-  <section class="page" id="page-about" data-page="about">
-    <section class="block" style="padding-top:120px;">
-      <div class="container">
-        <div class="about-hero">
+<!-- CONTACT -->
+<section class="page" id="page-contact" data-page="contact">
+  <section class="block" style="padding-top:120px;">
+    <div class="container">
+      <div class="block-head">
+        <span class="eyebrow">Get In Touch</span>
+        <h2>We'd love to hear from you</h2>
+        <p>Reach out to Rotary E-Club of All Star CAMANAVA — no forms, just a direct line.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.7a2 2 0 01-.5 2.1L8 9.7a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c.9.3 1.8.5 2.7.6a2 2 0 011.7 2z" stroke="#049393" stroke-width="1.7"/></svg>
+          </div>
+          <h3>Call Us</h3>
+          <p class="desc">Phone support isn't available yet for this e-club.</p>
+          <button class="btn btn-solid is-disabled" disabled aria-disabled="true">Phone: Not Applicable</button>
+          <span class="contact-note">Check back soon, or reach us by email instead.</span>
+        </div>
+
+        <div class="contact-card">
+          <div class="icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 6h18v12H3z" stroke="#049393" stroke-width="1.7"/><path d="M3 7l9 6 9-6" stroke="#049393" stroke-width="1.7"/></svg>
+          </div>
+          <h3>Email Us</h3>
+          <p class="desc">The fastest way to reach the club for now.</p>
+          <a class="btn btn-solid" href="mailto:info@rotaryecluballstarcamanava.org">Send an Email</a>
+          <span class="contact-note">info@rotaryecluballstarcamanava.org (placeholder)</span>
+        </div>
+
+        <div class="contact-card address-card">
+          <div class="icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0118 0z" stroke="#049393" stroke-width="1.7"/><circle cx="12" cy="10" r="3" stroke="#049393" stroke-width="1.7"/></svg>
+          </div>
           <div>
-            <span class="eyebrow"><span class="dot" style="background:var(--gold);width:6px;height:6px;border-radius:50%;display:inline-block;"></span> About the Club</span>
-            <h2 style="font-size:clamp(1.8rem,3.6vw,2.6rem); margin-top:.4em;">Rotary E-Club of<br>All Star CAMANAVA</h2>
-            <p style="font-size:1.05rem; color:#3B5B5D;">We are a non-governmental service organization operating primarily online, uniting Rotarians across Caloocan, Malabon, Navotas and Valenzuela. Our e-club format means fellowship and service happen wherever our members are — through digital meetings, shared projects and an active online community.</p>
-            <div class="quote-block">"Service above self — delivered wherever our members log in."</div>
-          </div>
-          <div class="pillar-row">
-            <div class="pillar">
-              <div class="letter">S</div>
-              <div class="word">Service</div>
-            </div>
-            <div class="pillar">
-              <div class="letter">F</div>
-              <div class="word">Fellowship</div>
-            </div>
-            <div class="pillar">
-              <div class="letter">I</div>
-              <div class="word">Integrity</div>
-            </div>
+            <h3>Service Area</h3>
+            <p class="desc">Serving the CAMANAVA area — Caloocan, Malabon, Navotas & Valenzuela.</p>
+            <span class="contact-note">Full address to be added later (placeholder).</span>
           </div>
         </div>
       </div>
-    </section>
 
-    <section class="block alt-surface">
-      <div class="container">
-        <div class="block-head">
-          <span class="eyebrow">Club History</span>
-          <h2>Milestones & archived postings</h2>
-          <p>A running record of the club's journey — every entry here also lives in our archive of past bulletins and posts.</p>
-        </div>
-
-        <div class="history-track">
-          <div class="history-item">
-            <div class="history-dot">01</div>
-            <div class="history-content">
-              <h4>Club Chartered</h4>
-              <p>Rotary E-Club of All Star CAMANAVA is founded to serve members across four cities through an online-first model.</p>
-            </div>
-          </div>
-          <div class="history-item">
-            <div class="history-dot">02</div>
-            <div class="history-content">
-              <h4>First Community Projects</h4>
-              <p>Members launch the club's earliest service initiatives, setting the tone for years of local impact.</p>
-            </div>
-          </div>
-          <div class="history-item">
-            <div class="history-dot">03</div>
-            <div class="history-content">
-              <h4>Digital Bulletin Launched</h4>
-              <p>The club begins publishing regular bulletins and announcements to keep members connected between meetings.</p>
-            </div>
-          </div>
-          <div class="history-item">
-            <div class="history-dot">04</div>
-            <div class="history-content">
-              <h4>Growing the Archive</h4>
-              <p>Years of postings, trivia nights, and celebrations are preserved as a living record of the club's story.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="block tight">
-      <div class="container">
-        <div class="feature-grid">
-          <div class="feature">
-            <div class="icon">🌏</div>
-            <h4>Where We Serve</h4>
-            <p>Caloocan, Malabon, Navotas and Valenzuela — the CAMANAVA area.</p>
-          </div>
-          <div class="feature">
-            <div class="icon">🤝</div>
-            <h4>How We Meet</h4>
-            <p>Primarily online, giving members flexibility to serve without borders.</p>
-          </div>
-          <div class="feature">
-            <div class="icon">📰</div>
-            <h4>Stay Updated</h4>
-            <p>Follow our bulletins, blog posts and announcements right here on the site.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </section><!-- /page-about -->
-
-
-  <!-- ============================= SERVICES ============================= -->
-  <section class="page" id="page-services" data-page="services">
-    <section class="block" style="padding-top:120px;">
-      <div class="container">
-        <div class="block-head">
-          <span class="eyebrow">What We Offer</span>
-          <h2>Everything the club shares, in one place</h2>
-          <p>From weekly bulletins to our full club history, here's what you'll find as a member or visitor of Rotary E-Club of All Star CAMANAVA.</p>
-        </div>
-
-        <div class="services-grid">
-          <div class="service-card">
-            <span class="service-num">01</span>
-            <span class="service-emoji">📋</span>
-            <h3>Bulletins</h3>
-            <p>Regular club bulletins covering meeting recaps, updates and what's coming next.</p>
-          </div>
-          <div class="service-card">
-            <span class="service-num">02</span>
-            <span class="service-emoji">📣</span>
-            <h3>Announcements</h3>
-            <p>Timely announcements about events, deadlines and club-wide news.</p>
-          </div>
-          <div class="service-card">
-            <span class="service-num">03</span>
-            <span class="service-emoji">✍️</span>
-            <h3>Blog Posting</h3>
-            <p>Stories, reflections and updates from members, published to the club blog.</p>
-          </div>
-          <div class="service-card">
-            <span class="service-num">04</span>
-            <span class="service-emoji">🌱</span>
-            <h3>Projects</h3>
-            <p>A look at ongoing and completed community service projects across CAMANAVA.</p>
-          </div>
-          <div class="service-card">
-            <span class="service-num">05</span>
-            <span class="service-emoji">🧩</span>
-            <h3>Trivia</h3>
-            <p>Fun, member-friendly trivia to test your Rotary and community knowledge.</p>
-          </div>
-          <div class="service-card">
-            <span class="service-num">06</span>
-            <span class="service-emoji">🏛️</span>
-            <h3>Club History</h3>
-            <p>An archive of milestones and postings from previous years of service.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </section><!-- /page-services -->
-
-
-  <!-- ============================= CONTACT ============================= -->
-  <section class="page" id="page-contact" data-page="contact">
-    <section class="block" style="padding-top:120px;">
-      <div class="container">
-        <div class="block-head">
-          <span class="eyebrow">Get In Touch</span>
-          <h2>We'd love to hear from you</h2>
-          <p>Reach out to Rotary E-Club of All Star CAMANAVA — no forms, just a direct line.</p>
-        </div>
-
-        <div class="contact-grid">
-
-          <div class="contact-card">
-            <div class="icon-wrap">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.7a2 2 0 01-.5 2.1L8 9.7a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c.9.3 1.8.5 2.7.6a2 2 0 011.7 2z" stroke="#049393" stroke-width="1.7"/></svg>
-            </div>
-            <h3>Call Us</h3>
-            <p class="desc">Phone support isn't available yet for this e-club.</p>
-            <!-- Phone is "Not applicable" per club details — button intentionally disabled -->
-            <button class="btn btn-solid is-disabled" disabled aria-disabled="true">
-              Phone: Not Applicable
-            </button>
-            <span class="contact-note">Check back soon, or reach us by email instead.</span>
-          </div>
-
-          <div class="contact-card">
-            <div class="icon-wrap">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 6h18v12H3z" stroke="#049393" stroke-width="1.7"/><path d="M3 7l9 6 9-6" stroke="#049393" stroke-width="1.7"/></svg>
-            </div>
-            <h3>Email Us</h3>
-            <p class="desc">The fastest way to reach the club for now.</p>
-            <!-- Placeholder address — replace with the club's real inbox -->
-            <a class="btn btn-solid" href="mailto:info@rotaryecluballstarcamanava.org">
-              Send an Email
-            </a>
-            <span class="contact-note">info@rotaryecluballstarcamanava.org (placeholder)</span>
-          </div>
-
-          <div class="contact-card address-card">
-            <div class="icon-wrap">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0118 0z" stroke="#049393" stroke-width="1.7"/><circle cx="12" cy="10" r="3" stroke="#049393" stroke-width="1.7"/></svg>
-            </div>
-            <div>
-              <h3>Service Area</h3>
-              <p class="desc">Serving the CAMANAVA area — Caloocan, Malabon, Navotas & Valenzuela.</p>
-              <span class="contact-note">Full address to be added later (placeholder).</span>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="social-strip">
-          <a href="https://www.facebook.com/rotaryecluballstarcamanava" target="_blank" rel="noopener noreferrer">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 10-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0022 12z"/></svg>
-            Follow us on Facebook
-          </a>
-        </div>
-      </div>
-    </section>
-  </section><!-- /page-contact -->
-
-</main>
-
-<!-- ============================================================
-     FOOTER — always visible, not part of the page router
-     ============================================================ -->
-<footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-brand">
-          <svg class="gear" width="24" height="24" viewBox="0 0 100 100" aria-hidden="true">
-            <path fill="#00CCCC" d="M50 6l4 10 10-4 0 11 11 3-6 9 6 9-11 3 0 11-10-4-4 10-4-10-10 4 0-11-11-3 6-9-6-9 11-3 0-11 10 4z"/>
-          </svg>
-          Rotary E-Club of All Star CAMANAVA
-        </div>
-        <p style="font-size:.9rem; color:#9FC7C7; max-width:34ch;">A non-governmental service organization serving Caloocan, Malabon, Navotas and Valenzuela — service above self, delivered online.</p>
-      </div>
-      <div class="footer-col">
-        <h5>Explore</h5>
-        <ul>
-          <li><a href="{{ '/' | relative_url }}" data-link data-page="home">Home</a></li>
-          <li><a href="{{ '/about' | relative_url }}" data-link data-page="about">About</a></li>
-          <li><a href="{{ '/services' | relative_url }}" data-link data-page="services">Services</a></li>
-          <li><a href="{{ '/contact' | relative_url }}" data-link data-page="contact">Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Contact</h5>
-        <ul>
-          <li>Phone: Not applicable</li>
-          <li><a href="mailto:info@rotaryecluballstarcamanava.org">info@rotaryecluballstarcamanava.org</a></li>
-          <li>Service area: placeholder, added soon</li>
-          <li><a href="https://www.facebook.com/rotaryecluballstarcamanava" target="_blank" rel="noopener noreferrer">Facebook Page</a></li>
-        </ul>
+      <div class="social-strip">
+        <a href="https://www.facebook.com/rotaryecluballstarcamanava" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 10-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0022 12z"/></svg>
+          Follow us on Facebook
+        </a>
       </div>
     </div>
-    <div class="footer-bottom">
-      <span>&copy; <span id="year"></span> Rotary E-Club of All Star CAMANAVA. All rights reserved.</span>
-      <span>Service Above Self</span>
-    </div>
-  </div>
-</footer>
-
-<script>
-(function(){
-  "use strict";
-
-  /* ==========================================================
-     CONFIG
-     Map clean paths <-> page ids
-
-     BASE_URL comes from Jekyll's site.baseurl (set in _config.yml).
-     It's "" for a user/org page or a custom domain, and something
-     like "/repo-name" for a GitHub Pages *project* page. Liquid
-     fills this in at build time so the JS router and the .htaccess
-     rewrite rules always agree with wherever the site is deployed.
-     ========================================================== */
-  var BASE_URL = "{{ site.baseurl }}".replace(/\/$/, ""); // strip any trailing slash
-  var PAGES = ["home", "about", "services", "contact"];
-  var PATH_TO_PAGE = {};
-  PATH_TO_PAGE[BASE_URL + "/"] = "home";
-  PATH_TO_PAGE[BASE_URL] = "home";
-  PATH_TO_PAGE[""] = "home";
-  PATH_TO_PAGE[BASE_URL + "/about"] = "about";
-  PATH_TO_PAGE[BASE_URL + "/services"] = "services";
-  PATH_TO_PAGE[BASE_URL + "/contact"] = "contact";
-  var PAGE_TO_PATH = {
-    home: BASE_URL + "/",
-    about: BASE_URL + "/about",
-    services: BASE_URL + "/services",
-    contact: BASE_URL + "/contact"
-  };
-
-  var navLinks = document.getElementById("navLinks");
-  var navToggle = document.getElementById("navToggle");
-
-  /* ==========================================================
-     Show a single page, hide the rest, update nav + title
-     ========================================================== */
-  function renderPage(pageId){
-    if (PAGES.indexOf(pageId) === -1) { pageId = "home"; }
-
-    var sections = document.querySelectorAll(".page");
-    for (var i = 0; i < sections.length; i++){
-      sections[i].classList.toggle("visible", sections[i].getAttribute("data-page") === pageId);
-    }
-
-    var links = document.querySelectorAll("[data-link]");
-    for (var j = 0; j < links.length; j++){
-      links[j].classList.toggle("active", links[j].getAttribute("data-page") === pageId);
-    }
-
-    document.title = pageId === "home"
-      ? "Rotary E-Club of All Star CAMANAVA"
-      : "Rotary E-Club of All Star CAMANAVA — " + pageId.charAt(0).toUpperCase() + pageId.slice(1);
-
-    // Close mobile menu after navigating
-    navLinks.classList.remove("open");
-    navToggle.classList.remove("open");
-    navToggle.setAttribute("aria-expanded", "false");
-
-    // Scroll to top for a fresh "page" feel
-    window.scrollTo({ top: 0, behavior: "auto" });
-  }
-
-  /* ==========================================================
-     Navigate: update the URL when possible, always render
-     ========================================================== */
-  function goToPage(pageId, pushHistory){
-    renderPage(pageId);
-
-    if (pushHistory === false) { return; }
-
-    var path = PAGE_TO_PATH[pageId] || "/";
-    try {
-      // Works when the site is served over http(s) — e.g. GitHub Pages
-      history.pushState({ page: pageId }, "", path);
-    } catch (err) {
-      // Fails on file:// or sandboxed previews — silently ignore,
-      // the page still shows/hides correctly without a clean URL.
-    }
-  }
-
-  /* ==========================================================
-     Click handling — event delegation for all [data-link] anchors
-     ========================================================== */
-  document.addEventListener("click", function(e){
-    var link = e.target.closest ? e.target.closest("[data-link]") : null;
-    if (!link) { return; }
-    e.preventDefault();
-    var pageId = link.getAttribute("data-page");
-    goToPage(pageId, true);
-  });
-
-  /* ==========================================================
-     Mobile nav toggle
-     ========================================================== */
-  navToggle.addEventListener("click", function(){
-    var isOpen = navLinks.classList.toggle("open");
-    navToggle.classList.toggle("open", isOpen);
-    navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
-  });
-
-  /* ==========================================================
-     Back / forward browser buttons
-     ========================================================== */
-  window.addEventListener("popstate", function(e){
-    var pageId = (e.state && e.state.page) || pageFromPath();
-    renderPage(pageId);
-  });
-
-  /* ==========================================================
-     Resolve the initial page from the current URL, if possible.
-     Falls back to "home" if pathname is unavailable or unknown
-     (e.g. local file preview, sandboxed iframe).
-     ========================================================== */
-  function pageFromPath(){
-    try {
-      var path = window.location.pathname || "/";
-      // Normalise trailing slash, e.g. "/about/" -> "/about"
-      if (path.length > 1 && path.endsWith("/")) { path = path.slice(0, -1); }
-      return PATH_TO_PAGE[path] || "home";
-    } catch (err) {
-      return "home";
-    }
-  }
-
-  /* ==========================================================
-     Init
-     ========================================================== */
-  document.getElementById("year").textContent = new Date().getFullYear();
-  goToPage(pageFromPath(), false);
-
-})();
-</script>
-</body>
-</html>
+  </section>
+</section>
