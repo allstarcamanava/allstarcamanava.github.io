@@ -1,4 +1,4 @@
-<!--  displays the full bulletin Archive -->
+<!-- Displays an individual bulletin -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,6 +33,7 @@
   <main>
 
     <section class="block" style="padding-top:120px;">
+
       <div class="container">
 
         <div class="bulletin-layout">
@@ -102,13 +103,18 @@
 
               <ul class="bulletin-archive-list">
 
-                {% assign previous_posts = site.posts
+                {% assign bulletin_posts = site.posts
+                  | where: "category", "Club Bulletin"
+                %}
+
+                {% assign previous_bulletins = bulletin_posts
                   | where_exp: "post", "post.url != page.url"
                 %}
 
-                {% for post in previous_posts limit:10 %}
+                {% for post in previous_bulletins limit:10 %}
 
                   <li>
+
                     <a href="{{ post.url | relative_url }}">
 
                       <strong>
@@ -120,6 +126,7 @@
                       </span>
 
                     </a>
+
                   </li>
 
                 {% else %}
@@ -146,6 +153,7 @@
         </div>
 
       </div>
+
     </section>
 
   </main>
