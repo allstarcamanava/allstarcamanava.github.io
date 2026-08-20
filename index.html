@@ -70,52 +70,7 @@ permalink: /
 
     <div class="home-grid">
 
-      <div class="card bulletin-card">
-
-        <div class="bulletin-head">
-          <h3>Recent Posts & Bulletins</h3>
-          <span class="badge">Latest</span>
-        </div>
-
-        <ul class="bulletin-list">
-
-          {% for post in site.posts limit:4 %}
-
-          <li>
-            <div class="bulletin-ico">📌</div>
-
-            <div class="bulletin-text">
-              <strong>
-                <a href="{{ post.url | relative_url }}">
-                  {{ post.title }}
-                </a>
-              </strong>
-
-              <span>
-                {{ post.date | date: "%B %d, %Y" }} —
-                {{ post.excerpt | strip_html | truncatewords: 12 }}
-              </span>
-            </div>
-          </li>
-
-          {% else %}
-
-          <li>
-            <div class="bulletin-ico">📌</div>
-
-            <div class="bulletin-text">
-              <strong>Weekly Fellowship Meeting</strong>
-
-              <span>
-                Members gathered online to review ongoing community initiatives and upcoming projects.
-              </span>
-            </div>
-          </li>
-
-          {% endfor %}
-
-        </ul>
-      </div>
+      {% include bulletin-card.html %}
 
 
       <div class="side-stack">
@@ -154,6 +109,7 @@ permalink: /
               Bulletins & announcements
             </li>
 
+
             <li>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                 <path
@@ -167,6 +123,7 @@ permalink: /
               Club blog & news
             </li>
 
+
             <li>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                 <circle
@@ -176,6 +133,7 @@ permalink: /
                   stroke="#049393"
                   stroke-width="1.8"
                 />
+
                 <path
                   d="M12 7v5l3 2"
                   stroke="#049393"
@@ -188,6 +146,7 @@ permalink: /
             </li>
 
           </ul>
+
         </div>
 
       </div>
@@ -233,7 +192,9 @@ permalink: /
           </svg>
         </div>
 
-        <h4>Fellowship</h4>
+        <h4>
+          Fellowship
+        </h4>
 
         <p>
           A tight-knit e-club where members connect, mentor, and support one another online.
@@ -254,7 +215,9 @@ permalink: /
           </svg>
         </div>
 
-        <h4>Service Projects</h4>
+        <h4>
+          Service Projects
+        </h4>
 
         <p>
           Community-driven initiatives that respond to real needs across CAMANAVA.
@@ -272,6 +235,7 @@ permalink: /
               stroke="#049393"
               stroke-width="1.7"
             />
+
             <path
               d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"
               stroke="#049393"
@@ -280,7 +244,9 @@ permalink: /
           </svg>
         </div>
 
-        <h4>Club History</h4>
+        <h4>
+          Club History
+        </h4>
 
         <p>
           An archive of postings, milestones and memories from years of service.
