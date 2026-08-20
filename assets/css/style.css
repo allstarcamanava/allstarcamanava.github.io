@@ -1455,12 +1455,12 @@ footer {
   margin-bottom: 8px;
 }
 
-.bulletin-archive-content h2 {
+.bulletin-archive-content h3 {
   font-size: 1.4rem;
   margin-bottom: 10px;
 }
 
-.bulletin-archive-content h2 a:hover {
+.bulletin-archive-content h3 a:hover {
   color: var(--tiffany-dark);
 }
 
