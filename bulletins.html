@@ -1,0 +1,70 @@
+---
+layout: default
+title: "Club Bulletins — Rotary E-Club of All Star CAMANAVA"
+description: "Browse bulletins, announcements, updates and stories from Rotary E-Club of All Star CAMANAVA."
+permalink: /bulletins/
+---
+
+<section class="block bulletin-archive-page">
+  <div class="container">
+
+    <div class="block-head">
+      <span class="eyebrow">Club Archive</span>
+
+      <h1>Club Bulletins</h1>
+
+      <p>
+        Browse our latest bulletins, announcements, project updates and
+        stories from Rotary E-Club of All Star CAMANAVA.
+      </p>
+</div>
+<div class="bulletin-archive-grid">
+  {% for post in site.posts %}
+  <article class="bulletin-archive-item">
+    {% if post.image %}
+    <a
+      href="{{ post.url | relative_url }}"
+      class="bulletin-archive-image"
+    >
+      <img
+        src="{{ post.image | relative_url }}"
+        alt="{{ post.image_alt | default: post.title }}"
+      >
+    </a>
+    {% endif %}
+    <div class="bulletin-archive-content">
+      <div class="bulletin-archive-date">
+        {{ post.date | date: "%B %d, %Y" }}
+      </div>
+      <h2>
+        <a href="{{ post.url | relative_url }}">
+          {{ post.title }}
+        </a>
+      </h2>
+      {% if post.excerpt %}
+      <p>
+        {{ post.excerpt | strip_html | truncatewords: 30 }}
+      </p>
+      {% endif %}
+      <a
+        href="{{ post.url | relative_url }}"
+        class="btn btn-solid"
+      >
+        Read Bulletin
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </article>
+  {% else %}
+  <div class="card bulletin-empty">
+    <div class="bulletin-ico">📋</div>
+    <h2>No Bulletins Yet</h2>
+    <p>
+      New club bulletins and announcements will appear here as they
+      are published.
+    </p>
+  </div>
+  {% endfor %}
+</div>
+  </div>
+</section>
