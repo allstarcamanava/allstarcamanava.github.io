@@ -140,6 +140,4 @@ collections:
             widget: "boolean"
             default: true
             required: false
-            hint: "Displays the subtle rotating geometric decoration on the right side of the hero section. Turn off to hide the decoration."          
-
-            
+            hint: "Displays the subtle rotating geometric decoration on the right side of the hero section. Turn off to hide the decoration."
