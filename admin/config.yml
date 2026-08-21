@@ -127,3 +127,19 @@ collections:
             name: "hero_secondary_link"
             widget: "string"
             required: false
+            
+          - label: "Green Gradient Overlay"
+            name: "hero_overlay"
+            widget: "boolean"
+            default: true
+            required: false
+            hint: "Adds the green/turquoise gradient overlay over the hero image. Turn off to display the hero image without the color overlay."
+            
+          - label: "Rotating Decorative Shape"
+            name: "hero_decoration"
+            widget: "boolean"
+            default: true
+            required: false
+            hint: "Displays the subtle rotating geometric decoration on the right side of the hero section. Turn off to hide the decoration."          
+
+            
