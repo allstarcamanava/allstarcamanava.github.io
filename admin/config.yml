@@ -1,6 +1,8 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: allstarcamanava/allstarcamanava.github.io
   branch: main
+  use_graphql: true
 
 publish_mode: editorial_workflow
 show_preview_links: true
