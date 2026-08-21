@@ -1,0 +1,67 @@
+backend:
+  name: git-gateway
+  branch: main
+
+publish_mode: editorial_workflow
+show_preview_links: true
+display_url: https://allstarcamanava.netlify.app
+logo_url: https://allstarcamanava.netlify.app/uploads/logo.jpg
+
+media_folder: "uploads"
+public_folder: "../uploads"
+
+collections:
+  - name: "posts"
+    label: "Bulletins"
+    label_singular: "Bulletin"
+    folder: "_posts/"
+    create: true
+    delete: true
+    editor:
+      preview: false
+
+    fields:
+      - label: "Layout"
+        name: "layout"
+        widget: "hidden"
+        default: "bulletin"
+
+      - label: "Title"
+        name: "title"
+        widget: "string"
+
+      - label: "Publish Date"
+        name: "date"
+        widget: "datetime"
+        required: false
+        date_format: "YYYY-MM-DD"
+        time_format: false
+
+      - label: "Category"
+        name: "categories"
+        widget: "select"
+        options:
+          - "Club Bulletin"
+        default: "Club Bulletin"
+
+      - label: "Permalink"
+        name: "permalink"
+        widget: "string"
+        required: false
+        hint: "Optional. Leave blank to use the default post URL."
+
+      - label: "Featured Image"
+        name: "image"
+        widget: "image"
+        required: false
+        media_folder: "/assets/images/bulletins"
+        public_folder: "/assets/images/bulletins"
+
+      - label: "Image Alt Text"
+        name: "image_alt"
+        widget: "string"
+        required: false
+
+      - label: "Body"
+        name: "body"
+        widget: "markdown"
