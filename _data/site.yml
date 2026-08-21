@@ -1,1 +1,13 @@
 hero_image: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1600&q=80&fit=crop"
+
+hero_eyebrow: "Service Above Self"
+
+hero_title: "Community action, one project at a time."
+
+hero_description: "Rotary E-Club of All Star CAMANAVA is a non-governmental service organization connecting members across Caloocan, Malabon, Navotas and Valenzuela to serve, learn and grow together — online and on the ground."
+
+hero_primary_text: "Meet the Club"
+hero_primary_link: "/about"
+
+hero_secondary_text: "What We Do"
+hero_secondary_link: "/services"
