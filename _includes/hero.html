@@ -11,22 +11,21 @@
 
     <span class="eyebrow">
       <span class="dot"></span>
-      Service Above Self
+      {{ site.data.site.hero_eyebrow }}
     </span>
 
     <h1>
-      Community <em>action</em>,<br>
-      one project at a time.
+      {{ site.data.site.hero_title }}
     </h1>
 
     <p class="lede">
-      Rotary E-Club of All Star CAMANAVA is a non-governmental service organization connecting members across Caloocan, Malabon, Navotas and Valenzuela to serve, learn and grow together — online and on the ground.
+      {{ site.data.site.hero_description }}
     </p>
 
     <div class="hero-cta">
 
-      <a href="{{ '/about' | relative_url }}" class="btn btn-primary">
-        Meet the Club
+      <a href="{{ site.data.site.hero_primary_link | relative_url }}" class="btn btn-primary">
+        {{ site.data.site.hero_primary_text }}
 
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
           <path
@@ -39,8 +38,8 @@
         </svg>
       </a>
 
-      <a href="{{ '/services' | relative_url }}" class="btn btn-ghost">
-        What We Do
+      <a href="{{ site.data.site.hero_secondary_link | relative_url }}" class="btn btn-ghost">
+        {{ site.data.site.hero_secondary_text }}
       </a>
 
     </div>
