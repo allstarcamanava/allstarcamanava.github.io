@@ -8,7 +8,7 @@ backend:
 
 publish_mode: editorial_workflow
 show_preview_links: true
-display_url: https://allstarcamanava.netlify.app
+display_url: https://www.allstarcamanava.org
 logo_url: https://allstarcamanava.netlify.app/uploads/logo.jpg
 
 media_folder: "assets/images/bulletins"
