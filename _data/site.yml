@@ -10,6 +10,5 @@ hero_primary_text: Meet the Club
 hero_primary_link: /about
 hero_secondary_text: What We Do
 hero_secondary_link: /services
-
-hero_overlay: true
+hero_overlay: false
 hero_decoration: true
