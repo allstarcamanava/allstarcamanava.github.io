@@ -7,9 +7,7 @@ categories: Service Projects
 image: /assets/images/bulletins/pdl-1.jpg
 ---
 Sometimes, the best stories are the ones that were never part of the original plan. On August 6, 2026, the Rotary E-Club of All Star CAMANAVA (ReCASC) was set to conduct an outreach activity at a daycare center. But when classes were suspended due to inclement weather, the day's original plan had to change. 
-
-‎ 
-![](/assets/images/bulletins/pdl-2.jpg)
+![](/assets/images/bulletins/pdl-10.jpg)
 The sandwiches for the children had already been purchased and prepared. Some of the club members had already taken a leave of absence from their work. Instead of letting the unexpected turn of events end the day's service, ReCASC found another way to share what had already been prepared. 
 
 What started as a side quest became the main event. 
@@ -29,14 +27,15 @@ For ReCASC, this is where the heart of Project RENEW LIFE lies. The project refl
 What began as a postponed outreach for children became a meaningful day of connection and service for another community. 
 
 And perhaps that is what service is sometimes about. Plans may change. Circumstances may shift. But when the intention to serve remains, there is always another way forward. 
-![](/assets/images/bulletins/pdl-10.jpg)
-Project RENEW LIFE ended with more than an afternoon of giving. It ended with a promise of continued service to the Malabon City Jail Female Dormitory. Because when there is a need, there is always another way to shine, serve and create lasting impact. 
 
+Project RENEW LIFE ended with more than an afternoon of giving. It ended with a promise of continued service to the Malabon City Jail Female Dormitory. Because when there is a need, there is always another way to shine, serve and create lasting impact. 
+![](/assets/images/bulletins/pdl-2.jpg)
 Together, we shine. 
 Together, we create lasting impact.
 ✨✨✨𝙒𝙖𝙣𝙩 𝙩𝙤 𝙢𝙖𝙠𝙚 𝙖 𝙙𝙞𝙛𝙛𝙚𝙧𝙚𝙣𝙘𝙚 𝙞𝙣 𝙤𝙪𝙧 𝙘𝙤𝙢𝙢𝙪𝙣𝙞𝙩𝙮?LIKE and FOLLOW our page to stay connected with our journey and discover how Rotary transforms ideas into action, empowering communities and inspiring positive change.
 
 \#d3800createlastingimpact #rotaryeclubofallstarcamanava #rotaryecluballstarcamanava #Rotary #rotaryinternational #RotaryInAction #ServiceAboveSelf
+
 ![](/assets/images/bulletins/pdl-5.jpg)
 ![](/assets/images/bulletins/pdl-6.jpg)
 ![](/assets/images/bulletins/pdl-7.jpg)
