@@ -44,9 +44,12 @@ collections:
       - label: "Category"
         name: "categories"
         widget: "select"
-        options:
+          options:
+          - "Service Projects"
+          - "Announcement"
+          - "Event"
           - "Club Bulletin"
-        default: "Club Bulletin"
+        default: "Service Projects"
 
       - label: "Permalink"
         name: "permalink"
