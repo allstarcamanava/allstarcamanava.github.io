@@ -6,6 +6,7 @@ date: 2026-08-06
 categories: Service Projects
 image: /assets/images/bulletins/pdl-1.jpg
 ---
+![](/assets/images/bulletins/pdl-2.jpg)
 Sometimes, the best stories are the ones that were never part of the original plan. On August 6, 2026, the Rotary E-Club of All Star CAMANAVA (ReCASC) was set to conduct an outreach activity at a daycare center. But when classes were suspended due to inclement weather, the day's original plan had to change. 
 
 The sandwiches for the children had already been purchased and prepared. Some of the club members had already taken a leave of absence from their work. Instead of letting the unexpected turn of events end the day's service, ReCASC found another way to share what had already been prepared. 
@@ -13,7 +14,7 @@ The sandwiches for the children had already been purchased and prepared. Some of
 What started as a side quest became the main event. 
 ![](/assets/images/bulletins/pdl-3.jpg)
 Led by High Impact President Dominic Benedict Santos-Viola Faustino, the club proceeded with Project RENEW LIFE, bringing hygiene kits and food to 148 Persons Deprived of Liberty at the Malabon City Jail Female Dormitory. The sandwiches originally intended for the daycare children were distributed to the PDLs, while packed meals and dental kits were also provided through the generosity of sponsors. Among them were: the Philippine Dental Association Malabon-Navotas Chapter led by its Chapter President, Dr. Weeden F. Fofue and the Philippine Malabon Cultural Institute, Inc. 
-![](/assets/images/bulletins/pdl-2.jpg)
+
 But Project RENEW LIFE was about more than what was handed out. It was about showing that even behind walls, people deserve to be remembered, cared for, and reminded that they still have hope. 
 ![](/assets/images/bulletins/pdl-11.jpg)
 The project itself began unexpectedly. A casual meeting between then Good President Maria Cristina C. Chua and Jail Senior Inspector and Acting City Jail Warden Nelia Gomez-Macaraeg opened the door to a new avenue of service. Following their meeting, Officer Macaraeg, through JO2 Eddie Louie M. Traqueña, sent a letter to the club requesting a donation of tarpaulins for the facility.
