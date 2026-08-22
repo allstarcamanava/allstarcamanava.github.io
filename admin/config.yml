@@ -70,6 +70,20 @@ collections:
         widget: "string"
         required: false
 
+      - label: "Gallery"
+        name: "gallery"
+        widget: "list"
+        required: false
+        allow_add: true
+        allow_remove: true
+        field:
+          label: "Image"
+          name: "image"
+          widget: "image"
+          required: false
+          media_folder: "/assets/images/bulletins"
+          public_folder: "/assets/images/bulletins"
+
       - label: "Body"
         name: "body"
         widget: "markdown"
