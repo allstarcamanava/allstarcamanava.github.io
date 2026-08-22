@@ -1,11 +1,14 @@
-<div class="hero" style="background-image:
-  linear-gradient(
-    180deg,
-    rgba(6,40,42,.72) 0%,
-    rgba(3,64,66,.80) 55%,
-    rgba(0,204,204,.55) 100%
-  ),
-  url('{{ site.data.site.hero_image }}');">
+<div class="hero"
+  style="background-image:
+    {% if site.data.site.hero_overlay %}
+      linear-gradient(
+        180deg,
+        rgba(6,40,42,.72) 0%,
+        rgba(3,64,66,.80) 55%,
+        rgba(0,204,204,.55) 100%
+      ),
+    {% endif %}
+    url('{{ site.data.site.hero_image }}');">
 
   <div class="hero-inner">
 
