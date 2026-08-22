@@ -22,8 +22,6 @@ collections:
     create: true
     delete: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    editor:
-      preview: false
 
     fields:
       - label: "Layout"
