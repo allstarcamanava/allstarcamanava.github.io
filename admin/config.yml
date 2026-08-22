@@ -4,6 +4,7 @@ backend:
   branch: main
   use_graphql: true
   base_url: https://allstarcamanava-decap-oauth.jemuel-a-pilapil.workers.dev
+  auth_endpoint: /auth
 
 publish_mode: editorial_workflow
 show_preview_links: true
