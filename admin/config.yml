@@ -11,8 +11,8 @@ show_preview_links: true
 display_url: https://allstarcamanava.netlify.app
 logo_url: https://allstarcamanava.netlify.app/uploads/logo.jpg
 
-media_folder: "uploads"
-public_folder: "../uploads"
+media_folder: "assets/images/bulletins"
+public_folder: "/assets/images/bulletins"
 
 collections:
   - name: "posts"
