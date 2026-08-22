@@ -44,7 +44,7 @@ collections:
       - label: "Category"
         name: "categories"
         widget: "select"
-          options:
+        options:
           - "Service Projects"
           - "Announcement"
           - "Event"
