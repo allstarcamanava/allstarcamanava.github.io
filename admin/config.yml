@@ -62,8 +62,6 @@ collections:
         name: "image"
         widget: "image"
         required: false
-        media_folder: "/assets/images/bulletins"
-        public_folder: "/assets/images/bulletins"
 
       - label: "Image Alt Text"
         name: "image_alt"
