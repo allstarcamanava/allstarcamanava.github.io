@@ -6,9 +6,8 @@ date: 2026-08-06
 categories: Service Projects
 image: /assets/images/bulletins/pdl-1.jpg
 ---
-![](/assets/images/bulletins/pdl-2.jpg)
 Sometimes, the best stories are the ones that were never part of the original plan. On August 6, 2026, the Rotary E-Club of All Star CAMANAVA (ReCASC) was set to conduct an outreach activity at a daycare center. But when classes were suspended due to inclement weather, the day's original plan had to change. 
-
+![](/assets/images/bulletins/pdl-2.jpg)
 The sandwiches for the children had already been purchased and prepared. Some of the club members had already taken a leave of absence from their work. Instead of letting the unexpected turn of events end the day's service, ReCASC found another way to share what had already been prepared. 
 
 What started as a side quest became the main event. 
