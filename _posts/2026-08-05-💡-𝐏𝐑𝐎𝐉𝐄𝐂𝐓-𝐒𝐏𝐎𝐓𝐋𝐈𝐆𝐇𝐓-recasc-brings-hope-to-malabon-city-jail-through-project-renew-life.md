@@ -7,7 +7,7 @@ categories: Service Projects
 image: /assets/images/bulletins/pdl-1.jpg
 ---
 Sometimes, the best stories are the ones that were never part of the original plan. On August 6, 2026, the Rotary E-Club of All Star CAMANAVA (ReCASC) was set to conduct an outreach activity at a daycare center. But when classes were suspended due to inclement weather, the day's original plan had to change. 
-![](/assets/images/bulletins/pdl-10.jpg)
+![](/assets/images/bulletins/pdl-12.jpg)
 The sandwiches for the children had already been purchased and prepared. Some of the club members had already taken a leave of absence from their work. Instead of letting the unexpected turn of events end the day's service, ReCASC found another way to share what had already been prepared. 
 
 What started as a side quest became the main event. 
@@ -23,7 +23,7 @@ ReCASC responded to the request and provided tarpaulins to help protect the dorm
 The outreach was made even more meaningful by the presence of Malabon City Vice Mayor Hon. Edward C. Nolasco, who shared an encouraging message with the PDLs. He reminded them that their present circumstances do not define who they are and that hope is never lost. As they continue to work toward becoming better versions of themselves, he encouraged them to remember that they are seen, valued, and not forgotten. 
 
 For ReCASC, this is where the heart of Project RENEW LIFE lies. The project reflects Rotary's commitment to Promoting Peace by building bridges with communities that are often unseen, affirming human dignity, and creating spaces where hope and rehabilitation can take root. Sometimes, peace begins with something as simple as being reminded that someone cares. 
-![](/assets/images/bulletins/pdl-12.jpg)
+![](/assets/images/bulletins/pdl-10.jpg)
 What began as a postponed outreach for children became a meaningful day of connection and service for another community. 
 
 And perhaps that is what service is sometimes about. Plans may change. Circumstances may shift. But when the intention to serve remains, there is always another way forward. 
