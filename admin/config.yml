@@ -53,6 +53,7 @@ collections:
           - "Announcement"
           - "Event"
           - "Club Bulletin"
+          - "Other"
         default: "Service Projects"
 
       - label: "Permalink"
