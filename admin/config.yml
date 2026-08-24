@@ -195,3 +195,26 @@ collections:
                 name: "label"
                 widget: "markdown"
                 required: false            
+      - name: "about"
+        label: "About Page"
+        file: "_data/about.yml"
+        fields:
+          - label: "Eyebrow"
+            name: "eyebrow"
+            widget: "string"
+            required: false
+
+          - label: "Title"
+            name: "title"
+            widget: "markdown"
+            required: false
+
+          - label: "Introduction"
+            name: "intro"
+            widget: "markdown"
+            required: false
+
+          - label: "Quote"
+            name: "quote"
+            widget: "markdown"
+            required: false                  

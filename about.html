@@ -12,20 +12,20 @@ permalink: /about/
       <div>
         <span class="eyebrow">
           <span class="dot"></span>
-          About the Club
+          {{ site.data.about.eyebrow }}
         </span>
 
         <h2 class="about-title">
-          Rotary E-Club of<br>All Star CAMANAVA
+          {{ site.data.about.title }}
         </h2>
 
-        <p class="about-intro">
-          We are a non-governmental service organization operating primarily online, uniting Rotarians across Caloocan, Malabon, Navotas and Valenzuela. Our e-club format means fellowship and service happen wherever our members are — through digital meetings, shared projects and an active online community.
-        </p>
+        <div class="about-intro">
+          {{ site.data.about.intro | markdownify }}
+        </div>
 
         <div class="quote-block">
-          "Service above self — delivered wherever our members log in."
-        </div>
+          {{ site.data.about.quote | markdownify }}
+        </div>    
       </div>
 
       <div class="pillar-row">
