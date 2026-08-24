@@ -78,6 +78,24 @@
 
             {% if page.gallery %}
               <div class="bulletin-gallery">
+            
+                {% for image in page.gallery %}
+            
+                  <div class="bulletin-gallery-item">
+                    <img
+                      src="{{ image | relative_url }}"
+                      alt="{{ page.title }}"
+                      loading="lazy"
+                    >
+                  </div>
+            
+                {% endfor %}
+            
+              </div>
+            {% endif %}            
+
+            {% if page.gallery %}
+              <div class="bulletin-gallery">
                 {% for item in page.gallery %}
                   <img
                     src="{{ item.image | relative_url }}"
