@@ -78,9 +78,9 @@
 
             {% if page.gallery %}
               <div class="bulletin-gallery">
-            
+
                 {% for image in page.gallery %}
-            
+
                   <div class="bulletin-gallery-item">
                     <img
                       src="{{ image | relative_url }}"
@@ -88,15 +88,21 @@
                       loading="lazy"
                     >
                   </div>
-            
+
                 {% endfor %}
-            
+
               </div>
-            {% endif %}            
+            {% endif %}
+
+            {% if page.custom_embed %}
+              <div class="bulletin-custom-embed">
+                {{ page.custom_embed }}
+              </div>
+            {% endif %}
 
             <div class="bulletin-content">
               {{ content }}
-            </div>
+            </div>            
 
           </article>
 
