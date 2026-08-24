@@ -6,7 +6,7 @@ backend:
   base_url: https://allstarcamanava-decap-oauth.jemuel-a-pilapil.workers.dev
   auth_endpoint: /auth
 
-publish_mode: simple
+publish_mode: editorial_workflow
 show_preview_links: true
 display_url: https://www.allstarcamanava.org
 logo_url: https://allstarcamanava.netlify.app/uploads/logo.jpg
@@ -84,6 +84,15 @@ collections:
           required: false
           media_folder: "/assets/images/bulletins"
           public_folder: "/assets/images/bulletins"
+
+      - label: "Flipbook Embed"
+        name: "flipbook_embed"
+        widget: "code"
+        required: false
+        default_language: "html"
+        allow_language_selection: false
+        output_code_only: true
+        hint: "Optional. Paste the embed code here."
 
       - label: "Body"
         name: "body"
