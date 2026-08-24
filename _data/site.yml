@@ -10,3 +10,6 @@ hero_secondary_text: ""
 hero_secondary_link: ""
 hero_overlay: false
 hero_decoration: true
+featured_post:
+  enabled: true
+  url: /announcement/2026/08/24/pamana.html
