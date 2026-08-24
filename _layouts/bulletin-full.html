@@ -88,6 +88,12 @@
             </div>
           {% endif %}
 
+          {% if page.custom_embed %}
+            <div class="bulletin-custom-embed">
+              {{ page.custom_embed }}
+            </div>
+          {% endif %}
+
           {% if page.excerpt %}
             <div class="bulletin-intro">
               {{ page.excerpt }}
