@@ -107,6 +107,7 @@ img {
   }
 }
 
+
 @media (prefers-reduced-motion: reduce) {
   .gear {
     animation: none;
@@ -304,49 +305,68 @@ img {
 
 .hero {
   position: relative;
-  min-height: min(86vh, 720px);
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  min-height: 0;
+  aspect-ratio: 16 / 9;
   display: flex;
   align-items: center;
   color: #fff;
   overflow: hidden;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(6,40,42,.72) 0%,
-      rgba(3,64,66,.80) 55%,
-      rgba(0,204,204,.55) 100%
-    ),
-    url('https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1600&q=80&fit=crop')
-    center/cover no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-color: var(--ink);
 }
 
-.hero::before {
-  content: "";
+@media (max-width: 720px) {
+  .hero {
+    aspect-ratio: 16 / 9;
+  }
+
+  .hero-inner {
+    padding: 60px 20px 50px;
+  }
+}
+
+/* ============================================================
+   HERO DECORATION
+   ============================================================ */
+
+.hero-decoration {
   position: absolute;
   right: -120px;
   top: 50%;
   width: 520px;
   height: 520px;
   transform: translateY(-50%);
-  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path fill='none' stroke='white' stroke-width='3' opacity='0.16' d='M50 6l4 10 10-4 0 11 11 3-6 9 6 9-11 3 0 11-10-4-4 10-4-10-10 4 0-11-11-3 6-9-6-9 11-3 0-11 10 4z'/><circle cx='50' cy='50' r='16' fill='none' stroke='white' stroke-width='3' opacity='0.16'/></svg>")
-    no-repeat center/contain;
-  animation: spin 40s linear infinite;
+  animation: heroMoveUp 10s linear infinite alternate;
   pointer-events: none;
+  z-index: 0;
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .hero::before {
-    animation: none;
+@keyframes heroMoveUp {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(calc(-50% - 100px));
   }
 }
 
 .hero-inner {
   position: relative;
   z-index: 2;
-  max-width: 680px;
-  padding: 120px 24px 90px;
-  margin: 0 auto;
   width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 120px 24px 90px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-decoration {
+    animation: none;
+  }
 }
 
 .hero .eyebrow {
@@ -1448,20 +1468,15 @@ footer {
 
 .bulletin-archive-image {
   display: block;
-  aspect-ratio: 16 / 9;
+  width: 100%;
   overflow: hidden;
   background: var(--paper-alt);
 }
 
 .bulletin-archive-image img {
+  display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform .4s ease;
-}
-
-.bulletin-archive-item:hover .bulletin-archive-image img {
-  transform: scale(1.04);
+  height: auto;
 }
 
 .bulletin-archive-content {
@@ -1582,3 +1597,4 @@ footer {
 .bulletin-custom-embed object {
   max-width: 100%;
 }
+
