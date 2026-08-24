@@ -85,8 +85,8 @@ collections:
           media_folder: "/assets/images/bulletins"
           public_folder: "/assets/images/bulletins"
 
-      - label: "Flipbook Embed"
-        name: "flipbook_embed"
+      - label: "Custom Embed Code"
+        name: "custom_embed"
         widget: "code"
         required: false
         default_language: "html"
