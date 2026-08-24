@@ -42,6 +42,6 @@ Together, we create lasting impact.
 ![](/assets/images/bulletins/pdl-10.jpg)
 ![](/assets/images/bulletins/pdl-11.jpg)
 ![](/assets/images/bulletins/pdl-12.jpg)
-![](/assets/images/bulletins/pdl-12.jpg)
+![](/assets/images/bulletins/pdl-13.jpg)
 ![](/assets/images/bulletins/pdl-15.jpg)
 ![](/assets/images/bulletins/pdl-16.jpg)
