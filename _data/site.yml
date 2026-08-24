@@ -13,3 +13,7 @@ hero_decoration: true
 featured_post:
   enabled: true
   url: /announcement/2026/08/24/pamana.html
+  number: Featured
+  label: |-
+    PAMANA
+    August 24, 2026 — The All Star Annual (2026-2027 Edition)
