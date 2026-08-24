@@ -38,12 +38,20 @@ permalink: /
       <div class="side-stack">
 
         <div class="stat-card">
-          <div class="num">4</div>
+          <div class="num">
+            {{ site.data.site.featured_post.number }}
+          </div>
 
           <div class="lbl">
-            Cities served — Caloocan, Malabon, Navotas & Valenzuela
+            {{ site.data.site.featured_post.label }}
           </div>
-        </div>
+
+          {% if site.data.site.featured_post.enabled and site.data.site.featured_post.url %}
+            <a href="{{ site.data.site.featured_post.url }}" class="featured-post-link">
+              Read More
+            </a>
+          {% endif %}
+        </div>        
 
 
         <div class="card">

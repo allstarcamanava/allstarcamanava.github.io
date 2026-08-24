@@ -172,3 +172,26 @@ collections:
             default: true
             required: false
             hint: "Displays the subtle rotating geometric decoration on the right side of the hero section. Turn off to hide the decoration."
+  - label: "Featured Post Card"
+    name: "featured_post"
+    widget: "object"
+    fields:
+      - label: "Enable Featured Post"
+        name: "enabled"
+        widget: "boolean"
+        default: false
+
+      - label: "Post URL"
+        name: "url"
+        widget: "string"
+        required: false
+
+      - label: "Number"
+        name: "number"
+        widget: "string"
+        required: false
+
+      - label: "Label"
+        name: "label"
+        widget: "text"
+        required: false            
