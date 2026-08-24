@@ -8,7 +8,7 @@
         rgba(0,204,204,.55) 100%
       ),
     {% endif %}
-    url('{{ site.data.site.hero_image }}');">
+    url('{{ site.data.site.hero_image | relative_url }}');">
 
   <div class="hero-inner">
 
@@ -27,9 +27,13 @@
       {{ site.data.site.hero_description }}
     </p>
 
+    <!--
     <div class="hero-cta">
 
-      <a href="{{ site.data.site.hero_primary_link | relative_url }}" class="btn btn-primary">
+      <a
+        href="{{ site.data.site.hero_primary_link | relative_url }}"
+        class="btn btn-primary"
+      >
         {{ site.data.site.hero_primary_text }}
 
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
@@ -42,10 +46,14 @@
           />
         </svg>
       </a>
-
-      <a href="{{ site.data.site.hero_secondary_link | relative_url }}" class="btn btn-ghost">
+    
+      <a
+        href="{{ site.data.site.hero_secondary_link | relative_url }}"
+        class="btn btn-ghost"
+      >
         {{ site.data.site.hero_secondary_text }}
       </a>
+    -->  
 
     </div>
 
