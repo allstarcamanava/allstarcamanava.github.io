@@ -1523,3 +1523,45 @@ footer {
   }
 
 }
+
+/* ============================================================
+   FULL-WIDTH BULLETIN PAGE
+   ============================================================ */
+
+.bulletin-full-page {
+  padding: 48px 0 64px !important;
+}
+
+.bulletin-full {
+  width: 100%;
+  max-width: 100%;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 48px;
+}
+
+.bulletin-full .bulletin-title {
+  max-width: 100%;
+}
+
+.bulletin-full .bulletin-featured-image {
+  margin-top: 30px;
+}
+
+.bulletin-full .bulletin-content {
+  max-width: 100%;
+}
+
+@media (max-width: 720px) {
+  .bulletin-full {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bulletin-full {
+    padding: 22px;
+  }
+}

@@ -26,8 +26,13 @@ collections:
     fields:
       - label: "Layout"
         name: "layout"
-        widget: "hidden"
+        widget: "select"
         default: "bulletin"
+        options:
+          - label: "Standard Bulletin"
+            value: "bulletin"
+          - label: "Full-Width Bulletin"
+            value: "bulletin-full"
 
       - label: "Title"
         name: "title"
