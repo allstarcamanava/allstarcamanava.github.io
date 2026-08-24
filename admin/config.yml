@@ -193,5 +193,5 @@ collections:
 
               - label: "Label"
                 name: "label"
-                widget: "text"
+                widget: "markdown"
                 required: false            

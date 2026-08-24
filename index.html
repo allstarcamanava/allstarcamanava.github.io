@@ -42,16 +42,22 @@ permalink: /
             {{ site.data.site.featured_post.number }}
           </div>
 
-          <div class="lbl">
-            {{ site.data.site.featured_post.label }}
-          </div>
-
           {% if site.data.site.featured_post.enabled and site.data.site.featured_post.url %}
+            <div class="lbl">
+              <a href="{{ site.data.site.featured_post.url }}" class="featured-post-title">
+                {{ site.data.site.featured_post.label | markdownify }}
+              </a>
+            </div>
+
             <a href="{{ site.data.site.featured_post.url }}" class="featured-post-link">
               Read More
             </a>
+          {% else %}
+            <div class="lbl">
+              {{ site.data.site.featured_post.label | markdownify }}
+            </div>
           {% endif %}
-        </div>        
+        </div>   
 
 
         <div class="card">
