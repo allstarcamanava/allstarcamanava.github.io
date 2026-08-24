@@ -1,37 +1,8 @@
-<div class="hero"
-  style="background-image:
-    {% if site.data.site.hero_overlay %}
-      linear-gradient(
-        180deg,
-        rgba(6,40,42,.72) 0%,
-        rgba(3,64,66,.80) 55%,
-        rgba(0,204,204,.55) 100%
-      ),
-    {% endif %}
-    url('{{ site.data.site.hero_image | relative_url }}');">
+{% if site.data.site.hero_primary_text or site.data.site.hero_secondary_text %}
 
-  <!--
-  <div class="hero-inner">
+  <div class="hero-cta">
 
-    <span class="eyebrow">
-      <span class="dot"></span>
-      {{ site.data.site.hero_eyebrow }}
-    </span>
-    -->
-
-    <h1>
-      {{ site.data.site.hero_title_line1 }}
-      <em>{{ site.data.site.hero_title_emphasis }}</em>,<br>
-      {{ site.data.site.hero_title_line2 }}
-    </h1>
-
-    <p class="lede">
-      {{ site.data.site.hero_description }}
-    </p>
-
-    <!--
-    <div class="hero-cta">
-
+    {% if site.data.site.hero_primary_text and site.data.site.hero_primary_link %}
       <a
         href="{{ site.data.site.hero_primary_link | relative_url }}"
         class="btn btn-primary"
@@ -48,16 +19,17 @@
           />
         </svg>
       </a>
-    
+    {% endif %}
+
+    {% if site.data.site.hero_secondary_text and site.data.site.hero_secondary_link %}
       <a
         href="{{ site.data.site.hero_secondary_link | relative_url }}"
         class="btn btn-ghost"
       >
         {{ site.data.site.hero_secondary_text }}
       </a>
-    -->  
-
-    </div>
+    {% endif %}
 
   </div>
-</div>
+
+{% endif %}
