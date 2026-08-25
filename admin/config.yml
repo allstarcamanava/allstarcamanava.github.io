@@ -332,3 +332,42 @@ collections:
                 widget: "string"
                 required: false
                 hint: "Optional. Enter the page URL this service card should open."                     
+
+          - label: "Featured YouTube Video"
+            name: "featured_youtube"
+            widget: "object"
+            fields:
+
+              - label: "Enable Featured YouTube"
+                name: "enabled"
+                widget: "boolean"
+                default: false
+                required: false
+
+              - label: "Card Title"
+                name: "title"
+                widget: "string"
+                default: "Featured Video"
+                required: false
+
+              - label: "Video Title"
+                name: "video_title"
+                widget: "string"
+                required: false
+
+              - label: "YouTube URL"
+                name: "url"
+                widget: "string"
+                required: false
+                hint: "Paste the full YouTube video URL."
+
+              - label: "Thumbnail"
+                name: "thumbnail"
+                widget: "image"
+                required: false
+
+              - label: "Button Text"
+                name: "button_text"
+                widget: "string"
+                default: "Watch on YouTube →"
+                required: false                
