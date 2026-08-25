@@ -28,6 +28,7 @@ permalink: /about/
         </div>    
       </div>
 
+      <!--
       <div class="pillar-row">
         <div class="pillar">
           <div class="letter">S</div>
@@ -44,6 +45,7 @@ permalink: /about/
           <div class="word">Integrity</div>
         </div>
       </div>
+      -->
 
     </div>
   </div>
@@ -51,91 +53,73 @@ permalink: /about/
 
 <section class="block alt-surface">
   <div class="container">
-
     <div class="block-head">
-      <span class="eyebrow">Club History</span>
-      <h2>Milestones & archived postings</h2>
-      <p>
-        A running record of the club's journey — every entry here also lives in our archive of past bulletins and posts.
-      </p>
+      {% if site.data.about.history.section_label %}
+        <span class="eyebrow">
+          {{ site.data.about.history.section_label }}
+        </span>
+      {% endif %}
+      {% if site.data.about.history.section_title %}
+        <h2>
+          {{ site.data.about.history.section_title }}
+        </h2>
+      {% endif %}
+      {% if site.data.about.history.section_description %}
+        <div>
+          {{ site.data.about.history.section_description | markdownify }}
+        </div>
+      {% endif %}
     </div>
-
-    <div class="history-track">
-
-      <div class="history-item">
-        <div class="history-dot">01</div>
-        <div class="history-content">
-          <h4>Club Chartered</h4>
-          <p>
-            Rotary E-Club of All Star CAMANAVA is founded to serve members across four cities through an online-first model.
-          </p>
-        </div>
+    {% if site.data.about.history.milestones %}
+      <div class="history-track">
+        {% for milestone in site.data.about.history.milestones %}
+          <div class="history-item">
+            <div class="history-dot">
+              {{ milestone.number }}
+            </div>
+            <div class="history-content">
+              {% if milestone.title %}
+                <h4>
+                  {{ milestone.title }}
+                </h4>
+              {% endif %}
+              {% if milestone.description %}
+                <div>
+                  {{ milestone.description | markdownify }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
       </div>
-
-      <div class="history-item">
-        <div class="history-dot">02</div>
-        <div class="history-content">
-          <h4>First Community Projects</h4>
-          <p>
-            Members launch the club's earliest service initiatives, setting the tone for years of local impact.
-          </p>
-        </div>
-      </div>
-
-      <div class="history-item">
-        <div class="history-dot">03</div>
-        <div class="history-content">
-          <h4>Digital Bulletin Launched</h4>
-          <p>
-            The club begins publishing regular bulletins and announcements to keep members connected between meetings.
-          </p>
-        </div>
-      </div>
-
-      <div class="history-item">
-        <div class="history-dot">04</div>
-        <div class="history-content">
-          <h4>Growing the Archive</h4>
-          <p>
-            Years of postings, trivia nights, and celebrations are preserved as a living record of the club's story.
-          </p>
-        </div>
-      </div>
-
-    </div>
+    {% endif %}
   </div>
 </section>
 
 <section class="block tight">
   <div class="container">
-
-    <div class="feature-grid">
-
-      <div class="feature">
-        <div class="icon">🌏</div>
-        <h4>Where We Serve</h4>
-        <p>
-          Caloocan, Malabon, Navotas and Valenzuela — the CAMANAVA area.
-        </p>
+    {% if site.data.about.feature_cards %}
+      <div class="feature-grid">
+        {% for card in site.data.about.feature_cards %}
+          <div class="feature">
+            {% if card.icon %}
+              <div class="icon">
+                {{ card.icon }}
+              </div>
+            {% endif %}
+            {% if card.title %}
+              <h4>
+                {{ card.title }}
+              </h4>
+            {% endif %}
+            {% if card.description %}
+              <div>
+                {{ card.description | markdownify }}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
       </div>
-
-      <div class="feature">
-        <div class="icon">🤝</div>
-        <h4>How We Meet</h4>
-        <p>
-          Primarily online, giving members flexibility to serve without borders.
-        </p>
-      </div>
-
-      <div class="feature">
-        <div class="icon">📰</div>
-        <h4>Stay Updated</h4>
-        <p>
-          Follow our bulletins, blog posts and announcements right here on the site.
-        </p>
-      </div>
-
-    </div>
-
+    {% endif %}
   </div>
 </section>

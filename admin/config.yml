@@ -218,3 +218,46 @@ collections:
             name: "quote"
             widget: "markdown"
             required: false                  
+
+          - label: "Club History"
+            name: "history"
+            widget: "object"
+            fields:
+
+              - label: "Section Label"
+                name: "section_label"
+                widget: "string"
+                required: false
+
+              - label: "Section Title"
+                name: "section_title"
+                widget: "string"
+                required: false
+
+              - label: "Section Description"
+                name: "section_description"
+                widget: "markdown"
+                required: false
+
+              - label: "Milestones"
+                name: "milestones"
+                widget: "list"
+                required: false
+                allow_add: true
+                allow_delete: true
+                fields:
+
+                  - label: "Number"
+                    name: "number"
+                    widget: "string"
+                    required: false
+
+                  - label: "Title"
+                    name: "title"
+                    widget: "string"
+                    required: false
+
+                  - label: "Description"
+                    name: "description"
+                    widget: "markdown"
+                    required: false
