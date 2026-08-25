@@ -1,0 +1,13 @@
+services:
+  - icon: 📋
+    title: Bulletins
+  - icon: 📣
+    title: Announcements
+  - icon: ✍️
+    title: Blog Posting
+  - icon: 🌱
+    title: Projects
+  - icon: 🧩
+    title: Trivia
+  - icon: 🏛️
+    title: Club History
