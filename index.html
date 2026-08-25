@@ -59,71 +59,119 @@ permalink: /
           {% endif %}
         </div>   
 
-
         <div class="card">
 
-          <h4 class="explore-title">
-            Explore the Club
-          </h4>
+          {% if site.data.featured_youtube.enabled %}
 
-          <ul class="mini-list">
+            {% if site.data.featured_youtube.title %}
+              <h4 class="explore-title">
+                {{ site.data.featured_youtube.title }}
+              </h4>
+            {% endif %}
 
-            <li>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M4 19V5a2 2 0 012-2h9l5 5v11a2 2 0 01-2 2H6a2 2 0 01-2-2z"
-                  stroke="#049393"
-                  stroke-width="1.8"
-                />
-                <path
-                  d="M13 3v5h5"
-                  stroke="#049393"
-                  stroke-width="1.8"
-                />
-              </svg>
+            {% if site.data.featured_youtube.thumbnail and site.data.featured_youtube.url %}
+              <a
+                href="{{ site.data.featured_youtube.url }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="featured-youtube-thumbnail"
+              >
+                <img
+                  src="{{ site.data.featured_youtube.thumbnail | relative_url }}"
+                  alt="{{ site.data.featured_youtube.video_title | escape }}"
+                >
+              </a>
+            {% elsif site.data.featured_youtube.thumbnail %}
+              <div class="featured-youtube-thumbnail">
+                <img
+                  src="{{ site.data.featured_youtube.thumbnail | relative_url }}"
+                  alt="{{ site.data.featured_youtube.video_title | escape }}"
+                >
+              </div>
+            {% endif %}
 
-              Bulletins & announcements
-            </li>
+            {% if site.data.featured_youtube.video_title %}
+              <h5 class="featured-youtube-title">
+                {{ site.data.featured_youtube.video_title }}
+              </h5>
+            {% endif %}
 
+            {% if site.data.featured_youtube.url %}
+              <a
+                href="{{ site.data.featured_youtube.url }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-solid featured-youtube-button"
+              >
+                {{ site.data.featured_youtube.button_text | default: "Watch on YouTube →" }}
+              </a>
+            {% endif %}
 
-            <li>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M4 6h16M4 12h16M4 18h10"
-                  stroke="#049393"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                />
-              </svg>
+          {% else %}
 
-              Club blog & news
-            </li>
+            <h4 class="explore-title">
+              Explore the Club
+            </h4>
 
+            <ul class="mini-list">
 
-            <li>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="9"
-                  stroke="#049393"
-                  stroke-width="1.8"
-                />
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M4 19V5a2 2 0 012-2h9l5 5v11a2 2 0 01-2 2H6a2 2 0 01-2-2z"
+                    stroke="#049393"
+                    stroke-width="1.8"
+                  />
+                  <path
+                    d="M13 3v5h5"
+                    stroke="#049393"
+                    stroke-width="1.8"
+                  />
+                </svg>
 
-                <path
-                  d="M12 7v5l3 2"
-                  stroke="#049393"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                />
-              </svg>
+                Bulletins & announcements
+              </li>
 
-              Club history archive
-            </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M4 6h16M4 12h16M4 18h10"
+                    stroke="#049393"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                  />
+                </svg>
 
-          </ul>
+                Club blog & news
+              </li>
+
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="9"
+                    stroke="#049393"
+                    stroke-width="1.8"
+                  />
+
+                  <path
+                    d="M12 7v5l3 2"
+                    stroke="#049393"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                  />
+                </svg>
+
+                Club history archive
+              </li>
+
+            </ul>
+
+          {% endif %}
 
         </div>
+        
 
       </div>
 

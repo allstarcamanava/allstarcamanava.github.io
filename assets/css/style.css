@@ -686,6 +686,43 @@ section.block.tight {
   flex: 0 0 auto;
 }
 
+/* ============================================================
+   FEATURED YOUTUBE
+   ============================================================ */
+
+.featured-youtube-thumbnail {
+  display: block;
+  width: 100%;
+  margin: 0 0 18px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--paper-alt);
+}
+
+.featured-youtube-thumbnail img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform .3s ease;
+}
+
+.featured-youtube-thumbnail:hover img {
+  transform: scale(1.03);
+}
+
+.featured-youtube-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.05rem;
+  line-height: 1.3;
+  margin: 0 0 16px;
+  color: var(--ink);
+}
+
+.featured-youtube-button {
+  width: 100%;
+  justify-content: center;
+  margin-top: 4px;
+}
 
 /* ============================================================
    FEATURE / VALUE GRID
