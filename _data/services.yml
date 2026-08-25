@@ -7,7 +7,7 @@ services:
     title: Bulletins
     description: Regular club bulletins covering meeting recaps, updates and what's
       coming next.
-    url: /bulletins
+    url: /bulletins/
   - icon: 📣
     title: Announcements
     description: Timely announcements about events, deadlines and club-wide news.
