@@ -7,3 +7,23 @@ intro: We are a non-governmental service organization operating primarily
   Our e-club format means fellowship and service happen wherever our members are
   — through digital meetings, shared projects and an active online community.
 quote: '*"Service above self — delivered wherever our members log in."*'
+history:
+  section_label: Milestones & archived postings
+  section_title: ""
+  section_description: A running record of the club's journey. Every entry here
+    also lives in our archive of past bulletins and posts.
+  milestones:
+    - number: "01"
+      title: " Club Chartered"
+      description: Rotary E-Club of All Star CAMANAVA is founded to serve members
+        across four cities through an online-first model.
+    - number: "02"
+      description: Members launch the club's earliest service initiatives, setting the
+        tone for years of local impact.
+      title: First Community Projects
+    - number: "3"
+      title: Growing the Archive
+      description: >+
+        Years of postings, trivia nights, and celebrations are preserved as a
+        living record of the club's story.
+
