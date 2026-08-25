@@ -61,7 +61,7 @@ permalink: /
 
         <div class="card">
 
-          {% if site.data.featured_youtube.enabled %}
+          {% if site.data.site.featured_youtube.enabled %}
 
             {% if site.data.featured_youtube.title %}
               <h4 class="explore-title">
@@ -282,44 +282,44 @@ permalink: /
 
     </div>
 
-<!-- ============================================================
-     YOUTUBE LIGHTBOX
-     ============================================================ -->
+    <!-- ============================================================
+        YOUTUBE LIGHTBOX
+        ============================================================ -->
 
-<div
-  class="youtube-lightbox"
-  id="youtube-lightbox"
-  aria-hidden="true"
-  role="dialog"
-  aria-modal="true"
-  aria-label="Featured YouTube video"
->
-  <div class="youtube-lightbox-backdrop" data-youtube-close></div>
-
-  <div class="youtube-lightbox-content">
-
-    <button
-      type="button"
-      class="youtube-lightbox-close"
-      data-youtube-close
-      aria-label="Close video"
+    <div
+      class="youtube-lightbox"
+      id="youtube-lightbox"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Featured YouTube video"
     >
-      &times;
-    </button>
+      <div class="youtube-lightbox-backdrop" data-youtube-close></div>
 
-    <div class="youtube-lightbox-video">
-      <iframe
-        id="youtube-lightbox-iframe"
-        src=""
-        title="Featured YouTube video"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen
-      ></iframe>
+      <div class="youtube-lightbox-content">
+
+        <button
+          type="button"
+          class="youtube-lightbox-close"
+          data-youtube-close
+          aria-label="Close video"
+        >
+          &times;
+        </button>
+
+        <div class="youtube-lightbox-video">
+          <iframe
+            id="youtube-lightbox-iframe"
+            src=""
+            title="Featured YouTube video"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+
+      </div>
     </div>
-
-  </div>
-</div>
 
   </div>
 
