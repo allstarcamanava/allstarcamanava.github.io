@@ -261,3 +261,68 @@ collections:
                     name: "description"
                     widget: "markdown"
                     required: false
+
+          - label: "Feature Cards"
+            name: "feature_cards"
+            widget: "list"
+            required: false
+            allow_add: true
+            allow_delete: true
+            fields:
+
+              - label: "Icon"
+                name: "icon"
+                widget: "string"
+                required: false
+                hint: "You can use an emoji, such as 🌏, 🤝, or 📰."
+
+              - label: "Title"
+                name: "title"
+                widget: "string"
+                required: false
+
+              - label: "Description"
+                name: "description"
+                widget: "markdown"
+                required: false       
+
+      - name: "services"
+        label: "Services Page"
+        file: "_data/services.yml"
+        fields:        
+          - label: "Eyebrow"
+            name: "eyebrow"
+            widget: "string"
+            required: false       
+
+          - label: "Title"
+            name: "title"
+            widget: "markdown"
+            required: false                                
+
+          - label: "Introduction"
+            name: "intro"
+            widget: "markdown"
+            required: false
+
+          - label: "Services"
+            name: "services"
+            widget: "list"
+            required: false
+            allow_add: true
+            allow_remove: true
+            fields:
+              - label: "Icon"
+                name: "icon"
+                widget: "string"
+                required: false
+
+              - label: "Title"
+                name: "title"
+                widget: "string"
+                required: false
+
+              - label: "Description"
+                name: "description"
+                widget: "markdown"
+                required: false            

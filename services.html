@@ -7,75 +7,63 @@ permalink: /services/
 
 <section class="block">
   <div class="container">
+
     <div class="block-head">
-      <span class="eyebrow">What We Offer</span>
-      <h2>Everything the club shares, in one place</h2>
-      <p>
-        From weekly bulletins to our full club history, here's what you'll find
-        as a member or visitor of Rotary E-Club of All Star CAMANAVA.
-      </p>
+      {% if site.data.services.eyebrow %}
+        <span class="eyebrow">
+          {{ site.data.services.eyebrow }}
+        </span>
+      {% endif %}
+
+      {% if site.data.services.title %}
+        <h2>
+          {{ site.data.services.title | markdownify }}
+        </h2>
+      {% endif %}
+
+      {% if site.data.services.intro %}
+        <div>
+          {{ site.data.services.intro | markdownify }}
+        </div>
+      {% endif %}
     </div>
 
-    <div class="services-grid">
 
-      <div class="service-card">
-        <span class="service-num">01</span>
-        <span class="service-emoji">📋</span>
-        <h3>Bulletins</h3>
-        <p>
-          Regular club bulletins covering meeting recaps, updates and what's
-          coming next.
-        </p>
+    {% if site.data.services.services %}
+      <div class="services-grid">
+
+        {% for service in site.data.services.services %}
+
+          <div class="service-card">
+
+            <span class="service-num">
+              {{ forloop.index | prepend: "00" | slice: -2, 2 }}
+            </span>
+
+            {% if service.icon %}
+              <span class="service-emoji">
+                {{ service.icon }}
+              </span>
+            {% endif %}
+
+            {% if service.title %}
+              <h3>
+                {{ service.title }}
+              </h3>
+            {% endif %}
+
+            {% if service.description %}
+              <div>
+                {{ service.description | markdownify }}
+              </div>
+            {% endif %}
+
+          </div>
+
+        {% endfor %}
+
       </div>
+    {% endif %}
 
-      <div class="service-card">
-        <span class="service-num">02</span>
-        <span class="service-emoji">📣</span>
-        <h3>Announcements</h3>
-        <p>
-          Timely announcements about events, deadlines and club-wide news.
-        </p>
-      </div>
-
-      <div class="service-card">
-        <span class="service-num">03</span>
-        <span class="service-emoji">✍️</span>
-        <h3>Blog Posting</h3>
-        <p>
-          Stories, reflections and updates from members, published to the club
-          blog.
-        </p>
-      </div>
-
-      <div class="service-card">
-        <span class="service-num">04</span>
-        <span class="service-emoji">🌱</span>
-        <h3>Projects</h3>
-        <p>
-          A look at ongoing and completed community service projects across
-          CAMANAVA.
-        </p>
-      </div>
-
-      <div class="service-card">
-        <span class="service-num">05</span>
-        <span class="service-emoji">🧩</span>
-        <h3>Trivia</h3>
-        <p>
-          Fun, member-friendly trivia to test your Rotary and community
-          knowledge.
-        </p>
-      </div>
-
-      <div class="service-card">
-        <span class="service-num">06</span>
-        <span class="service-emoji">🏛️</span>
-        <h3>Club History</h3>
-        <p>
-          An archive of milestones and postings from previous years of service.
-        </p>
-      </div>
-
-    </div>
   </div>
 </section>
