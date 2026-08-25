@@ -1,13 +1,24 @@
+eyebrow: What We Do
+title: Everything the club shares, in one place
+intro: From weekly bulletins to our full club history, here's what you'll find
+  as a member or visitor of Rotary E-Club of All Star CAMANAVA.
 services:
   - icon: 📋
     title: Bulletins
+    description: Regular club bulletins covering meeting recaps, updates and what's
+      coming next.
   - icon: 📣
     title: Announcements
+    description: Timely announcements about events, deadlines and club-wide news.
   - icon: ✍️
     title: Blog Posting
+    description: Stories, reflections and updates from members, published to the club blog.
   - icon: 🌱
     title: Projects
+    description: A look at ongoing and completed community service projects across CAMANAVA.
   - icon: 🧩
     title: Trivia
+    description: Fun, member-friendly trivia to test your Rotary and community knowledge.
   - icon: 🏛️
     title: Club History
+    description: An archive of milestones and postings from previous years of service.
