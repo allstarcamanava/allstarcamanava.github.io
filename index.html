@@ -63,22 +63,22 @@ permalink: /
 
           {% if site.data.site.featured_youtube.enabled %}
 
-            {% if site.data.featured_youtube.title %}
+            {% if site.data.site.featured_youtube.title %}
               <h4 class="explore-title">
-                {{ site.data.featured_youtube.title }}
+                {{ site.data.site.featured_youtube.title }}
               </h4>
             {% endif %}
 
-            {% if site.data.featured_youtube.thumbnail %}
+            {% if site.data.site.featured_youtube.thumbnail %}
               <button
                 type="button"
                 class="featured-youtube-thumbnail"
-                data-youtube-url="{{ site.data.featured_youtube.url | escape }}"
-                aria-label="Play {{ site.data.featured_youtube.video_title | default: 'featured video' | escape }}"
+                data-youtube-url="{{site.data.site.featured_youtube.url | escape }}"
+                aria-label="Play {{ site.data.site.featured_youtube.video_title | default: 'featured video' | escape }}"
               >
                 <img
-                  src="{{ site.data.featured_youtube.thumbnail | relative_url }}"
-                  alt="{{ site.data.featured_youtube.video_title | default: 'Featured YouTube video' | escape }}"
+                  src="{{ site.data.site.featured_youtube.thumbnail | relative_url }}"
+                  alt="{{ site.data.site.featured_youtube.video_title | default: 'Featured YouTube video' | escape }}"
                 >
 
                 <span class="featured-youtube-play">
@@ -92,20 +92,20 @@ permalink: /
               </button>
             {% endif %}
 
-            {% if site.data.featured_youtube.video_title %}
+            {% if site.data.site.featured_youtube.video_title %}
               <h5 class="featured-youtube-title">
-                {{ site.data.featured_youtube.video_title }}
+                {{ site.data.site.featured_youtube.video_title }}
               </h5>
             {% endif %}
 
-            {% if site.data.featured_youtube.url %}
+            {% if site.data.site.featured_youtube.url %}
               <a
-                href="{{ site.data.featured_youtube.url }}"
+                href="{{site.data.site.featured_youtube.url }}"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="btn btn-solid featured-youtube-button"
               >
-                {{ site.data.featured_youtube.button_text | default: "Watch on YouTube →" }}
+                {{ site.data.site.featured_youtube.button_text | default: "Watch on YouTube →" }}
               </a>
             {% endif %}
 
