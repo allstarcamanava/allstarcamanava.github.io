@@ -34,7 +34,11 @@ permalink: /services/
 
         {% for service in site.data.services.services %}
 
-          <div class="service-card">
+          {% if service.url %}
+            <a href="{{ service.url }}" class="service-card">
+          {% else %}
+            <div class="service-card">
+          {% endif %}
 
             <span class="service-num">
               {{ forloop.index | prepend: "00" | slice: -2, 2 }}
@@ -58,7 +62,11 @@ permalink: /services/
               </div>
             {% endif %}
 
-          </div>
+          {% if service.url %}
+            </a>
+          {% else %}
+            </div>
+          {% endif %}
 
         {% endfor %}
 

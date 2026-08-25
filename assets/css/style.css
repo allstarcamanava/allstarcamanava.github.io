@@ -865,10 +865,33 @@ section.block.tight {
     border-color .3s ease;
 }
 
+.service-card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.service-card-link:hover {
+  color: inherit;
+}
+
+.service-card-link .service-card {
+  height: 100%;
+}
+
 .service-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 20px 40px -16px rgba(0,80,80,.32);
   border-color: var(--tiffany);
+}
+
+.service-card {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+}
+.service-card:hover {
+  color: inherit;
 }
 
 .service-card::after {

@@ -325,4 +325,10 @@ collections:
               - label: "Description"
                 name: "description"
                 widget: "markdown"
-                required: false            
+                required: false       
+
+              - label: "Post URL"
+                name: "url"
+                widget: "string"
+                required: false
+                hint: "Optional. Enter the page URL this service card should open."                     
