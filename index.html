@@ -69,25 +69,27 @@ permalink: /
               </h4>
             {% endif %}
 
-            {% if site.data.featured_youtube.thumbnail and site.data.featured_youtube.url %}
-              <a
-                href="{{ site.data.featured_youtube.url }}"
-                target="_blank"
-                rel="noopener noreferrer"
+            {% if site.data.featured_youtube.thumbnail %}
+              <button
+                type="button"
                 class="featured-youtube-thumbnail"
+                data-youtube-url="{{ site.data.featured_youtube.url | escape }}"
+                aria-label="Play {{ site.data.featured_youtube.video_title | default: 'featured video' | escape }}"
               >
                 <img
                   src="{{ site.data.featured_youtube.thumbnail | relative_url }}"
-                  alt="{{ site.data.featured_youtube.video_title | escape }}"
+                  alt="{{ site.data.featured_youtube.video_title | default: 'Featured YouTube video' | escape }}"
                 >
-              </a>
-            {% elsif site.data.featured_youtube.thumbnail %}
-              <div class="featured-youtube-thumbnail">
-                <img
-                  src="{{ site.data.featured_youtube.thumbnail | relative_url }}"
-                  alt="{{ site.data.featured_youtube.video_title | escape }}"
-                >
-              </div>
+
+                <span class="featured-youtube-play">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="M8 5v14l11-7L8 5z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </span>
+              </button>
             {% endif %}
 
             {% if site.data.featured_youtube.video_title %}
@@ -279,6 +281,45 @@ permalink: /
       </div>
 
     </div>
+
+<!-- ============================================================
+     YOUTUBE LIGHTBOX
+     ============================================================ -->
+
+<div
+  class="youtube-lightbox"
+  id="youtube-lightbox"
+  aria-hidden="true"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Featured YouTube video"
+>
+  <div class="youtube-lightbox-backdrop" data-youtube-close></div>
+
+  <div class="youtube-lightbox-content">
+
+    <button
+      type="button"
+      class="youtube-lightbox-close"
+      data-youtube-close
+      aria-label="Close video"
+    >
+      &times;
+    </button>
+
+    <div class="youtube-lightbox-video">
+      <iframe
+        id="youtube-lightbox-iframe"
+        src=""
+        title="Featured YouTube video"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      ></iframe>
+    </div>
+
+  </div>
+</div>
 
   </div>
 
