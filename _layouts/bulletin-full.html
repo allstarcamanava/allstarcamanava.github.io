@@ -61,14 +61,14 @@
             {{ page.date | date: "%B %d, %Y" }}
           </div>
 
-          {% if page.image and page.image != "" %}
-            <div class="bulletin-featured-image">
-              <img
-                src="{{ page.image | relative_url }}"
-                alt="{{ page.image_alt | default: page.title }}"
-              >
-            </div>
-          {% endif %}
+            {% if page.post_image and page.post_image != "" %}
+              <div class="bulletin-featured-image">
+                <img
+                  src="{{ page.post_image | relative_url }}"
+                  alt="{{ page.image_alt | default: page.title }}"
+                >
+              </div>
+            {% endif %}
 
           {% if page.gallery %}
             <div class="bulletin-gallery">

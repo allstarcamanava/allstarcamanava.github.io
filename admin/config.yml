@@ -67,6 +67,12 @@ collections:
         widget: "image"
         required: false
 
+      - label: "Post Image"
+        name: "post_image"
+        widget: "image"
+        required: false
+        hint: "Optional. This image appears only inside the individual bulletin page."        
+
       - label: "Image Alt Text"
         name: "image_alt"
         widget: "string"
