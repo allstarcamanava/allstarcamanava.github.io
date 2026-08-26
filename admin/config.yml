@@ -191,10 +191,16 @@ collections:
                 widget: "string"
                 required: false
 
+              - label: "Thumbnail"
+                name: "thumbnail"
+                widget: "image"
+                required: false
+                hint: "Optional. This image appears only in the Featured Post card on the homepage."
+
               - label: "Label"
                 name: "label"
                 widget: "markdown"
-                required: false            
+                required: false        
       - name: "about"
         label: "About Page"
         file: "_data/about.yml"

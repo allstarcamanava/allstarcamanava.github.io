@@ -37,27 +37,37 @@ permalink: /
 
       <div class="side-stack">
 
-        <div class="stat-card">
-          <div class="num">
-            {{ site.data.site.featured_post.number }}
-          </div>
-
-          {% if site.data.site.featured_post.enabled and site.data.site.featured_post.url %}
-            <div class="lbl">
-              <a href="{{ site.data.site.featured_post.url }}" class="featured-post-title">
-                {{ site.data.site.featured_post.label | markdownify }}
+          <div class="stat-card">
+            {% assign featured_post = site.posts | where: "url", site.data.site.featured_post.url | first %}
+            {% if site.data.site.featured_post.enabled and featured_post %}
+              {% if featured_post.image %}
+                <a href="{{ featured_post.url | relative_url }}" class="featured-post-image">
+                  <img
+                    src="{{ featured_post.image | relative_url }}"
+                    alt="{{ featured_post.title | escape }}"
+                  >
+                </a>
+              {% endif %}
+              <div class="num">
+                {{ site.data.site.featured_post.number }}
+              </div>
+              <div class="lbl">
+                <a href="{{ featured_post.url | relative_url }}" class="featured-post-title">
+                  {{ site.data.site.featured_post.label | markdownify }}
+                </a>
+              </div>
+              <a href="{{ featured_post.url | relative_url }}" class="featured-post-link">
+                Read More
               </a>
-            </div>
-
-            <a href="{{ site.data.site.featured_post.url }}" class="featured-post-link">
-              Read More
-            </a>
-          {% else %}
-            <div class="lbl">
-              {{ site.data.site.featured_post.label | markdownify }}
-            </div>
-          {% endif %}
-        </div>   
+            {% else %}
+              <div class="num">
+                {{ site.data.site.featured_post.number }}
+              </div>
+              <div class="lbl">
+                {{ site.data.site.featured_post.label | markdownify }}
+              </div>
+            {% endif %}
+          </div>
 
         <div class="card">
 
