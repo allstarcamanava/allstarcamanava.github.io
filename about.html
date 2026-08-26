@@ -23,9 +23,12 @@ permalink: /about/
           {{ site.data.about.intro | markdownify }}
         </div>
 
-        <div class="quote-block">
-          {{ site.data.about.quote | markdownify }}
-        </div>    
+        {% if site.data.about.quote != nil and site.data.about.quote != "" %}
+          <div class="quote-block">
+            {{ site.data.about.quote | markdownify }}
+          </div>
+        {% endif %}        
+
       </div>
 
       <!--
