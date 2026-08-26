@@ -415,6 +415,8 @@ collections:
                 name: "thumbnail"
                 widget: "image"
                 required: false
+                media_folder: "/assets/e-bulletin-files"
+                public_folder: "/assets/e-bulletin-files"
                 hint: "Optional. Cover image shown on the E-Bulletin Files page."
 
               - label: "PDF File"
