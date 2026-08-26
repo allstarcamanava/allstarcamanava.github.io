@@ -24,11 +24,11 @@ permalink: /files/
 
     </div>
 
-    {% if site.data.e_bulletins and site.data.e_bulletins.size > 0 %}
+    {% if site.data.e_bulletins.bulletins and site.data.e_bulletins.bulletins.size > 0 %}
 
       <div class="feature-grid">
 
-        {% for bulletin in site.data.e_bulletins %}
+        {% for bulletin in site.data.e_bulletins.bulletins %}
 
           <div class="card">
 
@@ -50,9 +50,11 @@ permalink: /files/
                 </span>
               {% endif %}
 
-              <h3>
-                {{ bulletin.title }}
-              </h3>
+              {% if bulletin.title %}
+                <h3>
+                  {{ bulletin.title }}
+                </h3>
+              {% endif %}
 
               {% if bulletin.description %}
                 <p>
@@ -78,6 +80,26 @@ permalink: /files/
                   target="_blank"
                   rel="noopener noreferrer"
                   class="btn btn-solid"
+                >
+                  Read Flipbook →
+                </a>
+
+              {% elsif bulletin.pdf and bulletin.flipbook_url %}
+
+                <a
+                  href="{{ bulletin.pdf | relative_url }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-solid"
+                >
+                  View PDF →
+                </a>
+
+                <a
+                  href="{{ bulletin.flipbook_url }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-outline"
                 >
                   Read Flipbook →
                 </a>
