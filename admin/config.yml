@@ -376,4 +376,62 @@ collections:
             name: "button_text"
             widget: "string"
             default: "Watch on YouTube →"
-            required: false                
+            required: false   
+                         
+      - name: "e_bulletins"
+        label: "E-Bulletin Files"
+        file: "_data/e_bulletins.yml"
+        fields:
+
+          - label: "E-Bulletins"
+            name: "bulletins"
+            widget: "list"
+            required: false
+            allow_add: true
+            allow_delete: true
+            fields:
+
+              - label: "Title"
+                name: "title"
+                widget: "string"
+
+              - label: "Date"
+                name: "date"
+                widget: "datetime"
+                required: false
+                date_format: "YYYY-MM-DD"
+                time_format: false
+
+              - label: "Type"
+                name: "type"
+                widget: "select"
+                options:
+                  - label: "PDF"
+                    value: "pdf"
+                  - label: "Heyzine Flipbook"
+                    value: "flipbook"
+
+              - label: "Thumbnail"
+                name: "thumbnail"
+                widget: "image"
+                required: false
+                hint: "Optional. Cover image shown on the E-Bulletin Files page."
+
+              - label: "PDF File"
+                name: "pdf"
+                widget: "file"
+                required: false
+                media_folder: "/assets/e-bulletin-files"
+                public_folder: "/assets/e-bulletin-files"
+                hint: "Upload the PDF file here if this bulletin is a PDF."
+
+              - label: "Heyzine Flipbook URL"
+                name: "flipbook_url"
+                widget: "string"
+                required: false
+                hint: "Paste the Heyzine flipbook URL if this bulletin is an interactive flipbook."
+
+              - label: "Description"
+                name: "description"
+                widget: "text"
+                required: false            

@@ -1,0 +1,110 @@
+---
+layout: default
+title: "E-Bulletin Files"
+description: "Browse the e-bulletins of the Rotary E-Club of All Star CAMANAVA."
+permalink: /files/
+---
+
+<section class="block">
+  <div class="container">
+
+    <div class="block-head">
+
+      <span class="eyebrow">
+        Club Archive
+      </span>
+
+      <h1>
+        E-Bulletin Files
+      </h1>
+
+      <p>
+        Browse our collection of club e-bulletins, including PDF documents and interactive flipbook editions.
+      </p>
+
+    </div>
+
+    {% if site.data.e_bulletins and site.data.e_bulletins.size > 0 %}
+
+      <div class="feature-grid">
+
+        {% for bulletin in site.data.e_bulletins %}
+
+          <div class="card">
+
+            {% if bulletin.thumbnail %}
+              <div class="bulletin-file-thumbnail">
+                <img
+                  src="{{ bulletin.thumbnail | relative_url }}"
+                  alt="{{ bulletin.title | escape }}"
+                  loading="lazy"
+                >
+              </div>
+            {% endif %}
+
+            <div class="bulletin-file-content">
+
+              {% if bulletin.date %}
+                <span class="eyebrow">
+                  {{ bulletin.date | date: "%B %d, %Y" }}
+                </span>
+              {% endif %}
+
+              <h3>
+                {{ bulletin.title }}
+              </h3>
+
+              {% if bulletin.description %}
+                <p>
+                  {{ bulletin.description }}
+                </p>
+              {% endif %}
+
+              {% if bulletin.type == "pdf" and bulletin.pdf %}
+
+                <a
+                  href="{{ bulletin.pdf | relative_url }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-solid"
+                >
+                  View PDF →
+                </a>
+
+              {% elsif bulletin.type == "flipbook" and bulletin.flipbook_url %}
+
+                <a
+                  href="{{ bulletin.flipbook_url }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-solid"
+                >
+                  Read Flipbook →
+                </a>
+
+              {% endif %}
+
+            </div>
+
+          </div>
+
+        {% endfor %}
+
+      </div>
+
+    {% else %}
+
+      <div class="card">
+        <h3>
+          No E-Bulletins Yet
+        </h3>
+
+        <p>
+          New e-bulletins will appear here as they are added to the archive.
+        </p>
+      </div>
+
+    {% endif %}
+
+  </div>
+</section>
