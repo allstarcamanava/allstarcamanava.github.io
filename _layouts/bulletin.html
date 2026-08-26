@@ -67,7 +67,7 @@
               {{ page.date | date: "%B %d, %Y" }}
             </div>
 
-            {% if page.image %}
+            {% if page.image and page.image != "" %}
               <div class="bulletin-featured-image">
                 <img
                   src="{{ page.image | relative_url }}"

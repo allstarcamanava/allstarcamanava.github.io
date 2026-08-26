@@ -21,7 +21,7 @@ permalink: /bulletins/
 <div class="bulletin-archive-grid">
   {% for post in site.posts %}
   <article class="bulletin-archive-item">
-    {% if post.image %}
+    {% if post.image and post.image != "" %}
     <a
       href="{{ post.url | relative_url }}"
       class="bulletin-archive-image"
