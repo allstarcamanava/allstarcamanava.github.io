@@ -858,7 +858,7 @@ section.block.tight {
 .youtube-lightbox-content {
   position: relative;
   z-index: 1;
-  width: min(900px, 100%);
+  width: min(1100px, 100%);
   background: #000;
   border-radius: 14px;
   overflow: visible;
