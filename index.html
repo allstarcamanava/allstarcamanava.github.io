@@ -322,3 +322,126 @@ permalink: /
   </div>
 
 </section>
+
+{% if site.data.homepage_modal.enabled %}
+
+  <div
+    class="homepage-modal"
+    id="homepage-modal"
+    aria-hidden="true"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="homepage-modal-title"
+  >
+
+    <div
+      class="homepage-modal-backdrop"
+      data-modal-close
+    ></div>
+
+    <div class="homepage-modal-content">
+
+      <button
+        type="button"
+        class="homepage-modal-close"
+        data-modal-close
+        aria-label="Close"
+      >
+        &times;
+      </button>
+
+      {% if site.data.homepage_modal.image and site.data.homepage_modal.image != "" %}
+        <div class="homepage-modal-image">
+          <img
+            src="{{ site.data.homepage_modal.image | relative_url }}"
+            alt="{{ site.data.homepage_modal.title | escape }}"
+          >
+        </div>
+      {% endif %}
+
+      <div class="homepage-modal-body">
+
+        {% if site.data.homepage_modal.eyebrow %}
+          <span class="eyebrow">
+            {{ site.data.homepage_modal.eyebrow }}
+          </span>
+        {% endif %}
+
+        {% if site.data.homepage_modal.title %}
+          <h2 id="homepage-modal-title">
+            {{ site.data.homepage_modal.title }}
+          </h2>
+        {% endif %}
+
+        {% if site.data.homepage_modal.description %}
+          <p>
+            {{ site.data.homepage_modal.description }}
+          </p>
+        {% endif %}
+
+        {% if site.data.homepage_modal.button_url %}
+          <a
+            href="{{ site.data.homepage_modal.button_url | relative_url }}"
+            class="btn btn-solid"
+          >
+            {{ site.data.homepage_modal.button_text | default: "Learn More →" }}
+          </a>
+        {% endif %}
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const modal = document.getElementById("homepage-modal");
+
+      if (!modal) return;
+
+      const closeButtons =
+        modal.querySelectorAll("[data-modal-close]");
+
+      const showOnce =
+        {{ site.data.homepage_modal.show_once | default: true | jsonify }};
+
+      const storageKey =
+        "allstarcamanava_homepage_modal_seen";
+
+      function openModal() {
+
+        modal.setAttribute("aria-hidden", "false");
+        modal.classList.add("is-visible");
+
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModal() {
+
+        modal.setAttribute("aria-hidden", "true");
+        modal.classList.remove("is-visible");
+
+        document.body.style.overflow = "";
+
+        if (showOnce) {
+          localStorage.setItem(storageKey, "true");
+        }
+      }
+
+      closeButtons.forEach(function (button) {
+        button.addEventListener("click", closeModal);
+      });
+
+      if (
+        !showOnce ||
+        localStorage.getItem(storageKey) !== "true"
+      ) {
+        setTimeout(openModal, 500);
+      }
+
+    });
+  </script>
+
+{% endif %}
