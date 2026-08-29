@@ -442,4 +442,55 @@ collections:
               - label: "Description"
                 name: "description"
                 widget: "text"
-                required: false            
+                required: false  
+                          
+      - name: "homepage_modal"
+        label: "Homepage Modal"
+        file: "_data/homepage_modal.yml"
+        fields:
+
+          - label: "Enable Modal"
+            name: "enabled"
+            widget: "boolean"
+            default: false
+            required: false
+            hint: "Turn this on to display the modal on the homepage."
+
+          - label: "Eyebrow"
+            name: "eyebrow"
+            widget: "string"
+            required: false
+
+          - label: "Title"
+            name: "title"
+            widget: "string"
+            required: false
+
+          - label: "Description"
+            name: "description"
+            widget: "text"
+            required: false
+
+          - label: "Image"
+            name: "image"
+            widget: "image"
+            required: false
+            hint: "Optional image displayed in the homepage modal."
+
+          - label: "CTA Button Text"
+            name: "button_text"
+            widget: "string"
+            required: false
+            default: "Learn More →"
+
+          - label: "CTA Button URL"
+            name: "button_url"
+            widget: "string"
+            required: false
+
+          - label: "Show Once Per Visitor"
+            name: "show_once"
+            widget: "boolean"
+            default: true
+            required: false
+            hint: "When enabled, the modal will normally appear only once per visitor."                
