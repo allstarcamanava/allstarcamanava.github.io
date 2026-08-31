@@ -36,22 +36,25 @@ Project RENEW Life did not just end with an afternoon of giving. It ended with a
 
 Together, we shine. 
 Together, we create lasting impact.
-✨✨✨𝙒𝙖𝙣𝙩 𝙩𝙤 𝙢𝙖𝙠𝙚 𝙖 𝙙𝙞𝙛𝙛𝙚𝙧𝙚𝙣𝙘𝙚 𝙞𝙣 𝙤𝙪𝙧 𝙘𝙤𝙢𝙢𝙪𝙣𝙞𝙩𝙮?LIKE and FOLLOW our page to stay connected with our journey and discover how Rotary transforms ideas into action, empowering communities and inspiring positive change.
+\
+✨✨✨\
+\
+𝙒𝙖𝙣𝙩 𝙩𝙤 𝙢𝙖𝙠𝙚 𝙖 𝙙𝙞𝙛𝙛𝙚𝙧𝙚𝙣𝙘𝙚 𝙞𝙣 𝙤𝙪𝙧 𝙘𝙤𝙢𝙢𝙪𝙣𝙞𝙩𝙮?LIKE and FOLLOW our page to stay connected with our journey and discover how Rotary transforms ideas into action, empowering communities and inspiring positive change.
 
 \#d3800createlastingimpact #rotaryeclubofallstarcamanava #rotaryecluballstarcamanava #Rotary #rotaryinternational #RotaryInAction #ServiceAboveSelf
 
-![](/assets/images/bulletins/pdl-5.jpg)
+![]()
 
-![](/assets/images/bulletins/pdl-6.jpg)
+![]()
 
-![](/assets/images/bulletins/pdl-9.jpg)
+![]()
 
-![](/assets/images/bulletins/pdl-10.jpg)
+![]()
 
-![](/assets/images/bulletins/pdl-11.jpg)
+![]()
 
-![](/assets/images/bulletins/pdl-13.jpg)
+![]()
 
-![](/assets/images/bulletins/pdl-15.jpg)
+![]()
 
-![](/assets/images/bulletins/pdl-16.jpg)
+![]()
