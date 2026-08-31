@@ -4,7 +4,7 @@ title: 💡 𝐏𝐑𝐎𝐉𝐄𝐂𝐓 𝐒𝐏𝐎𝐓𝐋𝐈𝐆𝐇𝐓 | 
   Jail through Project RENEW Life
 date: 2026-08-06
 categories: Service Projects
-image: /assets/images/bulletins/pdl-01.png
+image: /assets/images/bulletins/new-pdl-00.jpg
 ---
 Sometimes, the best stories are the ones that were never part of the original plan.
 
