@@ -1,0 +1,35 @@
+---
+layout: null
+---
+
+[
+{% assign first = true %}
+
+{% for post in site.posts %}
+  {% unless first %},{% endunless %}
+  {
+    "title": {{ post.title | jsonify }},
+    "url": {{ post.url | relative_url | jsonify }},
+    "content": {{ post.content | strip_html | normalize_whitespace | jsonify }},
+    "excerpt": {{ post.excerpt | strip_html | normalize_whitespace | jsonify }},
+    "type": "Bulletin",
+    "date": {{ post.date | date: "%B %d, %Y" | jsonify }}
+  }
+  {% assign first = false %}
+{% endfor %}
+
+{% for page in site.pages %}
+  {% if page.title and page.url != "/search/" %}
+    {% unless first %},{% endunless %}
+    {
+      "title": {{ page.title | jsonify }},
+      "url": {{ page.url | relative_url | jsonify }},
+      "content": {{ page.content | strip_html | normalize_whitespace | jsonify }},
+      "excerpt": {{ page.description | default: page.excerpt | strip_html | normalize_whitespace | jsonify }},
+      "type": "Page",
+      "date": ""
+    }
+    {% assign first = false %}
+  {% endif %}
+{% endfor %}
+]

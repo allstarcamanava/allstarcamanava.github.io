@@ -1,40 +1,61 @@
 <header class="site-nav">
   <div class="nav-inner">
+<a href="{{ '/' | relative_url }}" class="brand">
+  <span>
+    Rotary E-Club of All Star CAMANAVA
+    <small>Service Above Self</small>
+  </span>
+</a>
+<nav aria-label="Main navigation">
+  <ul class="nav-links" id="navLinks">
+    <li>
+      <a href="{{ '/' | relative_url }}">Home</a>
+    </li>
+    <li>
+      <a href="{{ '/about/' | relative_url }}">About</a>
+    </li>
+    <li>
+      <a href="{{ '/services/' | relative_url }}">Services</a>
+    </li>
+    <li>
+      <a href="{{ '/contact/' | relative_url }}">Contact</a>
+    </li>
+    <li>
+      <a
+        href="{{ '/search/' | relative_url }}"
+        class="nav-search"
+        aria-label="Search"
+      >
+        <span>Search</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="17"
+          height="17"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="20" y1="20" x2="16.65" y2="16.65"></line>
+        </svg>
+      </a>
+    </li>
 
-    <a href="{{ '/' | relative_url }}" class="brand">
-      <span>
-        Rotary E-Club of All Star CAMANAVA
-        <small>Service Above Self</small>
-      </span>
-    </a>
-
-    <nav aria-label="Main navigation">
-      <ul class="nav-links" id="navLinks">
-        <li>
-          <a href="{{ '/' | relative_url }}">Home</a>
-        </li>
-        <li>
-          <a href="{{ '/about/' | relative_url }}">About</a>
-        </li>
-        <li>
-          <a href="{{ '/services/' | relative_url }}">Services</a>
-        </li>
-        <li>
-          <a href="{{ '/contact/' | relative_url }}">Contact</a>
-        </li>
-      </ul>
-    </nav>
-
-    <button
-      class="nav-toggle"
-      id="navToggle"
-      type="button"
-      aria-label="Toggle navigation"
-      aria-expanded="false"
-      aria-controls="navLinks"
-    >
-      <span></span>
-    </button>
-
+  </ul>
+</nav>
+<button
+  class="nav-toggle"
+  id="navToggle"
+  type="button"
+  aria-label="Toggle navigation"
+  aria-expanded="false"
+  aria-controls="navLinks"
+>
+  <span></span>
+</button>
   </div>
 </header>

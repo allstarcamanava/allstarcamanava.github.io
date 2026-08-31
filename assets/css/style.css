@@ -272,6 +272,21 @@ img {
   transform: translateY(-7px) rotate(-45deg);
 }
 
+.nav-search {
+display: inline-flex !important;
+align-items: center !important;
+justify-content: center;
+gap: 5px;
+white-space: nowrap;
+}
+
+.nav-search svg {
+display: inline-block !important;
+width: 17px;
+height: 17px;
+flex: 0 0 17px;
+vertical-align: middle;
+}
 
 /* ============================================================
    PAGES / SECTIONS
@@ -2100,6 +2115,147 @@ footer {
   .flipbook-modal-close {
     top: 10px;
     right: 10px;
+  }
+
+}
+
+/* ============================================================
+   SITE SEARCH
+   ============================================================ */
+
+.search-page {
+  padding-top: 64px;
+}
+
+.search-page .block-head {
+  max-width: 720px;
+}
+
+.search-page .block-head h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.site-search {
+  max-width: 900px;
+}
+
+.site-search-form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.site-search-input {
+  flex: 1;
+  min-width: 0;
+  padding: 15px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  font-family: 'Work Sans', sans-serif;
+  font-size: 1rem;
+  outline: none;
+  box-shadow: var(--shadow);
+}
+
+.site-search-input:focus {
+  border-color: var(--tiffany-dark);
+  box-shadow:
+    0 0 0 3px rgba(0, 204, 204, .15),
+    var(--shadow);
+}
+
+.site-search-status {
+  color: #4C6C6E;
+  font-size: .9rem;
+  margin-bottom: 18px;
+}
+
+.site-search-results {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.site-search-result {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
+}
+
+.site-search-result:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+  border-color: var(--tiffany);
+}
+
+.site-search-result h3 {
+  margin: 0 0 6px;
+  font-size: 1.15rem;
+}
+
+.site-search-result h3 a:hover {
+  color: var(--tiffany-dark);
+}
+
+.site-search-result-meta {
+  font-size: .78rem;
+  color: var(--tiffany-dark);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.site-search-result p {
+  margin: 0;
+  color: #4C6C6E;
+  font-size: .92rem;
+  line-height: 1.6;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+/* ============================================================
+   SITE SEARCH — MOBILE
+   ============================================================ */
+
+@media (max-width: 640px) {
+
+  .search-page {
+    padding-top: 44px;
+  }
+
+  .site-search-form {
+    flex-direction: column;
+  }
+
+  .site-search-input {
+    width: 100%;
+  }
+
+  .site-search-form .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .site-search-result {
+    padding: 20px;
   }
 
 }
