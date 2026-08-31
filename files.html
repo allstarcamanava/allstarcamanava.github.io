@@ -62,6 +62,7 @@ permalink: /files/
                 </p>
               {% endif %}
 
+
               {% if bulletin.type == "pdf" and bulletin.pdf %}
 
                 <a
@@ -73,16 +74,17 @@ permalink: /files/
                   View PDF →
                 </a>
 
+
               {% elsif bulletin.type == "flipbook" and bulletin.flipbook_url %}
 
-                <a
-                  href="{{ bulletin.flipbook_url }}"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  type="button"
                   class="btn btn-solid"
+                  onclick="openFlipbookModal('{{ bulletin.flipbook_url | escape }}')"
                 >
                   Read Flipbook →
-                </a>
+                </button>
+
 
               {% elsif bulletin.pdf and bulletin.flipbook_url %}
 
@@ -95,14 +97,13 @@ permalink: /files/
                   View PDF →
                 </a>
 
-                <a
-                  href="{{ bulletin.flipbook_url }}"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  type="button"
                   class="btn btn-outline"
+                  onclick="openFlipbookModal('{{ bulletin.flipbook_url | escape }}')"
                 >
                   Read Flipbook →
-                </a>
+                </button>
 
               {% endif %}
 
@@ -130,3 +131,88 @@ permalink: /files/
 
   </div>
 </section>
+
+
+<!-- ============================================================
+     FLIPBOOK MODAL
+     ============================================================ -->
+
+<div
+  id="flipbook-modal"
+  class="flipbook-modal"
+  aria-hidden="true"
+>
+
+  <div
+    class="flipbook-modal-backdrop"
+    onclick="closeFlipbookModal()"
+  ></div>
+
+  <div class="flipbook-modal-content">
+
+    <button
+      type="button"
+      class="flipbook-modal-close"
+      onclick="closeFlipbookModal()"
+      aria-label="Close flipbook"
+    >
+      &times;
+    </button>
+
+    <iframe
+      id="flipbook-modal-iframe"
+      src=""
+      title="E-Bulletin Flipbook"
+      allowfullscreen
+      allow="autoplay; fullscreen; clipboard-write"
+    ></iframe>
+
+  </div>
+
+</div>
+
+
+<script>
+function openFlipbookModal(url) {
+
+  const modal = document.getElementById('flipbook-modal');
+  const iframe = document.getElementById('flipbook-modal-iframe');
+
+  iframe.src = url;
+
+  modal.classList.add('is-visible');
+  modal.setAttribute('aria-hidden', 'false');
+
+  document.body.style.overflow = 'hidden';
+}
+
+
+function closeFlipbookModal() {
+
+  const modal = document.getElementById('flipbook-modal');
+  const iframe = document.getElementById('flipbook-modal-iframe');
+
+  /*
+   * Remove the iframe source when closing.
+   * This stops the flipbook and any audio/video inside it.
+   */
+  iframe.src = '';
+
+  modal.classList.remove('is-visible');
+  modal.setAttribute('aria-hidden', 'true');
+
+  document.body.style.overflow = '';
+}
+
+
+/*
+ * Allow the Escape key to close the modal.
+ */
+document.addEventListener('keydown', function(event) {
+
+  if (event.key === 'Escape') {
+    closeFlipbookModal();
+  }
+
+});
+</script>
