@@ -20,23 +20,17 @@ The turnover was supposed to happen following another club project, Project BITU
 
 ![](/assets/images/bulletins/new-pdl-02.jpg)
 
-
-
 ![](/assets/images/bulletins/new-pdl-03.jpg)
 
 What started as a side quest became the main event. Led by High Impact President Dominic Benedict Santos-Viola Faustino, the club went to Malabon City Jail Female Dormitory, bringing hygiene kits and food to the beneficiaries, along with the promised tarpaulins. The sandwiches originally intended for the daycare children were distributed to the PDLs, while packed meals and dental kits were also provided through the generosity of sponsors. Among them were the Philippine Dental Association Malabon-Navotas Chapter, led by its Chapter President, Dr. Weeden F. Fofue, and the Philippine Malabon Cultural Institute, Inc.
 
 ![](/assets/images/bulletins/new-pdl-04.jpg)
 
-
-
 ![](/assets/images/bulletins/new-pdl-05.jpg)
 
 The outreach was made even more meaningful by the presence of Malabon City Vice Mayor Hon. Edward C. Nolasco, who shared an encouraging message with the PDLs. He reminded them that their present circumstances do not define who they are and that hope is never lost. As they continue to work toward becoming better versions of themselves, he encouraged them to remember that they are seen, valued, and not forgotten.
 
 ![](/assets/images/bulletins/new-pdl-07.jpg)
-
-
 
 ![](/assets/images/bulletins/new-pdl-06.jpg)
 
@@ -52,23 +46,13 @@ Project RENEW Life did not just end with an afternoon of giving. It ended with a
 
 ![](/assets/images/bulletins/new-pdl-09.jpg)
 
-
-
 ![](/assets/images/bulletins/new-pdl-10.jpg)
-
-
 
 ![](/assets/images/bulletins/new-pdl-11.jpg)
 
-
-
 ![](/assets/images/bulletins/new-pdl-12.jpg)
 
-
-
 ![](/assets/images/bulletins/new-pdl-13.jpg)
-
-
 
 ![](/assets/images/bulletins/new-pdl-14.jpg)
 
