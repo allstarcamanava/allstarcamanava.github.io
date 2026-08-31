@@ -4,7 +4,7 @@ title: 💡 𝐏𝐑𝐎𝐉𝐄𝐂𝐓 𝐒𝐏𝐎𝐓𝐋𝐈𝐆𝐇𝐓 | 
   Jail through Project RENEW Life
 date: 2026-08-06
 categories: Service Projects
-image: /assets/images/bulletins/pdl-1.jpg
+image: /assets/images/bulletins/pdl-01.png
 ---
 Sometimes, the best stories are the ones that were never part of the original plan. On August 6, 2026, the Rotary E-Club of All Star CAMANAVA (ReCASC) was set to conduct an outreach activity at a daycare center. But when classes were suspended due to inclement weather, the day's original plan had to change. 
 ![](/assets/images/bulletins/pdl-12.jpg)
