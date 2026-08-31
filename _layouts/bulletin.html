@@ -123,7 +123,8 @@
 
                 {% assign previous_bulletins = site.posts
                   | where_exp: "post", "post.url != page.url"
-                %}                
+                  | where_exp: "post", "post.layout != 'bulletin-full'"
+                %}            
 
                 {% for post in previous_bulletins limit:10 %}
 
