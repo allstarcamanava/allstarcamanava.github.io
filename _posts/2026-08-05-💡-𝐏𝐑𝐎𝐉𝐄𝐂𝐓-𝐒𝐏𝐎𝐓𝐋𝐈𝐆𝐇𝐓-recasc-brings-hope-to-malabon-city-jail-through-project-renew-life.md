@@ -4,7 +4,7 @@ title: 💡 𝐏𝐑𝐎𝐉𝐄𝐂𝐓 𝐒𝐏𝐎𝐓𝐋𝐈𝐆𝐇𝐓 | 
   Jail through Project RENEW Life
 date: 2026-08-06
 categories: Service Projects
-image: /assets/images/bulletins/poa_banners_digital_1200x900_en21.jpeg
+image: /assets/images/bulletins/new-pdl-00.jpg
 ---
 Sometimes, the best stories are the ones that were never part of the original plan.
 
@@ -14,7 +14,7 @@ On August 6, 2026, the Rotary E-Club of All Star CAMANAVA (ReCASC) conducted its
 
 The project, which means “Restoring Esteem; Nurturing Every Worthy Life,” began unexpectedly with a casual meeting between then Good President Maria Cristina C. Chua and Jail Senior Inspector and Acting City Jail Warden Nelia Gomez-Macaraeg. Following their meeting, Officer Macaraeg, through JO2 Eddie Louie M. Traqueña, sent a letter to the club requesting a donation of tarpaulins for the facility to protect the dormitory from the harsh effects of the rainy season. ReCASC responded to their request and promised to provide the needed help.
 
-![](/assets/images/bulletins/pdl-02.png)
+![](/assets/images/bulletins/hip-doms-message.jpg)
 
 The turnover was supposed to happen following another club project, Project BITUIN, at an adopted daycare center on August 6. Project BITUIN was supposed to be the main event on that day; however, due to the inclement weather, which compromised the safety of the project’s beneficiaries, the club decided to reschedule the project and push through with Project RENEW Life instead.
 
