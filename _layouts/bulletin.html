@@ -121,13 +121,9 @@
 
               <ul class="bulletin-archive-list">
 
-                {% assign bulletin_posts = site.posts
-                  | where_exp: "post", "post.categories contains 'Club Bulletin'"
-                %}
-
-                {% assign previous_bulletins = bulletin_posts
+                {% assign previous_bulletins = site.posts
                   | where_exp: "post", "post.url != page.url"
-                %}
+                %}                
 
                 {% for post in previous_bulletins limit:10 %}
 
