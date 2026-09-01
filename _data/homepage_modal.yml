@@ -2,3 +2,4 @@ enabled: true
 image: /assets/images/bulletins/adobe-express-hero_modal-1-1-.gif
 button_text: Register now
 button_url: https://docs.google.com/forms/d/e/1FAIpQLScIkYLPWpdkZsM7hvf39vkFiDjja_C3gFVtWg9QtWyT_cri3Q/viewform?usp=header
+cta_new_tab: true
