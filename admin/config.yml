@@ -488,6 +488,13 @@ collections:
             widget: "string"
             required: false
 
+          - label: "Open CTA in New Tab (optional)"
+            name: "cta_new_tab"
+            widget: "boolean"
+            required: false
+            default: false
+            hint: "When enabled, the CTA opens in a new browser tab."            
+
           - label: "Show Once Per Visitor"
             name: "show_once"
             widget: "boolean"
