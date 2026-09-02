@@ -1881,7 +1881,8 @@ footer {
 .homepage-modal-close {
   position: absolute;
   top: 14px;
-  right: 14px;
+  left: 10px; 
+  right: auto;
   z-index: 2;
   width: 42px;
   height: 42px;
