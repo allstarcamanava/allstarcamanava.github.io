@@ -59,9 +59,9 @@ Take this opportunity to learn, connect, and prepare for an unforgettable Rotary
 
 Register now for the Free Basic Spanish Class and get ready for Barcelona 2027!
 
-Organizer: Rotary E-Club of All Star CAMANAVA (RECASC)
-Course Provider: MGGT Language Tutorial Center
-Who Can Join: Rotarians and their spouses
-Tuition: Free
-Classes Commence: January 2027
-Learning Format: Hybrid — In-person and Zoom
+Organizer: Rotary E-Club of All Star CAMANAVA (RECASC)  
+Course Provider: MGGT Language Tutorial Center  
+Who Can Join: Rotarians and their spouses  
+Tuition: Free  
+Classes Commence: January 2027  
+Learning Format: Hybrid — In-person and Zoom  
