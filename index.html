@@ -38,38 +38,44 @@ permalink: /
       <div class="side-stack">
 
           <div class="stat-card">
-          {% assign featured_post = site.posts | where: "url", site.data.featured_post.url | first %}
-          {% if site.data.featured_post.enabled and featured_post %}
-            {% if site.data.featured_post.thumbnail %}
-              <a href="{{ featured_post.url | relative_url }}" class="featured-post-image">
-                <img
-                  src="{{ site.data.featured_post.thumbnail | relative_url }}"
-                  alt="{{ featured_post.title | escape }}"
-                >
-              </a>
-            {% endif %}
+            {% assign featured_post = site.posts | where: "url", site.data.featured_post.url | first %}
+            {% if site.data.featured_post.enabled and featured_post %}
+              {% if site.data.featured_post.thumbnail %}
+                <a href="{{ featured_post.url | relative_url }}" class="featured-post-image">
+                  <img
+                    src="{{ site.data.featured_post.thumbnail | relative_url }}"
+                    alt="{{ featured_post.title | escape }}"
+                  >
+                </a>
+              {% endif %}
+
               <div class="num">
-                {{ site.data.site.featured_post.number }}
+                {{ site.data.featured_post.number }}
               </div>
+
               <div class="lbl">
                 <a href="{{ featured_post.url | relative_url }}" class="featured-post-title">
-                  {{ site.data.site.featured_post.label | markdownify }}
+                  {{ site.data.featured_post.label | markdownify }}
                 </a>
               </div>
+
               <a href="{{ featured_post.url | relative_url }}" class="featured-post-link">
                 Read More
               </a>
-            {% else %}
-              <div class="num">
-                {{ site.data.site.featured_post.number }}
-              </div>
-              <div class="lbl">
-                {{ site.data.site.featured_post.label | markdownify }}
-              </div>
-            {% endif %}
-          </div>
 
-        <div class="card">
+            {% else %}
+
+              <div class="num">
+                {{ site.data.featured_post.number }}
+              </div>
+
+              <div class="lbl">
+                {{ site.data.featured_post.label | markdownify }}
+              </div>
+
+            {% endif %}
+
+          </div>          
 
         {% if site.data.featured_youtube.enabled %}
 
