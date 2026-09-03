@@ -53,7 +53,7 @@ Interested participants are encouraged to register early so RECASC can record th
 
 Learning Spanish is more than simply preparing for a trip to Barcelona. It is an opportunity to develop a skill that can stay with you long after the Convention ends.
 
-Learn Spanish and create a lasting impact in your everyday life — both in your career and in your social interactions.
+Learn Spanish and create a lasting impact in your everyday life, both in your career and in your social interactions.
 
 Take this opportunity to learn, connect, and prepare for an unforgettable Rotary experience in Barcelona while gaining a valuable skill you can continue to use wherever life takes you.
 
