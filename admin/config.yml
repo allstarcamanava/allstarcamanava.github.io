@@ -16,8 +16,8 @@ public_folder: "/assets/images/bulletins"
 
 collections:
   - name: "posts"
-    label: "Bulletins"
-    label_singular: "Bulletin"
+    label: "Posts"
+    label_singular: "Post"
     folder: "_posts/"
     create: true
     delete: true
