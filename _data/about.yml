@@ -50,3 +50,7 @@ history:
         Years of postings, trivia nights, and celebrations are preserved as a
         living record of the club's story.
 
+feature_cards:
+  - icon: ""
+    title: test feature card
+    description: test feature card
