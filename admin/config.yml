@@ -107,7 +107,7 @@ collections:
 
   - name: "site"
     label: "Site Settings"
-    description: "Manage the homepage hero section."
+    description: "Manage homepage content and other site settings."
     files:
       - name: "hero"
         label: "Hero Section"
@@ -178,35 +178,40 @@ collections:
             default: true
             required: false
             hint: "Displays the subtle rotating geometric decoration on the right side of the hero section. Turn off to hide the decoration."
-          - label: "Featured Post Card"
-            name: "featured_post"
-            widget: "object"
-            fields:
-              - label: "Enable Featured Post"
-                name: "enabled"
-                widget: "boolean"
-                default: false
 
-              - label: "Post URL"
-                name: "url"
-                widget: "string"
-                required: false
+      - name: "featured_post"
+        label: "Featured Post Card"
+        file: "_data/featured_post.yml"
+        fields:
 
-              - label: "Number"
-                name: "number"
-                widget: "string"
-                required: false
+          - label: "Enable Featured Post"
+            name: "enabled"
+            widget: "boolean"
+            default: false
+            required: false
 
-              - label: "Thumbnail"
-                name: "thumbnail"
-                widget: "image"
-                required: false
-                hint: "Optional. This image appears only in the Featured Post card on the homepage."
+          - label: "Post URL"
+            name: "url"
+            widget: "string"
+            required: false
+            hint: "Enter the URL of the bulletin or article to feature."
 
-              - label: "Label"
-                name: "label"
-                widget: "markdown"
-                required: false        
+          - label: "Number"
+            name: "number"
+            widget: "string"
+            required: false
+
+          - label: "Thumbnail"
+            name: "thumbnail"
+            widget: "image"
+            required: false
+            hint: "Optional. This image appears only in the Featured Post card on the homepage."
+
+          - label: "Label"
+            name: "label"
+            widget: "markdown"
+            required: false
+
       - name: "about"
         label: "About Page"
         file: "_data/about.yml"

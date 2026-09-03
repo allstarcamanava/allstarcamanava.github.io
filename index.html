@@ -38,12 +38,12 @@ permalink: /
       <div class="side-stack">
 
           <div class="stat-card">
-            {% assign featured_post = site.posts | where: "url", site.data.site.featured_post.url | first %}
-            {% if site.data.site.featured_post.enabled and featured_post %}
-            {% if site.data.site.featured_post.thumbnail %}
+          {% assign featured_post = site.posts | where: "url", site.data.featured_post.url | first %}
+          {% if site.data.featured_post.enabled and featured_post %}
+            {% if site.data.featured_post.thumbnail %}
               <a href="{{ featured_post.url | relative_url }}" class="featured-post-image">
                 <img
-                  src="{{ site.data.site.featured_post.thumbnail | relative_url }}"
+                  src="{{ site.data.featured_post.thumbnail | relative_url }}"
                   alt="{{ featured_post.title | escape }}"
                 >
               </a>
