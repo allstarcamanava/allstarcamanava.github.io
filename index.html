@@ -379,14 +379,46 @@ permalink: /
           </p>
         {% endif %}
 
-        {% if site.data.homepage_modal.button_url %}
-          <a
-            href="{{ site.data.homepage_modal.button_url | relative_url }}"
-            class="btn btn-solid"
-          >
-            {{ site.data.homepage_modal.button_text | default: "Learn More →" }}
-          </a>
-        {% endif %}
+        <div class="homepage-modal-buttons">
+
+          {% if site.data.homepage_modal.button_url %}
+            <a
+              href="{{ site.data.homepage_modal.button_url }}"
+              class="btn btn-solid"
+              {% if site.data.homepage_modal.cta_new_tab %}
+                target="_blank"
+                rel="noopener noreferrer"
+              {% endif %}
+            >
+              {{ site.data.homepage_modal.button_text | default: "Register now" }}
+            </a>
+          {% endif %}
+
+          {% if site.data.homepage_modal.learn_more_url %}
+            <a
+              href="{{ site.data.homepage_modal.learn_more_url }}"
+              class="btn btn-outline"
+              {% if site.data.homepage_modal.learn_more_new_tab %}
+                target="_blank"
+                rel="noopener noreferrer"
+              {% endif %}
+            >
+              Learn more
+            </a>
+          {% endif %}
+
+        </div>
+
+          {% if site.data.homepage_modal.learn_more_url %}
+            <a
+              href="{{ site.data.homepage_modal.learn_more_url }}"
+              class="btn btn-outline"
+            >
+              Learn more
+            </a>
+          {% endif %}
+
+        </div>
 
       </div>
 

@@ -1948,6 +1948,14 @@ footer {
   justify-content: center;
 }
 
+.homepage-modal-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
 /* ============================================================
    MOBILE
    ============================================================ */

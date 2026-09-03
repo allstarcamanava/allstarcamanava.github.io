@@ -477,23 +477,36 @@ collections:
             required: false
             hint: "Optional image displayed in the homepage modal."
 
-          - label: "CTA Button Text"
+          - label: "Register Button Text"
             name: "button_text"
             widget: "string"
             required: false
-            default: "Learn More →"
+            default: "Register now"
 
-          - label: "CTA Button URL"
+          - label: "Register Button URL"
             name: "button_url"
             widget: "string"
             required: false
 
-          - label: "Open CTA in New Tab (optional)"
+          - label: "Open Register Button in New Tab (optional)"
             name: "cta_new_tab"
             widget: "boolean"
             required: false
             default: false
-            hint: "When enabled, the CTA opens in a new browser tab."            
+            hint: "When enabled, the Register button opens in a new browser tab."
+
+          - label: "Learn More URL (optional)"
+            name: "learn_more_url"
+            widget: "string"
+            required: false
+            hint: "Enter the URL that should open when visitors click Learn more."
+
+          - label: "Open Learn More in New Tab (optional)"
+            name: "learn_more_new_tab"
+            widget: "boolean"
+            required: false
+            default: false
+            hint: "When enabled, the Learn more button opens in a new browser tab."         
 
           - label: "Show Once Per Visitor"
             name: "show_once"
