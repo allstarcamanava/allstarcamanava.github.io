@@ -196,10 +196,11 @@ collections:
             required: false
             hint: "Enter the URL of the bulletin or article to feature."
 
-          - label: "Number"
-            name: "number"
+          - label: "Featured Card Title"
+            name: "card_title"
             widget: "string"
             required: false
+            hint: "Enter the small title displayed at the top of the Featured Post card."
 
           - label: "Thumbnail"
             name: "thumbnail"
@@ -285,6 +286,7 @@ collections:
             required: false
             allow_add: true
             allow_delete: true
+            hint: "Add or edit the feature cards shown on the About page. Use these for key information about the club, its service, identity, or activities."
             fields:
 
               - label: "Icon"
