@@ -66,6 +66,8 @@ Tuition: Free
 Classes Commence: January 2027  
 Learning Format: Hybrid — In-person and Zoom  
 
+If you have any questions or need further information, please feel free to email us at recallstarcamanava@gmail.com.
+
 <div class="article-cta">
   <a
     href="https://docs.google.com/forms/d/e/1FAIpQLScIkYLPWpdkZsM7hvf39vkFiDjja_C3gFVtWg9QtWyT_cri3Q/viewform?usp=header"
