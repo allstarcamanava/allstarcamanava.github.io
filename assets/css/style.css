@@ -2273,3 +2273,18 @@ footer {
   }
 
 }
+
+
+/* ============================================================
+   DISQUS
+   ============================================================ */
+.comments-section {
+  max-width: 900px;
+  margin: 60px auto 0;
+  padding-top: 40px;
+  border-top: 1px solid var(--line);
+}
+
+.comments-section h2 {
+  margin-bottom: 30px;
+}

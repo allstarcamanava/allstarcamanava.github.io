@@ -62,6 +62,13 @@ collections:
         required: false
         hint: "Optional. Leave blank to use the default post URL."
 
+      - label: "Enable Comments"
+        name: "comments"
+        widget: "boolean"
+        default: true
+        required: false
+        hint: "Enable Disqus comments for this post."
+
       - label: "Featured Image"
         name: "image"
         widget: "image"

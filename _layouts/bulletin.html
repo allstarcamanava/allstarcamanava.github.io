@@ -104,6 +104,36 @@
               {{ content }}
             </div>            
 
+            {% if page.comments != false %}
+              <div class="comments-section">
+                <h2>Comments</h2>
+
+                <div id="disqus_thread"></div>
+
+                <script>
+                  var disqus_config = function () {
+                    this.page.url = "{{ page.url | absolute_url }}";
+                    this.page.identifier = "{{ page.id | default: page.url }}";
+                  };
+
+                  (function() {
+                    var d = document,
+                        s = d.createElement('script');
+
+                    s.src = 'https://allstarcamanava.disqus.com/embed.js';
+
+                    s.setAttribute('data-timestamp', +new Date());
+
+                    (d.head || d.body).appendChild(s);
+                  })();
+                </script>
+
+                <noscript>
+                  Please enable JavaScript to view the comments powered by Disqus.
+                </noscript>
+              </div>
+            {% endif %}
+
           </article>
 
 
