@@ -2500,7 +2500,8 @@ footer {
 }
 
 .partner-detail-card {
-  max-width: 900px;
+  width: 100%;
+  max-width: 1100px;
   margin: 0 auto;
   background: var(--paper);
   border: 1px solid var(--line);
@@ -2511,8 +2512,7 @@ footer {
 
 .partner-detail-logo {
   width: 100%;
-  min-height: 320px;
-  padding: 50px 60px;
+  padding: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2521,9 +2521,8 @@ footer {
 
 .partner-detail-logo img {
   display: block;
-  width: auto;
-  max-width: 520px;
-  max-height: 260px;
+  width: 100%;
+  max-width: 100%;
   height: auto;
   object-fit: contain;
 }
@@ -2566,11 +2565,6 @@ footer {
   color: var(--tiffany-dark);
 }
 
-
-/* =========================================
-   Partner Detail — Mobile
-   ========================================= */
-
 @media (max-width: 700px) {
 
   .partner-detail-section {
@@ -2578,13 +2572,13 @@ footer {
   }
 
   .partner-detail-logo {
-    min-height: 240px;
-    padding: 36px 30px;
+    padding: 20px;
   }
 
   .partner-detail-logo img {
-    max-width: 360px;
-    max-height: 200px;
+    width: 100%;
+    max-width: 100%;
+    max-height: none;
   }
 
   .partner-detail-content {
