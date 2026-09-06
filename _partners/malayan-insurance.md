@@ -1,12 +1,13 @@
 ---
 layout: partner
-title: MALAYAN INSURANCE
 partner_name: MALAYAN INSURANCE
+order: 30
 logo: /assets/images/partners/malayan-half-page-ad-1.png
-website: www.malayan.com
 roles:
   - Partner
+homepage: false
+title: MALAYAN INSURANCE
+website: www.malayan.com
 description: |
   Phone: (02) 8628-8628
-homepage: false
 ---
