@@ -527,4 +527,54 @@ collections:
             widget: "boolean"
             default: true
             required: false
-            hint: "When enabled, the modal will normally appear only once per visitor."                
+            hint: "When enabled, the modal will normally appear only once per visitor."       
+
+      - label: "Partners"
+        name: "partners"
+        file: "_data/partners.yml"
+        fields:
+          - label: "Partners"
+            name: "partners"
+            widget: "list"
+            label_singular: "Partner"
+            summary: "{{name}}"
+            fields:
+              - label: "Partner Name"
+                name: "name"
+                widget: "string"
+                hint: "Name of the partner organization or individual."
+
+              - label: "Logo"
+                name: "logo"
+                widget: "image"
+                required: false
+                hint: "Partner logo. Recommended: PNG or JPG with a transparent or clean background."
+
+              - label: "Website"
+                name: "website"
+                widget: "string"
+                required: false
+                hint: "Full website URL, including https://"
+
+              - label: "Roles"
+                name: "roles"
+                widget: "list"
+                label_singular: "Role"
+                default:
+                  - "Partner"
+                field:
+                  label: "Role"
+                  name: "role"
+                  widget: "string"
+
+              - label: "Description"
+                name: "description"
+                widget: "text"
+                required: false
+                hint: "Briefly describe the partner or the nature of the partnership."
+
+              - label: "Show on Homepage"
+                name: "homepage"
+                widget: "boolean"
+                default: false
+                hint: "Enable this to feature this partner on the homepage."                     

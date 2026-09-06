@@ -1,0 +1,8 @@
+partners:
+  - name: "Example Organization"
+    logo: ""
+    website: ""
+    roles:
+      - "Partner"
+    description: ""
+    homepage: true
