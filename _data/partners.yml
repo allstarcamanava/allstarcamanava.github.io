@@ -8,3 +8,10 @@ partners:
       Solar and Wind Power
       Contact: 0956 066 3749
       Email: eeactrading@gmail.com
+  - roles:
+      - Advertiser
+    homepage: false
+    name: MALAYAN INSURANCE
+    website: www.malayan.com
+    logo: /assets/images/bulletins/malayan-half-page-ad-1.png
+    description: "Phone:  (02) 8628-8628"
