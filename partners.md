@@ -60,6 +60,11 @@ permalink: /partners/
               {% assign partner_website = partner.website | strip %}
 
               {% if partner_website != "" %}
+
+                {% unless partner_website contains "://" %}
+                  {% assign partner_website = "https://" | append: partner_website %}
+                {% endunless %}
+
                 <a
                   href="{{ partner_website }}"
                   class="partner-link"
@@ -69,6 +74,7 @@ permalink: /partners/
                   Visit Website
                   <span aria-hidden="true">→</span>
                 </a>
+
               {% endif %}
 
             </div>
