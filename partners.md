@@ -25,7 +25,20 @@ permalink: /partners/
 
         {% for partner in site.data.partners.partners %}
 
-          <article class="partner-card">
+          {% assign partner_slug = partner.name
+            | downcase
+            | replace: " ", "-"
+            | replace: "&", "and"
+            | replace: "/", "-"
+            | replace: ".", ""
+            | replace: ",", ""
+            | replace: "'", ""
+          %}
+
+          <a
+            href="{{ '/partners/' | append: partner_slug | append: '/' | relative_url }}"
+            class="partner-card"
+          >
 
             {% if partner.logo and partner.logo != "" %}
               <div class="partner-logo">
@@ -57,29 +70,14 @@ permalink: /partners/
                 <p>{{ partner.description }}</p>
               {% endif %}
 
-              {% assign partner_website = partner.website | strip %}
-
-              {% if partner_website != "" %}
-
-                {% unless partner_website contains "://" %}
-                  {% assign partner_website = "https://" | append: partner_website %}
-                {% endunless %}
-
-                <a
-                  href="{{ partner_website }}"
-                  class="partner-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Visit Website
-                  <span aria-hidden="true">→</span>
-                </a>
-
-              {% endif %}
+              <span class="partner-link">
+                View Details
+                <span aria-hidden="true">→</span>
+              </span>
 
             </div>
 
-          </article>
+          </a>
 
         {% endfor %}
 

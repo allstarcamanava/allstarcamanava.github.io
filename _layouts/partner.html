@@ -1,0 +1,77 @@
+---
+layout: default
+---
+
+<section class="page-hero">
+  <div class="container">
+
+    {% if page.roles and page.roles.size > 0 %}
+      <div class="partner-roles">
+        {% for role in page.roles %}
+          {% if role and role != "" %}
+            <span class="partner-role">{{ role }}</span>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <h1>{{ page.partner_name }}</h1>
+
+  </div>
+</section>
+
+<section class="partner-detail-section">
+  <div class="container">
+
+    <article class="partner-detail-card">
+
+      {% if page.logo and page.logo != "" %}
+        <div class="partner-detail-logo">
+          <img
+            src="{{ page.logo | relative_url }}"
+            alt="{{ page.partner_name }}"
+          >
+        </div>
+      {% endif %}
+
+      <div class="partner-detail-content">
+
+        {% if page.description and page.description != "" %}
+          <div class="partner-description">
+            {{ page.description | newline_to_br }}
+          </div>
+        {% endif %}
+
+        {% assign partner_website = page.website | strip %}
+
+        {% if partner_website != "" %}
+
+          {% unless partner_website contains "://" %}
+            {% assign partner_website = "https://" | append: partner_website %}
+          {% endunless %}
+
+          <a
+            href="{{ partner_website }}"
+            class="partner-detail-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Visit Website
+            <span aria-hidden="true">→</span>
+          </a>
+
+        {% endif %}
+
+        <a
+          href="{{ '/partners/' | relative_url }}"
+          class="partner-back-link"
+        >
+          ← Back to Partners
+        </a>
+
+      </div>
+
+    </article>
+
+  </div>
+</section>
