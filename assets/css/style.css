@@ -2289,4 +2289,15 @@ footer {
   margin-bottom: 30px;
 }
 
+/* ============================================================
+
+   TAWK.TO — MOBILE CHAT BUBBLE
+
+   ============================================================ */
+
+@media (max-width: 768px) {
+  iframe[width="124px"][height="95px"] {
+    bottom: 80px !important;
+  }
+}
 
