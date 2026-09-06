@@ -19,24 +19,14 @@ permalink: /partners/
 <section class="partners-section">
   <div class="container">
 
-    {% if site.data.partners.partners and site.data.partners.partners.size > 0 %}
+    {% if site.partners and site.partners.size > 0 %}
 
       <div class="partners-grid">
 
-        {% for partner in site.data.partners.partners %}
-
-          {% assign partner_slug = partner.name
-            | downcase
-            | replace: " ", "-"
-            | replace: "&", "and"
-            | replace: "/", "-"
-            | replace: ".", ""
-            | replace: ",", ""
-            | replace: "'", ""
-          %}
+        {% for partner in site.partners %}
 
           <a
-            href="{{ '/partners/' | append: partner_slug | append: '/' | relative_url }}"
+            href="{{ partner.url | relative_url }}"
             class="partner-card"
           >
 
@@ -44,7 +34,7 @@ permalink: /partners/
               <div class="partner-logo">
                 <img
                   src="{{ partner.logo | relative_url }}"
-                  alt="{{ partner.name }}"
+                  alt="{{ partner.partner_name }}"
                   loading="lazy"
                 >
               </div>
@@ -52,8 +42,8 @@ permalink: /partners/
 
             <div class="partner-content">
 
-              {% if partner.name and partner.name != "" %}
-                <h2>{{ partner.name }}</h2>
+              {% if partner.partner_name and partner.partner_name != "" %}
+                <h2>{{ partner.partner_name }}</h2>
               {% endif %}
 
               {% if partner.roles and partner.roles.size > 0 %}

@@ -2,7 +2,7 @@
 layout: partner
 title: "EEAC CONSTRUCTION SUPPLIES TRADING"
 partner_name: "EEAC CONSTRUCTION SUPPLIES TRADING"
-logo: "/assets/images/partners/eeac.png"
+logo: "/assets/images/bulletins/eeac.png"
 website: ""
 roles:
   - "Advertiser"
