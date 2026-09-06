@@ -9,3 +9,11 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+
+collections:
+  bulletins:
+    output: true
+
+  partners:
+    output: true
+    permalink: /partners/:name/
