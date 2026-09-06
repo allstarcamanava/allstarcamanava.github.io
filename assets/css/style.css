@@ -2491,154 +2491,104 @@ footer {
 }
 
 
-/* ============================================================
-   INDIVIDUAL PARTNER PAGE
-   ============================================================ */
+/* =========================================
+   Partner Detail Page
+   ========================================= */
 
 .partner-detail-section {
-  padding: 80px 0 100px;
-  background: var(--paper);
+  padding: 64px 0 96px;
 }
 
 .partner-detail-card {
   max-width: 900px;
   margin: 0 auto;
-  overflow: hidden;
-  background: #fff;
+  background: var(--paper);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  overflow: hidden;
 }
 
 .partner-detail-logo {
+  width: 100%;
+  min-height: 320px;
+  padding: 50px 60px;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 300px;
-  padding: 50px;
   background: var(--paper-alt);
-  border-bottom: 1px solid var(--line);
 }
 
 .partner-detail-logo img {
   display: block;
-  max-width: 420px;
-  max-height: 280px;
   width: auto;
+  max-width: 520px;
+  max-height: 260px;
   height: auto;
   object-fit: contain;
 }
 
 .partner-detail-content {
-  padding: 45px;
-}
-
-.partner-detail-content .partner-roles {
-  margin-top: 0;
-  margin-bottom: 24px;
+  padding: 48px 60px 56px;
 }
 
 .partner-description {
-  font-size: 1.08rem;
+  font-size: 1.1rem;
   line-height: 1.8;
   color: var(--ink);
+  margin-bottom: 32px;
 }
 
 .partner-detail-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: 30px;
-  padding: 13px 20px;
-  border-radius: 999px;
-  background: var(--tiffany-dark);
-  color: #fff;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.partner-detail-link:hover {
-  background: var(--ink);
-  color: #fff;
-}
-
-.partner-back-link {
-  display: block;
-  margin-top: 30px;
+  margin-bottom: 28px;
   color: var(--tiffany-dark);
   font-weight: 700;
   text-decoration: none;
 }
 
-.partner-back-link:hover {
+.partner-detail-link:hover {
+  text-decoration: underline;
+}
+
+.partner-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.partner-back-link:hover {
+  color: var(--tiffany-dark);
 }
 
 
-/* ============================================================
-   PARTNERS — TABLET
-   ============================================================ */
+/* =========================================
+   Partner Detail — Mobile
+   ========================================= */
 
-@media (max-width: 900px) {
-
-  .partners-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-}
-
-
-/* ============================================================
-   PARTNERS — MOBILE
-   ============================================================ */
-
-@media (max-width: 640px) {
-
-  .page-hero {
-    padding: 60px 0 45px;
-  }
-
-  .page-intro {
-    font-size: 1rem;
-  }
-
-  .partners-section {
-    padding: 55px 0 70px;
-  }
-
-  .partners-grid {
-    grid-template-columns: 1fr;
-    gap: 22px;
-  }
-
-  .partner-logo {
-    min-height: 180px;
-  }
-
-  .partner-logo img {
-    height: 150px;
-  }
-
-  .partner-content {
-    padding: 24px;
-  }
+@media (max-width: 700px) {
 
   .partner-detail-section {
-    padding: 55px 0 70px;
+    padding: 40px 0 64px;
   }
 
   .partner-detail-logo {
-    min-height: 220px;
-    padding: 30px;
+    min-height: 240px;
+    padding: 36px 30px;
   }
 
   .partner-detail-logo img {
-    max-width: 280px;
+    max-width: 360px;
     max-height: 200px;
   }
 
   .partner-detail-content {
-    padding: 28px;
+    padding: 36px 28px 42px;
   }
 
 }
