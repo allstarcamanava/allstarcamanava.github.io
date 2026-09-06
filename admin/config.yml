@@ -529,52 +529,51 @@ collections:
             required: false
             hint: "When enabled, the modal will normally appear only once per visitor."       
 
-      - label: "Partners"
-        name: "partners"
-        file: "_data/partners.yml"
-        fields:
-          - label: "Partners"
-            name: "partners"
-            widget: "list"
-            label_singular: "Partner"
-            summary: "{{name}}"
-            fields:
-              - label: "Partner Name"
-                name: "name"
-                widget: "string"
-                hint: "Name of the partner organization or individual."
+  - name: "partners"
+    label: "Partners"
+    folder: "_partners/"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    fields:
+      - label: "Layout"
+        name: "layout"
+        widget: "hidden"
+        default: "partner"
 
-              - label: "Logo"
-                name: "logo"
-                widget: "image"
-                required: false
-                hint: "Partner logo. Recommended: PNG or JPG with a transparent or clean background."
+      - label: "Partner Name"
+        name: "partner_name"
+        widget: "string"
 
-              - label: "Website"
-                name: "website"
-                widget: "string"
-                required: false
-                hint: "Full website URL, including https://"
+      - label: "Logo"
+        name: "logo"
+        widget: "image"
+        required: false
+        media_folder: "/assets/images/partners"
+        public_folder: "/assets/images/partners"
 
-              - label: "Roles"
-                name: "roles"
-                widget: "list"
-                label_singular: "Role"
-                default:
-                  - "Partner"
-                field:
-                  label: "Role"
-                  name: "role"
-                  widget: "string"
+      - label: "Website"
+        name: "website"
+        widget: "string"
+        required: false
 
-              - label: "Description"
-                name: "description"
-                widget: "text"
-                required: false
-                hint: "Briefly describe the partner or the nature of the partnership."
+      - label: "Roles"
+        name: "roles"
+        widget: "list"
+        label_singular: "Role"
+        default:
+          - "Partner"
+        field:
+          label: "Role"
+          name: "role"
+          widget: "string"
 
-              - label: "Show on Homepage"
-                name: "homepage"
-                widget: "boolean"
-                default: false
-                hint: "Enable this to feature this partner on the homepage."                     
+      - label: "Description"
+        name: "description"
+        widget: "text"
+        required: false
+
+      - label: "Show on Homepage"
+        name: "homepage"
+        widget: "boolean"
+        default: false      
