@@ -27,7 +27,7 @@ permalink: /partners/
 
           <article class="partner-card">
 
-            {% unless partner.logo == blank %}
+            {% if partner.logo and partner.logo != "" %}
               <div class="partner-logo">
                 <img
                   src="{{ partner.logo | relative_url }}"
@@ -35,31 +35,33 @@ permalink: /partners/
                   loading="lazy"
                 >
               </div>
-            {% endunless %}
+            {% endif %}
 
             <div class="partner-content">
 
-              {% unless partner.name == blank %}
+              {% if partner.name and partner.name != "" %}
                 <h2>{{ partner.name }}</h2>
-              {% endunless %}
+              {% endif %}
 
-              {% unless partner.roles == blank %}
+              {% if partner.roles and partner.roles.size > 0 %}
                 <div class="partner-roles">
                   {% for role in partner.roles %}
-                    {% unless role == blank %}
+                    {% if role and role != "" %}
                       <span class="partner-role">{{ role }}</span>
-                    {% endunless %}
+                    {% endif %}
                   {% endfor %}
                 </div>
-              {% endunless %}
+              {% endif %}
 
-              {% unless partner.description == blank %}
+              {% if partner.description and partner.description != "" %}
                 <p>{{ partner.description }}</p>
-              {% endunless %}
+              {% endif %}
 
-              {% unless partner.website == blank %}
+              {% assign partner_website = partner.website | strip %}
+
+              {% if partner_website != "" %}
                 <a
-                  href="{{ partner.website }}"
+                  href="{{ partner_website }}"
                   class="partner-link"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -67,7 +69,7 @@ permalink: /partners/
                   Visit Website
                   <span aria-hidden="true">→</span>
                 </a>
-              {% endunless %}
+              {% endif %}
 
             </div>
 
