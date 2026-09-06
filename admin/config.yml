@@ -78,7 +78,7 @@ collections:
         name: "post_image"
         widget: "image"
         required: false
-        hint: "Optional. This image appears only inside the individual bulletin page."        
+        hint: "Optional. This image appears only inside the individual bulletin page."
 
       - label: "Image Alt Text"
         name: "image_alt"
@@ -171,14 +171,14 @@ collections:
             name: "hero_secondary_link"
             widget: "string"
             required: false
-            
+
           - label: "Green Gradient Overlay"
             name: "hero_overlay"
             widget: "boolean"
             default: true
             required: false
             hint: "Adds the green/turquoise gradient overlay over the hero image. Turn off to display the hero image without the color overlay."
-            
+
           - label: "Rotating Decorative Shape"
             name: "hero_decoration"
             widget: "boolean"
@@ -242,7 +242,7 @@ collections:
           - label: "Quote"
             name: "quote"
             widget: "markdown"
-            required: false                  
+            required: false
 
           - label: "Club History"
             name: "history"
@@ -310,21 +310,21 @@ collections:
               - label: "Description"
                 name: "description"
                 widget: "markdown"
-                required: false       
+                required: false
 
       - name: "services"
         label: "Services Page"
         file: "_data/services.yml"
-        fields:        
+        fields:
           - label: "Eyebrow"
             name: "eyebrow"
             widget: "string"
-            required: false       
+            required: false
 
           - label: "Title"
             name: "title"
             widget: "markdown"
-            required: false                                
+            required: false
 
           - label: "Introduction"
             name: "intro"
@@ -351,13 +351,13 @@ collections:
               - label: "Description"
                 name: "description"
                 widget: "markdown"
-                required: false       
+                required: false
 
               - label: "Post URL"
                 name: "url"
                 widget: "string"
                 required: false
-                hint: "Optional. Enter the page URL this service card should open."                     
+                hint: "Optional. Enter the page URL this service card should open."
 
       - name: "featured_youtube"
         label: "Featured YouTube Video"
@@ -396,8 +396,8 @@ collections:
             name: "button_text"
             widget: "string"
             default: "Watch on YouTube →"
-            required: false   
-                         
+            required: false
+
       - name: "e_bulletins"
         label: "E-Bulletin Files"
         file: "_data/e_bulletins.yml"
@@ -456,8 +456,8 @@ collections:
               - label: "Description"
                 name: "description"
                 widget: "text"
-                required: false  
-                          
+                required: false
+
       - name: "homepage_modal"
         label: "Homepage Modal"
         file: "_data/homepage_modal.yml"
@@ -507,7 +507,7 @@ collections:
             widget: "boolean"
             required: false
             default: false
-            hint: "When enabled, the Register button opens in a new browser tab."
+            hint: "When enabled, the Register button opens the Register button in a new browser tab."
 
           - label: "Learn More URL (optional)"
             name: "learn_more_url"
@@ -520,14 +520,14 @@ collections:
             widget: "boolean"
             required: false
             default: false
-            hint: "When enabled, the Learn more button opens in a new browser tab."         
+            hint: "When enabled, the Learn more button opens in a new browser tab."
 
           - label: "Show Once Per Visitor"
             name: "show_once"
             widget: "boolean"
             default: true
             required: false
-            hint: "When enabled, the modal will normally appear only once per visitor."       
+            hint: "When enabled, the modal will normally appear only once per visitor."
 
   - name: "partners"
     label: "Partners"
@@ -536,6 +536,7 @@ collections:
     delete: true
     slug: "{{slug}}"
     fields:
+
       - label: "Layout"
         name: "layout"
         widget: "hidden"
@@ -544,6 +545,16 @@ collections:
       - label: "Partner Name"
         name: "partner_name"
         widget: "string"
+
+      - label: "Display Order"
+        name: "order"
+        widget: "number"
+        value_type: "int"
+        required: false      
+        default: 1
+        min: 1
+        step: 1
+        hint: "Optional. Lower numbers appear first. Using 10, 20, 30, 40... makes it easier to insert partners between existing partners."
 
       - label: "Logo"
         name: "logo"
@@ -576,4 +587,4 @@ collections:
       - label: "Show on Homepage"
         name: "homepage"
         widget: "boolean"
-        default: false      
+        default: false

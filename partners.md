@@ -21,9 +21,11 @@ permalink: /partners/
 
     {% if site.partners and site.partners.size > 0 %}
 
+      {% assign sorted_partners = site.partners | sort: "order" %}
+
       <div class="partners-grid">
 
-        {% for partner in site.partners %}
+        {% for partner in sorted_partners %}
 
           <a
             href="{{ partner.url | relative_url }}"
