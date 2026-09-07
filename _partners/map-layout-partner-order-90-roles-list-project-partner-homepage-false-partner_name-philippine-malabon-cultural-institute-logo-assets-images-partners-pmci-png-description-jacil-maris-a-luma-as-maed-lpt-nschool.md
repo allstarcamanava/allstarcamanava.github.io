@@ -1,7 +1,7 @@
 ---
 layout: partner
 partner_name: PHILIPPINE MALABON CULTURAL INSTITUTE
-order: 90
+order: 100
 logo: /assets/images/partners/pmci.png
 roles:
   - Project partner
