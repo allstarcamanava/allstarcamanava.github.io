@@ -1,7 +1,7 @@
 ---
 layout: partner
 partner_name: MGGT LANGUAGE TUTORIAL CENTER
-order: 1
+order: 90
 logo: /assets/images/partners/mggt-language-tutorial-center.jpg
 roles:
   - Project partner
