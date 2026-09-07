@@ -107,7 +107,6 @@ img {
   }
 }
 
-
 @media (prefers-reduced-motion: reduce) {
   .gear {
     animation: none;
@@ -273,20 +272,21 @@ img {
 }
 
 .nav-search {
-display: inline-flex !important;
-align-items: center !important;
-justify-content: center;
-gap: 5px;
-white-space: nowrap;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center;
+  gap: 5px;
+  white-space: nowrap;
 }
 
 .nav-search svg {
-display: inline-block !important;
-width: 17px;
-height: 17px;
-flex: 0 0 17px;
-vertical-align: middle;
+  display: inline-block !important;
+  width: 17px;
+  height: 17px;
+  flex: 0 0 17px;
+  vertical-align: middle;
 }
+
 
 /* ============================================================
    PAGES / SECTIONS
@@ -345,6 +345,7 @@ vertical-align: middle;
   }
 }
 
+
 /* ============================================================
    HERO DECORATION
    ============================================================ */
@@ -360,10 +361,12 @@ vertical-align: middle;
   pointer-events: none;
   z-index: 0;
 }
+
 @keyframes heroMoveUp {
   from {
     transform: translateY(-50%);
   }
+
   to {
     transform: translateY(calc(-50% - 100px));
   }
@@ -701,6 +704,7 @@ section.block.tight {
   flex: 0 0 auto;
 }
 
+
 /* ============================================================
    FEATURED YOUTUBE
    ============================================================ */
@@ -788,6 +792,7 @@ section.block.tight {
   object-fit: cover;
 }
 
+
 /* ============================================================
    FEATURE / VALUE GRID
    ============================================================ */
@@ -835,6 +840,7 @@ section.block.tight {
   color: #4C6C6E;
   margin: 0;
 }
+
 
 /* ============================================================
    YOUTUBE LIGHTBOX
@@ -929,7 +935,6 @@ body.youtube-lightbox-open {
 }
 
 @media (max-width: 720px) {
-
   .youtube-lightbox {
     padding: 16px;
   }
@@ -937,7 +942,6 @@ body.youtube-lightbox-open {
   .youtube-lightbox-close {
     top: -48px;
   }
-
 }
 
 
@@ -1068,6 +1072,9 @@ body.youtube-lightbox-open {
     transform .3s ease,
     box-shadow .3s ease,
     border-color .3s ease;
+  color: inherit;
+  text-decoration: none;
+  display: block;
 }
 
 .service-card-link {
@@ -1088,14 +1095,6 @@ body.youtube-lightbox-open {
   transform: translateY(-6px);
   box-shadow: 0 20px 40px -16px rgba(0,80,80,.32);
   border-color: var(--tiffany);
-}
-
-.service-card {
-  color: inherit;
-  text-decoration: none;
-  display: block;
-}
-.service-card:hover {
   color: inherit;
 }
 
@@ -1410,6 +1409,7 @@ footer {
   }
 }
 
+
 /* ============================================================
    BULLETIN PAGE
    ============================================================ */
@@ -1486,6 +1486,7 @@ footer {
   margin: 24px 0;
 }
 
+
 /* ============================================================
    INDIVIDUAL BULLETIN PAGE
    ============================================================ */
@@ -1513,6 +1514,7 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
 
 /* ============================================================
    BULLETIN SIDEBAR
@@ -1608,9 +1610,7 @@ footer {
   .bulletin-main {
     padding: 30px;
   }
-
 }
-
 
 @media (max-width: 480px) {
 
@@ -1621,10 +1621,12 @@ footer {
   .bulletin-title {
     font-size: 2rem;
   }
-
 }
 
-/* About page */
+
+/* ============================================================
+   ABOUT PAGE
+   ============================================================ */
 
 .about-section {
   padding-top: 120px;
@@ -1648,11 +1650,15 @@ footer {
   color: #3B5B5D;
 }
 
-/* Contact page */
+
+/* ============================================================
+   CONTACT PAGE
+   ============================================================ */
 
 .contact-section {
   padding-top: 120px;
 }
+
 
 /* ============================================================
    BULLETIN ARCHIVE PAGE
@@ -1764,8 +1770,8 @@ footer {
   .bulletin-archive-grid {
     grid-template-columns: 1fr;
   }
-
 }
+
 
 /* ============================================================
    FULL-WIDTH BULLETIN PAGE
@@ -1809,6 +1815,7 @@ footer {
   }
 }
 
+
 /* ============================================================
    BULLETIN CUSTOM EMBED
    ============================================================ */
@@ -1825,6 +1832,7 @@ footer {
 .bulletin-custom-embed object {
   max-width: 100%;
 }
+
 
 /* ============================================================
    HOMEPAGE ANNOUNCEMENT MODAL
@@ -1881,7 +1889,7 @@ footer {
 .homepage-modal-close {
   position: absolute;
   top: 14px;
-  left: 10px; 
+  left: 10px;
   right: auto;
   z-index: 2;
   width: 42px;
@@ -1956,8 +1964,9 @@ footer {
   flex-wrap: wrap;
 }
 
+
 /* ============================================================
-   MOBILE
+   HOMEPAGE MODAL — MOBILE
    ============================================================ */
 
 @media (max-width: 640px) {
@@ -1979,25 +1988,25 @@ footer {
     height: 40px;
   }
 
-.homepage-modal-image {
-  width: 100%;
-  overflow: hidden;
-  text-align: center;
-}
+  .homepage-modal-image {
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+  }
 
-.homepage-modal-image img {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: none;
-  object-fit: contain;
-}
+  .homepage-modal-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+  }
 
   .homepage-modal-body {
     padding: 28px 24px 30px;
   }
-
 }
+
 
 /* ============================================================
    E-BULLETIN FLIPBOOK MODAL
@@ -2111,7 +2120,7 @@ footer {
 
 
 /* ============================================================
-   MOBILE
+   E-BULLETIN FLIPBOOK MODAL — MOBILE
    ============================================================ */
 
 @media (max-width: 640px) {
@@ -2130,8 +2139,8 @@ footer {
     top: 10px;
     right: 10px;
   }
-
 }
+
 
 /* ============================================================
    SITE SEARCH
@@ -2271,13 +2280,13 @@ footer {
   .site-search-result {
     padding: 20px;
   }
-
 }
 
 
 /* ============================================================
    DISQUS
    ============================================================ */
+
 .comments-section {
   max-width: 900px;
   margin: 60px auto 0;
@@ -2289,10 +2298,9 @@ footer {
   margin-bottom: 30px;
 }
 
+
 /* ============================================================
-
    TAWK.TO — MOBILE CHAT BUBBLE
-
    ============================================================ */
 
 @media (max-width: 768px) {
@@ -2300,6 +2308,7 @@ footer {
     bottom: 80px !important;
   }
 }
+
 
 /* ============================================================
    PARTNERS PAGE
@@ -2440,6 +2449,8 @@ footer {
   margin: 18px 0 0;
   line-height: 1.7;
   color: #4C6C6E;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .partner-link {
@@ -2491,9 +2502,9 @@ footer {
 }
 
 
-/* =========================================
-   Partner Detail Page
-   ========================================= */
+/* ============================================================
+   PARTNER DETAIL PAGE
+   ============================================================ */
 
 .partner-detail-section {
   padding: 64px 0 96px;
@@ -2565,8 +2576,13 @@ footer {
   color: var(--tiffany-dark);
 }
 
-/* MOBILE */
+
+/* ============================================================
+   PARTNERS — MOBILE
+   ============================================================ */
+
 @media (max-width: 640px) {
+
   .page-hero {
     padding: 60px 0 45px;
   }
