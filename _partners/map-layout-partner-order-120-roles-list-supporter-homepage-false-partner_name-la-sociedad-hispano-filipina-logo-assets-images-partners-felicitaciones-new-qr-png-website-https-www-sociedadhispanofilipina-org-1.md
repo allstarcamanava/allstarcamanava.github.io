@@ -10,5 +10,6 @@ description: |-
   La Sociedad Hispano-Filipina
   Facebook page: https://www.facebook.com/sociedadhf
   Email: sociedadhispanofilipina@gmail.com
+  YouTube: https://www.youtube.com/@sociedadhispano-filipina7270
 homepage: false
 ---
