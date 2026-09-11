@@ -1,3 +1,4 @@
+// Protect the Members area with Cloudflare Pages middleware
 export async function onRequest(context) {
   const url = new URL(context.request.url);
 
