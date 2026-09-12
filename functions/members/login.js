@@ -243,7 +243,7 @@ function showLoginPage(url, error = "") {
     </form>
 
     <div class="footer">
-      Authorized members only
+      Authorized members only.
     </div>
   </main>
 </body>
