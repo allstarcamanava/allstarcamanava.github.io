@@ -1,5 +1,9 @@
 export async function onRequest(context) {
   const { request, env } = context;
+
+    console.log("MEMBER_USERNAME available:", !!env.MEMBER_USERNAME);
+    console.log("MEMBER_USERNAME length:", env.MEMBER_USERNAME?.length ?? 0);
+
   const url = new URL(request.url);
 
   if (request.method === "GET") {
