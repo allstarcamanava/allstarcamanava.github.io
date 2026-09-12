@@ -30,15 +30,19 @@ export async function onRequest(context) {
     );
   }
 
-  if (
-    username !== env.MEMBER_USERNAME ||
-    password !== env.MEMBER_PASSWORD
-  ) {
-    return showLoginPage(
-      url,
-      "Incorrect username or password."
-    );
-  }
+if (username !== env.MEMBER_USERNAME) {
+  return showLoginPage(
+    url,
+    "Diagnostic: username does not match the deployed MEMBER_USERNAME secret."
+  );
+}
+
+if (password !== env.MEMBER_PASSWORD) {
+  return showLoginPage(
+    url,
+    "Diagnostic: username matches, but password does not match."
+  );
+}
 
   const next = getSafeNext(url.searchParams.get("next"));
 
