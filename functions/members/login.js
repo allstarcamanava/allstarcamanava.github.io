@@ -30,10 +30,17 @@ export async function onRequest(context) {
     );
   }
 
+if (!env.MEMBER_USERNAME) {
+  return showLoginPage(
+    url,
+    "Diagnostic: MEMBER_USERNAME secret is not available to the Function."
+  );
+}
+
 if (username !== env.MEMBER_USERNAME) {
   return showLoginPage(
     url,
-    "Diagnostic: username does not match the deployed MEMBER_USERNAME secret."
+    "Diagnostic: MEMBER_USERNAME exists, but its value does not match."
   );
 }
 
