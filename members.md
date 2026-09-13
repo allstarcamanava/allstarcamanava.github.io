@@ -8,4 +8,10 @@ permalink: /members/
 
 <p>Welcome to the Rotary E-Club of All Star CAMANAVA members area.</p>
 
+<p>
+  <a href="/members/google/login">
+    Connect Google Drive
+  </a>
+</p>
+
 <!-- Members-only content goes here -->
