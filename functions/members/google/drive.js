@@ -82,76 +82,117 @@ export async function onRequest(context) {
 
   /*
    * ========================================
-   * Determine Accessible Member Folders
+   * Identify Member From Google Account
    *
-   * The user's Google access token is tested
-   * against every configured folder.
+   * The authenticated Google email is stored
+   * inside the signed member_session created
+   * by callback.js.
    *
-   * Multiple accessible folders are allowed
-   * when they belong to the same member.
+   * GOOGLE_MEMBER_MAP privately maps:
+   *
+   *   Google email → Member ID
+   *
+   * Folder IDs are authorization assignments,
+   * not member identities.
+   *
+   * Therefore, the same Drive folder may
+   * legitimately be assigned to multiple members.
    * ========================================
    */
 
-  const accessibleMembers = [];
+  const memberSession =
+    getCookie(
+      request,
+      "member_session"
+    );
 
-  for (const member of activeMembers) {
-    const accessibleFolders = [];
+  const session =
+    await verifyMemberSession(
+      memberSession,
+      env
+    );
 
-    for (const configuredFolder of member.folders) {
-      if (
-        !configuredFolder ||
-        !configuredFolder.id
-      ) {
-        continue;
-      }
-
-      const folderResult =
-        await getDriveFile(
-          configuredFolder.id,
-          accessToken
-        );
-
-      if (
-        folderResult.ok &&
-        folderResult.file &&
-        folderResult.file.mimeType ===
-          "application/vnd.google-apps.folder"
-      ) {
-        accessibleFolders.push({
-          configured: configuredFolder,
-          folder: folderResult.file,
-        });
-      }
-    }
-
-    if (accessibleFolders.length) {
-      accessibleMembers.push({
-        member,
-        folders: accessibleFolders,
-      });
-    }
-  }
-
-  /*
-   * ========================================
-   * No Accessible Member Folders
-   * ========================================
-   */
-
-  if (!accessibleMembers.length) {
+  if (!session || !session.google_email) {
     return htmlResponse(
-      "Drive Access Not Found",
+      "Member Session Invalid",
       `
-        <h1>Google Drive</h1>
+        <h1>Member Session Invalid</h1>
 
         <p>
-          Your Google account does not currently have access
-          to a member Drive folder.
+          Your member session could not be verified.
         </p>
 
         <p>
-          Please make sure the Google account you used to sign in
-          has been granted access to your assigned folder.
+          <a
+            class="button"
+            href="/members/google/login"
+          >
+            Sign in with Google
+          </a>
+        </p>
+      `,
+      401
+    );
+  }
+
+  const googleEmail =
+    session.google_email
+      .trim()
+      .toLowerCase();
+
+  const memberMap =
+    parseGoogleMemberMap(
+      env.GOOGLE_MEMBER_MAP
+    );
+
+  const memberId =
+    memberMap[googleEmail];
+
+  if (!memberId) {
+    return htmlResponse(
+      "Member Assignment Not Found",
+      `
+        <h1>Member Assignment Not Found</h1>
+
+        <p>
+          Your Google account is authorized, but it has
+          not been assigned to a member profile yet.
+        </p>
+
+        <p>
+          Please contact the club administrator.
+        </p>
+
+        <p>
+          <a href="/members/">
+            Back to Members Area
+          </a>
+        </p>
+      `,
+      403
+    );
+  }
+
+  const assignedMember =
+    activeMembers.find(
+      (member) =>
+        String(member.id) ===
+        String(memberId)
+    );
+
+  if (!assignedMember) {
+    return htmlResponse(
+      "Member Configuration Not Found",
+      `
+        <h1>Member Configuration Not Found</h1>
+
+        <p>
+          Your member account could not be matched
+          to an active member configuration.
+        </p>
+
+        <p>
+          Please contact the club administrator.
         </p>
 
         <p>
@@ -166,39 +207,72 @@ export async function onRequest(context) {
 
   /*
    * ========================================
-   * Prevent Cross-Member Access
+   * Verify Drive Access
    *
-   * A Google account may have multiple folders,
-   * but all accessible configured folders must
-   * belong to the same member.
+   * Only folders assigned to this specific
+   * member are considered.
+   *
+   * A shared folder may appear under multiple
+   * members without creating a conflict.
    * ========================================
    */
 
-  if (accessibleMembers.length > 1) {
+  const assignedFolders = [];
+
+  for (
+    const configuredFolder of assignedMember.folders
+  ) {
+    if (
+      !configuredFolder ||
+      !configuredFolder.id
+    ) {
+      continue;
+    }
+
+    const folderResult =
+      await getDriveFile(
+        configuredFolder.id,
+        accessToken
+      );
+
+    if (
+      folderResult.ok &&
+      folderResult.file &&
+      folderResult.file.mimeType ===
+        "application/vnd.google-apps.folder"
+    ) {
+      assignedFolders.push({
+        configured: configuredFolder,
+        folder: folderResult.file,
+      });
+    }
+  }
+
+  if (!assignedFolders.length) {
     return htmlResponse(
-      "Multiple Member Assignments Found",
+      "Drive Access Not Found",
       `
-        <h1>Google Drive</h1>
+        <h1>Drive Access Not Found</h1>
 
         <p>
-          Your Google account currently has access to
-          folders assigned to more than one member.
+          Your Google account does not currently have
+          access to any of your assigned member folders.
         </p>
 
         <p>
-          Please contact the club administrator so the
-          member Drive assignments can be checked.
+          Please make sure your Google account has been
+          granted access to your assigned folders.
+        </p>
+
+        <p>
+          <a href="/members/">
+            Back to Members Area
+          </a>
         </p>
       `,
       403
     );
   }
-
-  const assignedMember =
-    accessibleMembers[0].member;
-
-  const assignedFolders =
-    accessibleMembers[0].folders;
 
   const assignedRootFolderIds =
     assignedFolders.map(
@@ -1159,6 +1233,250 @@ function getCookie(
   }
 
   return null;
+}
+
+/*
+ * ========================================
+ * Verify Member Session
+ *
+ * The session is created and signed by
+ * members/google/callback.js.
+ * ========================================
+ */
+
+async function verifyMemberSession(
+  sessionCookie,
+  env
+) {
+  if (
+    !sessionCookie ||
+    !env.MEMBER_PASSWORD
+  ) {
+    return null;
+  }
+
+  const parts =
+    sessionCookie.split(".");
+
+  if (parts.length !== 2) {
+    return null;
+  }
+
+  const [
+    payload,
+    signature,
+  ] = parts;
+
+  const valid =
+    await verifySignature(
+      payload,
+      signature,
+      env.MEMBER_PASSWORD
+    );
+
+  if (!valid) {
+    return null;
+  }
+
+  try {
+    const decoded =
+      new TextDecoder().decode(
+        base64UrlDecode(
+          payload
+        )
+      );
+
+    const session =
+      JSON.parse(decoded);
+
+    if (
+      !session ||
+      !session.exp ||
+      Date.now() >=
+        Number(session.exp)
+    ) {
+      return null;
+    }
+
+    if (
+      session.username !==
+      env.MEMBER_USERNAME
+    ) {
+      return null;
+    }
+
+    return session;
+  } catch {
+    return null;
+  }
+}
+
+/*
+ * ========================================
+ * Parse Private Google Member Map
+ *
+ * Format:
+ *
+ * email@example.com=member-id
+ *
+ * Multiple entries may be separated
+ * by commas.
+ * ========================================
+ */
+
+function parseGoogleMemberMap(
+  value
+) {
+  const map = {};
+
+  if (
+    typeof value !== "string" ||
+    !value.trim()
+  ) {
+    return map;
+  }
+
+  for (
+    const line of value.split(",")
+  ) {
+    const separator =
+      line.indexOf("=");
+
+    if (separator === -1) {
+      continue;
+    }
+
+    const email =
+      line
+        .slice(
+          0,
+          separator
+        )
+        .trim()
+        .toLowerCase();
+
+    const memberId =
+      line
+        .slice(
+          separator + 1
+        )
+        .trim();
+
+    if (
+      email &&
+      memberId
+    ) {
+      map[email] =
+        memberId;
+    }
+  }
+
+  return map;
+}
+
+/*
+ * ========================================
+ * Verify HMAC Signature
+ * ========================================
+ */
+
+async function verifySignature(
+  value,
+  signature,
+  secret
+) {
+  if (
+    !value ||
+    !signature ||
+    !secret
+  ) {
+    return false;
+  }
+
+  try {
+    const key =
+      await crypto.subtle.importKey(
+        "raw",
+        new TextEncoder().encode(
+          secret
+        ),
+        {
+          name: "HMAC",
+          hash: "SHA-256",
+        },
+        false,
+        [
+          "verify",
+        ]
+      );
+
+    return await crypto.subtle.verify(
+      "HMAC",
+      key,
+      base64UrlDecode(
+        signature
+      ),
+      new TextEncoder().encode(
+        value
+      )
+    );
+  } catch {
+    return false;
+  }
+}
+
+/*
+ * ========================================
+ * Base64 URL Decode
+ * ========================================
+ */
+
+function base64UrlDecode(
+  value
+) {
+  const padded =
+    value
+      .replace(
+        /-/g,
+        "+"
+      )
+      .replace(
+        /_/g,
+        "/"
+      )
+      .padEnd(
+        value.length +
+          (
+            (
+              4 -
+              (
+                value.length %
+                4
+              )
+            ) %
+            4
+          ),
+        "="
+      );
+
+  const binary =
+    atob(padded);
+
+  const bytes =
+    new Uint8Array(
+      binary.length
+    );
+
+  for (
+    let i = 0;
+    i < binary.length;
+    i++
+  ) {
+    bytes[i] =
+      binary.charCodeAt(i);
+  }
+
+  return bytes;
 }
 
 /*
