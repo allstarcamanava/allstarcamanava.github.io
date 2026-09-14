@@ -7,3 +7,51 @@ members:
         id: 1hTMje7M6csDPn0-XxQjMoG1wZ0FymBh7
       - id: 105i-W4BRK-meTcoa8YeBIEU3p-D-PJh-
         name: RY 2026-2027
+  - active: true
+    id: "11725762"
+    first_name: Doms
+    folders:
+      - id: 1YmUf9Bw3vkjFO_EzWlQltFoFbq4lPcBO
+        name: Dominic Benedict Santos-Viola Faustino
+      - id: 105i-W4BRK-meTcoa8YeBIEU3p-D-PJh-
+        name: RY 2026-2027
+  - active: true
+    id: "11725752"
+    first_name: Tina
+    folders:
+      - id: 17RHz3jwXfBW97o69dLWtU0XyDhs92hTE
+        name: Maria Cristina Chua
+      - id: 105i-W4BRK-meTcoa8YeBIEU3p-D-PJh-
+        name: RY 2026-2027
+  - active: true
+    id: "12425479"
+    first_name: Rhodz
+    folders:
+      - name: Rhoda Dasalla
+        id: 1Wt8uG_OxqtcrMMjNP_58Qci92YMoB5kf
+      - id: 105i-W4BRK-meTcoa8YeBIEU3p-D-PJh-
+        name: RY 2026-2027
+  - active: true
+    id: "10517570"
+    first_name: Jaja
+    folders:
+      - id: 1xbpgSidSMQ3vv9xHpA3_UI1NqheOVJs0
+        name: Jacil Maris Luma-as
+      - id: 105i-W4BRK-meTcoa8YeBIEU3p-D-PJh-
+        name: RY 2026-2027
+  - active: true
+    id: "11830626"
+    first_name: Michael
+    folders:
+      - name: Michael Bola
+        id: 1phLpFgbhRJE6TwscjgjjcBZejhK0dCcD
+      - id: 105i-W4BRK-meTcoa8YeBIEU3p-D-PJh-
+        name: RY 2026-2027
+  - active: true
+    first_name: Sherryl
+    id: "11726550"
+    folders:
+      - name: Sherryl Rodriga
+        id: 1wDsXxxQmZIK8FCbYTRGV1skR2gNryVfN
+      - name: RY 2026-2027
+        id: 105i-W4BRK-meTcoa8YeBIEU3p-D-PJh-
