@@ -7,7 +7,13 @@ permalink: /members/
 <section class="block">
   <div class="container">
 
+    <div class="members-header">
     <h1>Members Area</h1>
+
+    <a href="/members/logout" class="members-logout">
+        Logout
+    </a>
+    </div>    
 
     <p>
       Welcome to the Rotary E-Club of All Star CAMANAVA members area.
@@ -33,6 +39,43 @@ permalink: /members/
 </section>
 
 <style>
+  /* ========================================
+     Members Header
+     ======================================== */
+
+  .members-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .members-header h1 {
+    margin-bottom: 0;
+  }
+
+  /* ========================================
+     Logout Button
+     ======================================== */
+
+  .members-logout {
+    padding: 8px 14px;
+    border: 1px solid #cfeaea;
+    border-radius: 8px;
+    color: #049393;
+    text-decoration: none;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .members-logout:hover {
+    background: #eaf6f6;
+  }
+
+  /* ========================================
+     Google Drive Card
+     ======================================== */
+
   .members-drive-card {
     max-width: 700px;
     margin-top: 30px;
@@ -58,5 +101,15 @@ permalink: /members/
 
   .members-drive-card a:hover {
     opacity: 0.9;
+  }
+
+  /* ========================================
+     Mobile
+     ======================================== */
+
+  @media (max-width: 600px) {
+    .members-header {
+      align-items: flex-start;
+    }
   }
 </style>
