@@ -393,6 +393,7 @@ export async function onRequest(context) {
  * 1. One of the two designated root folders, or
  * 2. A descendant of either designated root folder.
  */
+
 async function isFolderInsideAnyRoot(
   folderId,
   rootFolderIds,
@@ -571,6 +572,21 @@ async function listFolderContents(
   driveUrl.searchParams.set(
     "pageSize",
     "1000"
+  );
+
+  /*
+   * Support folders/files that may be exposed
+   * through shared Drive structures.
+   */
+
+  driveUrl.searchParams.set(
+    "includeItemsFromAllDrives",
+    "true"
+  );
+
+  driveUrl.searchParams.set(
+    "supportsAllDrives",
+    "true"
   );
 
   const response =
