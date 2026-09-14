@@ -148,6 +148,15 @@ export async function onRequest(context) {
   const memberId =
     memberMap[googleEmail];
 
+  console.log(
+    "GOOGLE_MEMBER_MAP keys:",
+    Object.keys(memberMap)
+  );
+  console.log(
+    "Authenticated Google email:",
+    googleEmail
+  );    
+
   if (!memberId) {
     return htmlResponse(
       "Member Assignment Not Found",
