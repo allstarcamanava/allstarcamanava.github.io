@@ -553,10 +553,24 @@ collections:
                 widget: "string"
                 hint: "This is the name shown to the member after login."
 
-              - label: "Google Drive Folder ID"
-                name: "folder_id"
-                widget: "string"
-                hint: "Paste the Google Drive folder ID assigned to this member."
+              - label: "Google Drive Folders"
+                name: "folders"
+                widget: "list"
+                required: false
+                allow_add: true
+                allow_delete: true
+                label_singular: "Folder"
+                fields:
+
+                  - label: "Folder Name"
+                    name: "name"
+                    widget: "string"
+                    hint: "A friendly name for this folder, such as Club Documents or Events."
+
+                  - label: "Google Drive Folder ID"
+                    name: "id"
+                    widget: "string"
+                    hint: "Paste the Google Drive folder ID assigned to this folder."
 
               - label: "Active"
                 name: "active"

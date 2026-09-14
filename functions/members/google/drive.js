@@ -58,7 +58,12 @@ export async function onRequest(context) {
         member &&
         member.active !== false &&
         member.id &&
-        member.folder_id
+        Array.isArray(member.folders) &&
+        member.folders.some(
+          (folder) =>
+            folder &&
+            folder.id
+        )
     );
 
   if (!activeMembers.length) {
@@ -77,43 +82,63 @@ export async function onRequest(context) {
 
   /*
    * ========================================
-   * Determine Assigned Member Folder
+   * Determine Accessible Member Folders
    *
    * The user's Google access token is tested
-   * against each configured member folder.
+   * against every configured folder.
    *
-   * No Google email is stored or exposed here.
+   * Multiple accessible folders are allowed
+   * when they belong to the same member.
    * ========================================
    */
 
-  const assignedMembers = [];
+  const accessibleMembers = [];
 
   for (const member of activeMembers) {
-    const folderResult =
-      await getDriveFile(
-        member.folder_id,
-        accessToken
-      );
+    const accessibleFolders = [];
 
-    if (
-      folderResult.ok &&
-      folderResult.file &&
-      folderResult.file.mimeType ===
-        "application/vnd.google-apps.folder"
-    ) {
-      assignedMembers.push({
+    for (const configuredFolder of member.folders) {
+      if (
+        !configuredFolder ||
+        !configuredFolder.id
+      ) {
+        continue;
+      }
+
+      const folderResult =
+        await getDriveFile(
+          configuredFolder.id,
+          accessToken
+        );
+
+      if (
+        folderResult.ok &&
+        folderResult.file &&
+        folderResult.file.mimeType ===
+          "application/vnd.google-apps.folder"
+      ) {
+        accessibleFolders.push({
+          configured: configuredFolder,
+          folder: folderResult.file,
+        });
+      }
+    }
+
+    if (accessibleFolders.length) {
+      accessibleMembers.push({
         member,
-        folder: folderResult.file,
+        folders: accessibleFolders,
       });
     }
   }
 
   /*
-   * The intended setup is one Google account
-   * assigned to one member folder.
+   * ========================================
+   * No Accessible Member Folders
+   * ========================================
    */
 
-  if (assignedMembers.length === 0) {
+  if (!accessibleMembers.length) {
     return htmlResponse(
       "Drive Access Not Found",
       `
@@ -139,20 +164,30 @@ export async function onRequest(context) {
     );
   }
 
-  if (assignedMembers.length > 1) {
+  /*
+   * ========================================
+   * Prevent Cross-Member Access
+   *
+   * A Google account may have multiple folders,
+   * but all accessible configured folders must
+   * belong to the same member.
+   * ========================================
+   */
+
+  if (accessibleMembers.length > 1) {
     return htmlResponse(
-      "Multiple Drive Folders Found",
+      "Multiple Member Assignments Found",
       `
         <h1>Google Drive</h1>
 
         <p>
-          Your Google account currently has access to more than
-          one configured member folder.
+          Your Google account currently has access to
+          folders assigned to more than one member.
         </p>
 
         <p>
-          Please contact the club administrator so the member
-          Drive assignments can be checked.
+          Please contact the club administrator so the
+          member Drive assignments can be checked.
         </p>
       `,
       403
@@ -160,13 +195,15 @@ export async function onRequest(context) {
   }
 
   const assignedMember =
-    assignedMembers[0].member;
+    accessibleMembers[0].member;
 
-  const assignedRootFolder =
-    assignedMembers[0].folder;
+  const assignedFolders =
+    accessibleMembers[0].folders;
 
-  const assignedRootFolderId =
-    assignedMember.folder_id;
+  const assignedRootFolderIds =
+    assignedFolders.map(
+      (item) => item.configured.id
+    );
 
   const requestedFolderId =
     url.searchParams.get("folder");
@@ -178,6 +215,33 @@ export async function onRequest(context) {
    */
 
   if (!requestedFolderId) {
+    const folderRows =
+      assignedFolders
+        .map(
+          (item) => `
+            <a
+              class="drive-item folder"
+              href="/members/google/drive?folder=${encodeURIComponent(item.configured.id)}"
+            >
+              <span class="icon">
+                📁
+              </span>
+
+              <span class="item-name">
+                ${escapeHtml(
+                  item.configured.name ||
+                  item.folder.name
+                )}
+              </span>
+
+              <span class="arrow">
+                ›
+              </span>
+            </a>
+          `
+        )
+        .join("");
+
     return htmlResponse(
       "Google Drive",
       `
@@ -204,6 +268,12 @@ export async function onRequest(context) {
 
           </div>
 
+          <p class="drive-welcome">
+            Welcome, ${escapeHtml(
+              assignedMember.first_name || "Member"
+            )}.
+          </p>
+
           <a
             class="back-link"
             href="/members/"
@@ -220,11 +290,11 @@ export async function onRequest(context) {
             <div>
 
               <h2>
-                ${escapeHtml(assignedRootFolder.name)}
+                Your Member Folders
               </h2>
 
               <p>
-                Your assigned member documents and resources.
+                Access your assigned member documents and resources.
               </p>
 
             </div>
@@ -233,22 +303,7 @@ export async function onRequest(context) {
 
           <div class="drive-list">
 
-            <a
-              class="drive-item folder"
-              href="/members/google/drive?folder=${encodeURIComponent(assignedRootFolderId)}"
-            >
-              <span class="icon">
-                📁
-              </span>
-
-              <span class="item-name">
-                ${escapeHtml(assignedRootFolder.name)}
-              </span>
-
-              <span class="arrow">
-                ›
-              </span>
-            </a>
+            ${folderRows}
 
           </div>
 
@@ -263,21 +318,32 @@ export async function onRequest(context) {
 
   /*
    * ========================================
-   * Verify Requested Folder
-   *
-   * Only folders inside this member's
-   * assigned root are allowed.
+   * Determine Which Assigned Root Contains
+   * The Requested Folder
    * ========================================
    */
 
-  const allowed =
-    await isFolderInsideRoot(
-      requestedFolderId,
-      assignedRootFolderId,
-      accessToken
-    );
+  let matchedRootFolderId = null;
 
-  if (!allowed) {
+  for (
+    const rootFolderId of assignedRootFolderIds
+  ) {
+    const allowed =
+      await isFolderInsideRoot(
+        requestedFolderId,
+        rootFolderId,
+        accessToken
+      );
+
+    if (allowed) {
+      matchedRootFolderId =
+        rootFolderId;
+
+      break;
+    }
+  }
+
+  if (!matchedRootFolderId) {
     return htmlResponse(
       "Folder Not Available",
       `
@@ -462,14 +528,14 @@ export async function onRequest(context) {
 
   const isDesignatedRoot =
     requestedFolderId ===
-    assignedRootFolderId;
+    matchedRootFolderId;
 
   const parentFolder =
     isDesignatedRoot
       ? null
       : await getParentFolder(
           requestedFolderId,
-          assignedRootFolderId,
+          matchedRootFolderId,
           accessToken
         );
 
@@ -534,52 +600,18 @@ export async function onRequest(context) {
           .join("")
       : `
           <div class="empty">
-            This folder is empty.
+            This folder is currently empty.
           </div>
         `;
 
   /*
    * ========================================
-   * Back Navigation
-   * ========================================
-   */
-
-  const backLink =
-    isDesignatedRoot
-      ? `
-          <a
-            class="back-link"
-            href="/members/google/drive"
-          >
-            ← Members Drive
-          </a>
-        `
-      : parentFolder
-        ? `
-            <a
-              class="back-link"
-              href="/members/google/drive?folder=${encodeURIComponent(parentFolder.id)}"
-            >
-              ← ${escapeHtml(parentFolder.name)}
-            </a>
-          `
-        : `
-            <a
-              class="back-link"
-              href="/members/google/drive"
-            >
-              ← Members Drive
-            </a>
-          `;
-
-  /*
-   * ========================================
-   * Folder Page
+   * Render Folder
    * ========================================
    */
 
   return htmlResponse(
-    folder.name,
+    "Google Drive",
     `
       <div class="drive-page">
 
@@ -604,7 +636,18 @@ export async function onRequest(context) {
 
         </div>
 
-        ${backLink}
+        <p class="drive-welcome">
+          Welcome, ${escapeHtml(
+            assignedMember.first_name || "Member"
+          )}.
+        </p>
+
+        <a
+          class="back-link"
+          href="/members/google/drive"
+        >
+          ← My Member Folders
+        </a>
 
         <div class="folder-heading">
 
@@ -619,8 +662,7 @@ export async function onRequest(context) {
             </h2>
 
             <p>
-              ${files.length}
-              item${files.length === 1 ? "" : "s"}
+              Member documents and resources.
             </p>
 
           </div>
@@ -628,7 +670,32 @@ export async function onRequest(context) {
         </div>
 
         <div class="drive-list">
+
+          ${
+            parentFolder
+              ? `
+                <a
+                  class="drive-item folder"
+                  href="/members/google/drive?folder=${encodeURIComponent(parentFolder.id)}"
+                >
+                  <span class="icon">
+                    ↩️
+                  </span>
+
+                  <span class="item-name">
+                    Back to parent folder
+                  </span>
+
+                  <span class="arrow">
+                    ›
+                  </span>
+                </a>
+              `
+              : ""
+          }
+
           ${fileRows}
+
         </div>
 
         <p class="drive-note">
@@ -640,10 +707,9 @@ export async function onRequest(context) {
   );
 }
 
-
 /*
  * ========================================
- * Load Member Configuration
+ * Load Members
  * ========================================
  */
 
@@ -651,49 +717,108 @@ async function loadMembers(
   request,
   env
 ) {
+  if (
+    !env.ASSETS ||
+    typeof env.ASSETS.fetch !==
+      "function"
+  ) {
+    return null;
+  }
+
+  const dataUrl =
+    new URL(
+      "/members-data.json",
+      request.url
+    );
+
+  const response =
+    await env.ASSETS.fetch(
+      new Request(
+        dataUrl.toString()
+      )
+    );
+
+  if (!response.ok) {
+    return null;
+  }
+
   try {
-    if (
-      !env.ASSETS ||
-      typeof env.ASSETS.fetch !== "function"
-    ) {
-      return null;
-    }
-
-    const dataUrl =
-      new URL(
-        "/members-data.json",
-        request.url
-      );
-
-    const response =
-      await env.ASSETS.fetch(
-        new Request(dataUrl.toString())
-      );
-
-    if (!response.ok) {
-      return null;
-    }
-
     const data =
       await response.json();
 
-    if (
-      !data ||
-      !Array.isArray(data.members)
-    ) {
-      return null;
-    }
-
-    return data.members;
+    return Array.isArray(
+      data.members
+    )
+      ? data.members
+      : null;
   } catch {
     return null;
   }
 }
 
+/*
+ * ========================================
+ * Get Drive File
+ * ========================================
+ */
+
+async function getDriveFile(
+  fileId,
+  accessToken
+) {
+  const fields =
+    [
+      "id",
+      "name",
+      "mimeType",
+      "webViewLink",
+      "parents",
+    ].join(",");
+
+  const response =
+    await fetch(
+      `https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}?fields=${encodeURIComponent(fields)}&supportsAllDrives=true`,
+      {
+        headers: {
+          Authorization:
+            `Bearer ${accessToken}`,
+        },
+      }
+    );
+
+  if (!response.ok) {
+    return {
+      ok: false,
+      status: response.status,
+      file: null,
+    };
+  }
+
+  try {
+    const file =
+      await response.json();
+
+    return {
+      ok: true,
+      status: response.status,
+      file,
+    };
+  } catch {
+    return {
+      ok: false,
+      status: 502,
+      file: null,
+    };
+  }
+}
 
 /*
  * ========================================
- * Folder Security
+ * Check Folder Access
+ *
+ * A folder is allowed when it is the
+ * configured root itself OR a descendant
+ * of that root.
  * ========================================
  */
 
@@ -703,7 +828,8 @@ async function isFolderInsideRoot(
   accessToken
 ) {
   if (
-    folderId === rootFolderId
+    folderId ===
+    rootFolderId
   ) {
     return true;
   }
@@ -711,11 +837,22 @@ async function isFolderInsideRoot(
   let currentId =
     folderId;
 
+  const visited =
+    new Set();
+
   for (
-    let i = 0;
-    i < 50;
-    i++
+    let depth = 0;
+    depth < 50;
+    depth++
   ) {
+    if (
+      visited.has(currentId)
+    ) {
+      return false;
+    }
+
+    visited.add(currentId);
+
     const result =
       await getDriveFile(
         currentId,
@@ -730,11 +867,11 @@ async function isFolderInsideRoot(
     }
 
     const parents =
-      result.file.parents || [];
-
-    if (!parents.length) {
-      return false;
-    }
+      Array.isArray(
+        result.file.parents
+      )
+        ? result.file.parents
+        : [];
 
     if (
       parents.includes(
@@ -744,17 +881,27 @@ async function isFolderInsideRoot(
       return true;
     }
 
+    if (!parents.length) {
+      return false;
+    }
+
     currentId =
       parents[0];
+
+    if (
+      currentId ===
+      rootFolderId
+    ) {
+      return true;
+    }
   }
 
   return false;
 }
 
-
 /*
  * ========================================
- * Parent Folder
+ * Get Parent Folder
  * ========================================
  */
 
@@ -771,108 +918,62 @@ async function getParentFolder(
 
   if (
     !result.ok ||
-    !result.file ||
-    !result.file.parents
+    !result.file
   ) {
     return null;
   }
 
-  const parentId =
-    result.file.parents.find(
-      (id) =>
-        id === rootFolderId
-    ) ||
-    result.file.parents[0];
+  const parents =
+    Array.isArray(
+      result.file.parents
+    )
+      ? result.file.parents
+      : [];
 
-  if (!parentId) {
-    return null;
-  }
-
-  const parentResult =
-    await getDriveFile(
-      parentId,
-      accessToken
-    );
-
-  if (
-    !parentResult.ok
+  for (
+    const parentId of parents
   ) {
-    return null;
+    if (
+      parentId ===
+      rootFolderId
+    ) {
+      const parentResult =
+        await getDriveFile(
+          parentId,
+          accessToken
+        );
+
+      return parentResult.ok
+        ? parentResult.file
+        : null;
+    }
+
+    const inside =
+      await isFolderInsideRoot(
+        parentId,
+        rootFolderId,
+        accessToken
+      );
+
+    if (inside) {
+      const parentResult =
+        await getDriveFile(
+          parentId,
+          accessToken
+        );
+
+      return parentResult.ok
+        ? parentResult.file
+        : null;
+    }
   }
 
-  return parentResult.file;
+  return null;
 }
-
 
 /*
  * ========================================
- * Get Drive File
- * ========================================
- */
-
-async function getDriveFile(
-  fileId,
-  accessToken
-) {
-  try {
-    const driveUrl =
-      new URL(
-        `https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}`
-      );
-
-    driveUrl.searchParams.set(
-      "fields",
-      "id,name,mimeType,parents,trashed,webViewLink"
-    );
-
-    const response =
-      await fetch(
-        driveUrl.toString(),
-        {
-          headers: {
-            Authorization:
-              `Bearer ${decodeURIComponent(accessToken)}`,
-          },
-        }
-      );
-
-    if (!response.ok) {
-      return {
-        ok: false,
-        status: response.status,
-        file: null,
-      };
-    }
-
-    const file =
-      await response.json();
-
-    if (file.trashed) {
-      return {
-        ok: false,
-        status: 404,
-        file: null,
-      };
-    }
-
-    return {
-      ok: true,
-      status: 200,
-      file,
-    };
-  } catch {
-    return {
-      ok: false,
-      status: 500,
-      file: null,
-    };
-  }
-}
-
-
-/*
- * ========================================
- * List Drive Folder Contents
+ * List Folder Contents
  * ========================================
  */
 
@@ -880,85 +981,65 @@ async function listFolderContents(
   folderId,
   accessToken
 ) {
+  const query =
+    `'${folderId}' in parents and trashed = false`;
+
+  const params =
+    new URLSearchParams({
+      q: query,
+      fields:
+        "files(id,name,mimeType,webViewLink,modifiedTime,size,parents)",
+      orderBy:
+        "folder,name",
+      pageSize:
+        "1000",
+      includeItemsFromAllDrives:
+        "true",
+      supportsAllDrives:
+        "true",
+    });
+
+  const response =
+    await fetch(
+      `https://www.googleapis.com/drive/v3/files?${params.toString()}`,
+      {
+        headers: {
+          Authorization:
+            `Bearer ${accessToken}`,
+        },
+      }
+    );
+
+  if (!response.ok) {
+    return {
+      error: true,
+      status: response.status,
+      files: [],
+    };
+  }
+
   try {
-    const driveUrl =
-      new URL(
-        "https://www.googleapis.com/drive/v3/files"
-      );
-
-    driveUrl.searchParams.set(
-      "q",
-      `'${folderId}' in parents and trashed = false`
-    );
-
-    driveUrl.searchParams.set(
-      "fields",
-      "files(id,name,mimeType,webViewLink,parents)"
-    );
-
-    driveUrl.searchParams.set(
-      "orderBy",
-      "folder,name"
-    );
-
-    driveUrl.searchParams.set(
-      "pageSize",
-      "1000"
-    );
-
-    driveUrl.searchParams.set(
-      "includeItemsFromAllDrives",
-      "true"
-    );
-
-    driveUrl.searchParams.set(
-      "supportsAllDrives",
-      "true"
-    );
-
-    const response =
-      await fetch(
-        driveUrl.toString(),
-        {
-          headers: {
-            Authorization:
-              `Bearer ${decodeURIComponent(accessToken)}`,
-          },
-        }
-      );
-
-    if (
-      response.status === 401
-    ) {
-      return {
-        error: true,
-        status: 401,
-      };
-    }
-
-    if (!response.ok) {
-      return {
-        error: true,
-        status: response.status,
-      };
-    }
-
     const data =
       await response.json();
 
     return {
       error: false,
+      status: response.status,
       files:
-        data.files || [],
+        Array.isArray(
+          data.files
+        )
+          ? data.files
+          : [],
     };
   } catch {
     return {
       error: true,
-      status: 500,
+      status: 502,
+      files: [],
     };
   }
 }
-
 
 /*
  * ========================================
@@ -978,21 +1059,27 @@ function getFileIcon(
 
   if (
     mimeType ===
-    "application/vnd.google-apps.document"
+      "application/vnd.google-apps.document" ||
+    mimeType ===
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
   ) {
     return "📄";
   }
 
   if (
     mimeType ===
-    "application/vnd.google-apps.spreadsheet"
+      "application/vnd.google-apps.spreadsheet" ||
+    mimeType ===
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
   ) {
     return "📊";
   }
 
   if (
     mimeType ===
-    "application/vnd.google-apps.presentation"
+      "application/vnd.google-apps.presentation" ||
+    mimeType ===
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation"
   ) {
     return "📽️";
   }
@@ -1021,13 +1108,19 @@ function getFileIcon(
     return "🎵";
   }
 
+  if (
+    mimeType ===
+    "application/zip"
+  ) {
+    return "🗜️";
+  }
+
   return "📄";
 }
 
-
 /*
  * ========================================
- * Cookies
+ * Cookie Helper
  * ========================================
  */
 
@@ -1052,53 +1145,27 @@ function getCookie(
   ) {
     const [
       key,
-      ...value
+      ...valueParts
     ] =
-      cookie
-        .trim()
-        .split("=");
+      cookie.trim().split("=");
 
-    if (key === name) {
-      return value.join("=");
+    if (
+      key === name
+    ) {
+      return decodeURIComponent(
+        valueParts.join("=")
+      );
     }
   }
 
   return null;
 }
 
-
 /*
  * ========================================
- * HTML Helpers
+ * HTML Response
  * ========================================
  */
-
-function escapeHtml(
-  value
-) {
-  return String(value)
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-}
-
 
 function htmlResponse(
   title,
@@ -1107,18 +1174,31 @@ function htmlResponse(
 ) {
   return new Response(
     `<!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
 
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1"
+    content="width=device-width, initial-scale=1.0"
   >
 
-  <title>${escapeHtml(title)}</title>
+  <title>
+    ${escapeHtml(title)}
+  </title>
 
   <style>
+
+    :root {
+      --tiffany: #00cccc;
+      --dark: #049393;
+      --ink: #0b2b2e;
+      --paper: #f6fbfb;
+      --paper-alt: #eaf6f6;
+      --line: #cfeaea;
+    }
 
     * {
       box-sizing: border-box;
@@ -1126,8 +1206,8 @@ function htmlResponse(
 
     body {
       margin: 0;
-      background: #f6fbfb;
-      color: #0b2b2e;
+      background: var(--paper);
+      color: var(--ink);
       font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -1135,26 +1215,30 @@ function htmlResponse(
         sans-serif;
     }
 
+    a {
+      color: inherit;
+    }
+
     .drive-page {
       width: min(
-        1160px,
-        calc(100% - 40px)
+        100% - 32px,
+        1160px
       );
 
-      margin: 48px auto;
+      margin: 40px auto;
     }
 
     .drive-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 24px;
+      gap: 20px;
       margin-bottom: 24px;
     }
 
     .eyebrow {
-      margin: 0 0 4px;
-      color: #049393;
+      margin: 0 0 6px;
+      color: var(--dark);
       font-size: 13px;
       font-weight: 700;
       letter-spacing: .08em;
@@ -1163,56 +1247,62 @@ function htmlResponse(
 
     h1 {
       margin: 0;
-      font-size: 34px;
+      font-size: 36px;
+      line-height: 1.1;
     }
 
-    h2 {
-      margin: 0;
-      font-size: 22px;
-    }
-
-    .members-link,
-    .back-link {
-      color: #049393;
+    .members-link {
+      padding: 10px 15px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: white;
+      color: var(--dark);
       text-decoration: none;
       font-weight: 600;
     }
 
-    .members-link:hover,
-    .back-link:hover {
-      text-decoration: underline;
+    .members-link:hover {
+      background: var(--paper-alt);
+    }
+
+    .drive-welcome {
+      margin: -8px 0 20px;
+      color: #607577;
     }
 
     .back-link {
       display: inline-block;
       margin-bottom: 20px;
+      color: var(--dark);
+      text-decoration: none;
+      font-weight: 600;
     }
 
     .folder-heading {
       display: flex;
       align-items: center;
       gap: 14px;
-      padding: 20px;
-      margin-bottom: 16px;
-      background: white;
-      border: 1px solid #cfeaea;
-      border-radius: 14px;
+      margin-bottom: 20px;
     }
 
     .folder-icon {
-      font-size: 30px;
+      font-size: 36px;
+    }
+
+    .folder-heading h2 {
+      margin: 0 0 4px;
+      font-size: 24px;
     }
 
     .folder-heading p {
-      margin: 4px 0 0;
+      margin: 0;
       color: #607577;
-      font-size: 14px;
     }
 
     .drive-list {
       overflow: hidden;
       background: white;
-      border: 1px solid #cfeaea;
+      border: 1px solid var(--line);
       border-radius: 14px;
     }
 
@@ -1224,7 +1314,7 @@ function htmlResponse(
       padding: 12px 18px;
       color: inherit;
       text-decoration: none;
-      border-bottom: 1px solid #eaf6f6;
+      border-bottom: 1px solid var(--paper-alt);
     }
 
     .drive-item:last-child {
@@ -1232,7 +1322,7 @@ function htmlResponse(
     }
 
     .drive-item:hover {
-      background: #f6fbfb;
+      background: var(--paper);
     }
 
     .icon {
@@ -1249,7 +1339,7 @@ function htmlResponse(
 
     .arrow,
     .external {
-      color: #049393;
+      color: var(--dark);
       font-size: 22px;
     }
 
@@ -1268,7 +1358,7 @@ function htmlResponse(
     .button {
       display: inline-block;
       padding: 11px 18px;
-      background: #049393;
+      background: var(--dark);
       color: white;
       border-radius: 9px;
       text-decoration: none;
@@ -1298,6 +1388,7 @@ function htmlResponse(
     }
 
   </style>
+
 </head>
 
 <body>
@@ -1305,6 +1396,7 @@ function htmlResponse(
   ${content}
 
 </body>
+
 </html>`,
     {
       status,
@@ -1317,4 +1409,38 @@ function htmlResponse(
       },
     }
   );
+}
+
+/*
+ * ========================================
+ * HTML Escape
+ * ========================================
+ */
+
+function escapeHtml(
+  value
+) {
+  return String(
+    value ?? ""
+  )
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 }
