@@ -63,6 +63,7 @@ export async function onRequest(context) {
         `google_oauth_state=${encodeURIComponent(
           signedState
         )}; ` +
+        "Domain=allstarcamanava.org; " +
         "Path=/; " +
         "Max-Age=600; " +
         "HttpOnly; Secure; SameSite=None",
