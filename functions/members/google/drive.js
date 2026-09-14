@@ -70,7 +70,10 @@ export async function onRequest(context) {
     accessToken
   );
 
-  if (!folder || folder.mimeType !== "application/vnd.google-apps.folder") {
+  if (
+    !folder ||
+    folder.mimeType !== "application/vnd.google-apps.folder"
+  ) {
     return htmlResponse(
       "Folder Not Found",
       `
@@ -139,13 +142,14 @@ export async function onRequest(context) {
     );
   });
 
-  const parentFolder = requestedFolderId === rootFolderId
-    ? null
-    : await getParentFolder(
-        requestedFolderId,
-        rootFolderId,
-        accessToken
-      );
+  const parentFolder =
+    requestedFolderId === rootFolderId
+      ? null
+      : await getParentFolder(
+          requestedFolderId,
+          rootFolderId,
+          accessToken
+        );
 
   const fileRows = files.length
     ? files.map((file) => {
@@ -525,10 +529,18 @@ function htmlResponse(
               sans-serif;
           }
 
+          /* ========================================
+             Main Page Container
+             ======================================== */
+
           .drive-page {
-            width: min(900px, calc(100% - 32px));
+            width: min(1160px, calc(100% - 40px));
             margin: 48px auto;
           }
+
+          /* ========================================
+             Header
+             ======================================== */
 
           .drive-header {
             display: flex;
@@ -557,6 +569,10 @@ function htmlResponse(
             font-size: 22px;
           }
 
+          /* ========================================
+             Navigation Links
+             ======================================== */
+
           .members-link,
           .back-link {
             color: #049393;
@@ -573,6 +589,10 @@ function htmlResponse(
             display: inline-block;
             margin-bottom: 20px;
           }
+
+          /* ========================================
+             Folder Heading
+             ======================================== */
 
           .folder-heading {
             display: flex;
@@ -594,6 +614,10 @@ function htmlResponse(
             color: #607577;
             font-size: 14px;
           }
+
+          /* ========================================
+             Drive List
+             ======================================== */
 
           .drive-list {
             overflow: hidden;
@@ -639,17 +663,29 @@ function htmlResponse(
             font-size: 22px;
           }
 
+          /* ========================================
+             Empty State
+             ======================================== */
+
           .empty {
             padding: 40px 20px;
             text-align: center;
             color: #607577;
           }
 
+          /* ========================================
+             Note
+             ======================================== */
+
           .drive-note {
             margin-top: 16px;
             color: #607577;
             font-size: 13px;
           }
+
+          /* ========================================
+             Button
+             ======================================== */
 
           .button {
             display: inline-block;
@@ -661,9 +697,13 @@ function htmlResponse(
             font-weight: 600;
           }
 
+          /* ========================================
+             Mobile
+             ======================================== */
+
           @media (max-width: 600px) {
             .drive-page {
-              width: min(100% - 20px, 900px);
+              width: min(100% - 24px, 1160px);
               margin: 24px auto;
             }
 
