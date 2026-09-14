@@ -529,6 +529,42 @@ collections:
             required: false
             hint: "When enabled, the modal will normally appear only once per visitor."
 
+      - name: "members"
+        label: "Member Access"
+        file: "_data/members.yml"
+        fields:
+
+          - label: "Members"
+            name: "members"
+            widget: "list"
+            required: false
+            allow_add: true
+            allow_delete: true
+            label_singular: "Member"
+            fields:
+
+              - label: "Member ID"
+                name: "id"
+                widget: "string"
+                hint: "A unique internal ID, such as member-01. Do not use an email address."
+
+              - label: "First Name"
+                name: "first_name"
+                widget: "string"
+                hint: "This is the name shown to the member after login."
+
+              - label: "Google Drive Folder ID"
+                name: "folder_id"
+                widget: "string"
+                hint: "Paste the Google Drive folder ID assigned to this member."
+
+              - label: "Active"
+                name: "active"
+                widget: "boolean"
+                default: true
+                required: false
+                hint: "Turn off to temporarily disable this member's Drive access."
+
   - name: "partners"
     label: "Partners"
     folder: "_partners/"
