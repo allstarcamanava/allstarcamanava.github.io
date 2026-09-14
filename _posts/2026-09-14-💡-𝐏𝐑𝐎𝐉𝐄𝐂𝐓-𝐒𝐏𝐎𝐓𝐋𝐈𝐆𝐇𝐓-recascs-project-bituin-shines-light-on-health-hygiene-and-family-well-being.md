@@ -5,20 +5,28 @@ title: 💡 𝐏𝐑𝐎𝐉𝐄𝐂𝐓 𝐒𝐏𝐎𝐓𝐋𝐈𝐆𝐇𝐓 | 
 date: 2026-09-14
 categories: Service Projects
 comments: false
-image: /assets/images/bulletins/1.png
-gallery: []
+image: ""
+gallery:
+  - /assets/images/bulletins/1.png
+  - /assets/images/bulletins/poa_banners_digital_1200x900_en21-3-.png
+  - /assets/images/bulletins/poa_banners_digital_1200x900_en21-1-.png
+  - /assets/images/bulletins/poa_banners_digital_1200x900_en21-2-.png
 ---
 Heavy rain and flooded streets did not stop Rotary E-Club of All Star CAMANAVA’s Project BITUIN from bringing health education, essential supplies, and moments of joy to families in Longos, Malabon.
 
+![](/assets/images/bulletins/6.png)
+
+![](/assets/images/bulletins/8.png)
+
 After several postponements due to inclement weather, ReCASC finally conducted the first leg of Project BITUIN on August 26 at the Longos Pampano Child Development Center. The activity brought together daycare learners, parents, and guardians for a morning of health discussions, demonstrations, games, and fellowship.
 
-![](/assets/images/bulletins/6.png)
+![](/assets/images/bulletins/9.png)
 
 Despite the difficult weather conditions, the children eagerly joined the activities prepared for them, including singing, dancing, and lessons on proper handwashing and toothbrushing. Through demonstrations and discussions, they were encouraged to develop healthy habits and practice proper personal hygiene.
 
 ![](/assets/images/bulletins/pe-michael-giving-kit.png)
 
-The distribution of dental and hygiene kits further reinforced the importance of oral health and cleanliness among young learners. The children also received art materials such as pencils, modeling clay, and crayons, giving them an opportunity to explore their creativity.
+Distributing dental and hygiene kits further reinforced the importance of oral health and cleanliness among young learners. The children also received art materials such as pencils, modeling clay, and crayons, giving them an opportunity to explore their creativity.
 
 ![](/assets/images/bulletins/hip-doms-giving-kit.png)
 
@@ -35,6 +43,8 @@ For Melissa, one of the participants, the lessons were valuable not only for her
 ![](/assets/images/bulletins/mommy-melissa.png)
 
 “Sa kids po, iyong tinuro sa amin ay about sa proper na pagtoothbrush ng mga bata saka yung proper na paghugas ng kamay. So, malaking impact din po ’yon as a parent kasi ma-a-adapt po ng mga anak namin ’yung ganung techniques na tinuro niyo po sa amin, kaya maraming maraming salamat po,” she said. *\[“For the children, what was taught to us was proper toothbrushing and proper handwashing. That made a significant impact on us as parents because our children can adopt the techniques you taught us. So, thank you very, very much,” she said.]*
+
+![](/assets/images/bulletins/10.png)
 
 She also expressed her appreciation for the discussion on marriage and relationships.
 
@@ -63,9 +73,3 @@ Meanwhile, the art materials were donated by SQI Group Int’l. Corp., while the
 With the support of its partners, ReCASC hopes to continue bringing similar activities to more families through Project BITUIN.
 
 ![](/assets/images/bulletins/13.png)
-
-![](/assets/images/bulletins/poa_banners_digital_1200x900_en21-3-.png)
-
-![](/assets/images/bulletins/poa_banners_digital_1200x900_en21-1-.png)
-
-![](/assets/images/bulletins/poa_banners_digital_1200x900_en21-2-.png)
