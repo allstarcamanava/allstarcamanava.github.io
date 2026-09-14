@@ -1,20 +1,18 @@
 export async function onRequest(context) {
   const { request, env } = context;
 
-  // The member must already be logged into the website.
-  const memberSession = getCookie(request, "member_session");
+  const url = new URL(request.url);
 
-  if (!memberSession) {
-    return Response.redirect(
-      new URL("/members/login", request.url).toString(),
-      302
-    );
-  }
+  const next = getSafeNext(
+    url.searchParams.get("next")
+  );
 
   const state = crypto.randomUUID();
 
-  // Sign the state so the callback can verify that it came from us.
-  const signature = await sign(state, env.GOOGLE_STATE_SECRET);
+  const signature = await sign(
+    state,
+    env.GOOGLE_STATE_SECRET
+  );
 
   const signedState = `${state}.${signature}`;
 
@@ -39,7 +37,7 @@ export async function onRequest(context) {
 
   googleUrl.searchParams.set(
     "scope",
-    "https://www.googleapis.com/auth/drive.readonly"
+    "openid email profile https://www.googleapis.com/auth/drive.readonly"
   );
 
   googleUrl.searchParams.set(
@@ -57,39 +55,33 @@ export async function onRequest(context) {
     signedState
   );
 
-  return new Response(null, {
+  const response = new Response(null, {
     status: 302,
     headers: {
       Location: googleUrl.toString(),
-
-      // Store the state temporarily in an HttpOnly cookie.
       "Set-Cookie":
-        `google_oauth_state=${signedState}; ` +
+        `google_oauth_state=${encodeURIComponent(
+          signedState
+        )}; ` +
         "Path=/members/google; " +
         "Max-Age=600; " +
         "HttpOnly; Secure; SameSite=Lax",
     },
   });
+
+  return response;
 }
 
-function getCookie(request, name) {
-  const cookieHeader = request.headers.get("Cookie");
-
-  if (!cookieHeader) {
-    return null;
+function getSafeNext(next) {
+  if (
+    typeof next !== "string" ||
+    !next.startsWith("/") ||
+    next.startsWith("//")
+  ) {
+    return "/members/";
   }
 
-  const cookies = cookieHeader.split(";");
-
-  for (const cookie of cookies) {
-    const [key, ...value] = cookie.trim().split("=");
-
-    if (key === name) {
-      return value.join("=");
-    }
-  }
-
-  return null;
+  return next;
 }
 
 async function sign(value, secret) {
@@ -110,7 +102,9 @@ async function sign(value, secret) {
     new TextEncoder().encode(value)
   );
 
-  return base64UrlEncode(new Uint8Array(signature));
+  return base64UrlEncode(
+    new Uint8Array(signature)
+  );
 }
 
 function base64UrlEncode(bytes) {

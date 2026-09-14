@@ -6,12 +6,15 @@ export async function onRequest(context) {
   const returnedState = url.searchParams.get("state");
   const error = url.searchParams.get("error");
 
-  // User cancelled or Google returned an OAuth error.
+  /* ========================================
+     Google OAuth Error
+     ======================================== */
+
   if (error) {
     return new Response(
       `<h1>Google Sign-In Cancelled</h1>
        <p>You can close this page and try again.</p>
-       <p><a href="/members/">Back to Members Area</a></p>`,
+       <p><a href="/members/login">Back to Members Login</a></p>`,
       {
         status: 400,
         headers: {
@@ -28,20 +31,25 @@ export async function onRequest(context) {
     );
   }
 
-  // Check the OAuth state cookie.
+  /* ========================================
+     Verify OAuth State Cookie
+     ======================================== */
+
   const stateCookie = getCookie(
     request,
     "google_oauth_state"
   );
 
-  if (!stateCookie || stateCookie !== returnedState) {
+  if (
+    !stateCookie ||
+    decodeURIComponent(stateCookie) !== returnedState
+  ) {
     return new Response(
       "Invalid OAuth state.",
       { status: 403 }
     );
   }
 
-  // Verify the state signature.
   const stateParts = returnedState.split(".");
 
   if (stateParts.length !== 2) {
@@ -66,13 +74,17 @@ export async function onRequest(context) {
     );
   }
 
-  // Exchange Google's authorization code for tokens.
+  /* ========================================
+     Exchange Authorization Code
+     ======================================== */
+
   const tokenResponse = await fetch(
     "https://oauth2.googleapis.com/token",
     {
       method: "POST",
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          "application/x-www-form-urlencoded",
       },
       body: new URLSearchParams({
         code,
@@ -101,24 +113,130 @@ export async function onRequest(context) {
     );
   }
 
-  /*
-   * For this first version, store the access token in a
-   * short-lived HttpOnly cookie.
-   *
-   * The access token normally expires after about one hour.
-   * We will improve the token/session handling after the
-   * basic Google connection is confirmed.
-   */
+  /* ========================================
+     Get Authenticated Google Account
+     ======================================== */
+
+  const userResponse = await fetch(
+    "https://www.googleapis.com/oauth2/v3/userinfo",
+    {
+      headers: {
+        Authorization:
+          `Bearer ${tokens.access_token}`,
+      },
+    }
+  );
+
+  if (!userResponse.ok) {
+    return new Response(
+      "Unable to verify the Google account.",
+      { status: 502 }
+    );
+  }
+
+  const googleUser = await userResponse.json();
+
+  const googleEmail =
+    typeof googleUser.email === "string"
+      ? googleUser.email.trim().toLowerCase()
+      : "";
+
+  const emailVerified =
+    googleUser.email_verified === true;
+
+  if (!googleEmail || !emailVerified) {
+    return new Response(
+      `<h1>Google Account Not Verified</h1>
+       <p>The Google account could not be verified.</p>
+       <p><a href="/members/login">Back to Members Login</a></p>`,
+      {
+        status: 403,
+        headers: {
+          "Content-Type": "text/html; charset=UTF-8",
+        },
+      }
+    );
+  }
+
+  /* ========================================
+     Check Approved Google Accounts
+     ======================================== */
+
+  const allowedEmails = (
+    env.GOOGLE_ALLOWED_EMAILS || ""
+  )
+    .split(",")
+    .map((email) =>
+      email.trim().toLowerCase()
+    )
+    .filter(Boolean);
+
+  if (!allowedEmails.includes(googleEmail)) {
+    return new Response(
+      `<h1>Access Denied</h1>
+       <p>
+         This Google account is not authorized
+         to access the Members Area.
+       </p>
+       <p>
+         Please use an approved member account.
+       </p>
+       <p>
+         <a href="/members/login">
+           Back to Members Login
+         </a>
+       </p>`,
+      {
+        status: 403,
+        headers: {
+          "Content-Type": "text/html; charset=UTF-8",
+        },
+      }
+    );
+  }
+
+  /* ========================================
+     Create Member Session
+     ======================================== */
+
+  const payload = base64UrlEncode(
+    new TextEncoder().encode(
+      JSON.stringify({
+        username: env.MEMBER_USERNAME,
+        google_email: googleEmail,
+        exp: Date.now() + 8 * 60 * 60 * 1000,
+      })
+    )
+  );
+
+  const memberSignature = await sign(
+    payload,
+    env.MEMBER_PASSWORD
+  );
+
+  const memberSession =
+    `${payload}.${memberSignature}`;
+
+  /* ========================================
+     Store Google Access Token
+     ======================================== */
+
   const maxAge = Math.min(
     Number(tokens.expires_in || 3600),
     3600
   );
 
   const googleAccessCookie =
-    `google_access_token=${encodeURIComponent(tokens.access_token)}; ` +
+    `google_access_token=${encodeURIComponent(
+      tokens.access_token
+    )}; ` +
     `Path=/members; ` +
     `Max-Age=${maxAge}; ` +
     "HttpOnly; Secure; SameSite=Lax";
+
+  /* ========================================
+     Clear OAuth State Cookie
+     ======================================== */
 
   const clearStateCookie =
     "google_oauth_state=; " +
@@ -126,30 +244,59 @@ export async function onRequest(context) {
     "Max-Age=0; " +
     "HttpOnly; Secure; SameSite=Lax";
 
-    const headers = new Headers();
+  /* ========================================
+     Set Sessions and Redirect
+     ======================================== */
 
-    headers.set("Location", "/members/");
-    headers.append("Set-Cookie", googleAccessCookie);
-    headers.append("Set-Cookie", clearStateCookie);
+  const headers = new Headers();
 
-    return new Response(null, {
+  headers.set(
+    "Location",
+    "/members/"
+  );
+
+  headers.append(
+    "Set-Cookie",
+    `member_session=${memberSession}; ` +
+      "Path=/members; " +
+      "Max-Age=28800; " +
+      "HttpOnly; Secure; SameSite=Lax"
+  );
+
+  headers.append(
+    "Set-Cookie",
+    googleAccessCookie
+  );
+
+  headers.append(
+    "Set-Cookie",
+    clearStateCookie
+  );
+
+  return new Response(null, {
     status: 302,
     headers,
-    });
-
+  });
 }
 
+/* ========================================
+   Cookie Helper
+   ======================================== */
+
 function getCookie(request, name) {
-  const cookieHeader = request.headers.get("Cookie");
+  const cookieHeader =
+    request.headers.get("Cookie");
 
   if (!cookieHeader) {
     return null;
   }
 
-  const cookies = cookieHeader.split(";");
+  const cookies =
+    cookieHeader.split(";");
 
   for (const cookie of cookies) {
-    const [key, ...value] = cookie.trim().split("=");
+    const [key, ...value] =
+      cookie.trim().split("=");
 
     if (key === name) {
       return value.join("=");
@@ -159,32 +306,56 @@ function getCookie(request, name) {
   return null;
 }
 
-async function verifySignature(value, signature, secret) {
-  const expected = await sign(value, secret);
+/* ========================================
+   Signature Verification
+   ======================================== */
 
-  return timingSafeEqual(signature, expected);
+async function verifySignature(
+  value,
+  signature,
+  secret
+) {
+  const expected =
+    await sign(value, secret);
+
+  return timingSafeEqual(
+    signature,
+    expected
+  );
 }
+
+/* ========================================
+   HMAC Signature
+   ======================================== */
 
 async function sign(value, secret) {
-  const key = await crypto.subtle.importKey(
-    "raw",
-    new TextEncoder().encode(secret),
-    {
-      name: "HMAC",
-      hash: "SHA-256",
-    },
-    false,
-    ["sign"]
-  );
+  const key =
+    await crypto.subtle.importKey(
+      "raw",
+      new TextEncoder().encode(secret),
+      {
+        name: "HMAC",
+        hash: "SHA-256",
+      },
+      false,
+      ["sign"]
+    );
 
-  const signature = await crypto.subtle.sign(
-    "HMAC",
-    key,
-    new TextEncoder().encode(value)
-  );
+  const signature =
+    await crypto.subtle.sign(
+      "HMAC",
+      key,
+      new TextEncoder().encode(value)
+    );
 
-  return base64UrlEncode(new Uint8Array(signature));
+  return base64UrlEncode(
+    new Uint8Array(signature)
+  );
 }
+
+/* ========================================
+   Base64 URL Encoding
+   ======================================== */
 
 function base64UrlEncode(bytes) {
   let binary = "";
@@ -199,6 +370,10 @@ function base64UrlEncode(bytes) {
     .replace(/=+$/, "");
 }
 
+/* ========================================
+   Timing-Safe Comparison
+   ======================================== */
+
 function timingSafeEqual(a, b) {
   if (a.length !== b.length) {
     return false;
@@ -207,7 +382,9 @@ function timingSafeEqual(a, b) {
   let result = 0;
 
   for (let i = 0; i < a.length; i++) {
-    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+    result |=
+      a.charCodeAt(i) ^
+      b.charCodeAt(i);
   }
 
   return result === 0;

@@ -1,8 +1,11 @@
 export async function onRequest(context) {
   const { request, env } = context;
 
-    console.log("MEMBER_USERNAME available:", !!env.MEMBER_USERNAME);
-    console.log("MEMBER_USERNAME length:", env.MEMBER_USERNAME?.length ?? 0);
+  console.log("MEMBER_USERNAME available:", !!env.MEMBER_USERNAME);
+  console.log(
+    "MEMBER_USERNAME length:",
+    env.MEMBER_USERNAME?.length ?? 0
+  );
 
   const url = new URL(request.url);
 
@@ -34,26 +37,26 @@ export async function onRequest(context) {
     );
   }
 
-if (!env.MEMBER_USERNAME) {
-  return showLoginPage(
-    url,
-    "Diagnostic: MEMBER_USERNAME secret is not available to the Function."
-  );
-}
+  if (!env.MEMBER_USERNAME) {
+    return showLoginPage(
+      url,
+      "Diagnostic: MEMBER_USERNAME secret is not available to the Function."
+    );
+  }
 
-if (username !== env.MEMBER_USERNAME) {
-  return showLoginPage(
-    url,
-    "Diagnostic: MEMBER_USERNAME exists, but its value does not match."
-  );
-}
+  if (username !== env.MEMBER_USERNAME) {
+    return showLoginPage(
+      url,
+      "Diagnostic: MEMBER_USERNAME exists, but its value does not match."
+    );
+  }
 
-if (password !== env.MEMBER_PASSWORD) {
-  return showLoginPage(
-    url,
-    "Diagnostic: username matches, but password does not match."
-  );
-}
+  if (password !== env.MEMBER_PASSWORD) {
+    return showLoginPage(
+      url,
+      "Diagnostic: username matches, but password does not match."
+    );
+  }
 
   const next = getSafeNext(url.searchParams.get("next"));
 
@@ -95,6 +98,9 @@ function showLoginPage(url, error = "") {
     ? `<div class="error">${escapeHtml(error)}</div>`
     : "";
 
+  const googleLoginUrl =
+    `/members/google/login?next=${encodeURIComponent(next)}`;
+
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -103,6 +109,10 @@ function showLoginPage(url, error = "") {
   <title>Members Area — Rotary E-Club of All Star CAMANAVA</title>
 
   <style>
+    /* ========================================
+       Base
+       ======================================== */
+
     * {
       box-sizing: border-box;
     }
@@ -119,6 +129,10 @@ function showLoginPage(url, error = "") {
       color: #0b2b2e;
     }
 
+    /* ========================================
+       Login Card
+       ======================================== */
+
     .login-card {
       width: 100%;
       max-width: 430px;
@@ -128,6 +142,10 @@ function showLoginPage(url, error = "") {
       border-radius: 16px;
       box-shadow: 0 12px 40px rgba(11, 43, 46, 0.10);
     }
+
+    /* ========================================
+       Brand
+       ======================================== */
 
     .brand {
       text-align: center;
@@ -159,6 +177,10 @@ function showLoginPage(url, error = "") {
       line-height: 1.5;
     }
 
+    /* ========================================
+       Username & Password Form
+       ======================================== */
+
     label {
       display: block;
       margin: 20px 0 7px;
@@ -180,7 +202,7 @@ function showLoginPage(url, error = "") {
       box-shadow: 0 0 0 3px rgba(0, 204, 204, 0.12);
     }
 
-    button {
+    .login-button {
       width: 100%;
       margin-top: 26px;
       padding: 14px;
@@ -193,9 +215,69 @@ function showLoginPage(url, error = "") {
       cursor: pointer;
     }
 
-    button:hover {
+    .login-button:hover {
       background: #037878;
     }
+
+    /* ========================================
+       Divider
+       ======================================== */
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 26px 0;
+      color: #718486;
+      font-size: 13px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #cfeaea;
+    }
+
+    /* ========================================
+       Google Login
+       ======================================== */
+
+    .google-login {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #cfeaea;
+      border-radius: 9px;
+      background: #ffffff;
+      color: #0b2b2e;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .google-login:hover {
+      background: #f6fbfb;
+      border-color: #b9dada;
+    }
+
+    .google-icon {
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #4285f4;
+    }
+
+    /* ========================================
+       Error
+       ======================================== */
 
     .error {
       margin-top: 20px;
@@ -206,6 +288,10 @@ function showLoginPage(url, error = "") {
       font-size: 14px;
       line-height: 1.4;
     }
+
+    /* ========================================
+       Footer
+       ======================================== */
 
     .footer {
       margin-top: 25px;
@@ -218,6 +304,7 @@ function showLoginPage(url, error = "") {
 
 <body>
   <main class="login-card">
+
     <div class="brand">
       <div class="brand-mark">R</div>
 
@@ -229,6 +316,7 @@ function showLoginPage(url, error = "") {
     </div>
 
     <form method="POST" action="/members/login?next=${encodeURIComponent(next)}">
+
       <label for="username">Username</label>
 
       <input
@@ -250,16 +338,30 @@ function showLoginPage(url, error = "") {
         required
       >
 
-      <button type="submit">
+      <button class="login-button" type="submit">
         Log In
       </button>
 
-      ${errorHtml}
     </form>
+
+    <div class="divider">
+      <span>or</span>
+    </div>
+
+    <a
+      href="${googleLoginUrl}"
+      class="google-login"
+    >
+      <span class="google-icon">G</span>
+      Continue with Google
+    </a>
+
+    ${errorHtml}
 
     <div class="footer">
       Authorized members only.
     </div>
+
   </main>
 </body>
 </html>`;
