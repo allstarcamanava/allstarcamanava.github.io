@@ -16,9 +16,9 @@ After several postponements due to inclement weather, ReCASC finally conducted t
 
 Despite the difficult weather conditions, the children eagerly joined the activities prepared for them, including singing, dancing, and lessons on proper handwashing and toothbrushing. Through demonstrations and discussions, they were encouraged to develop healthy habits and practice proper personal hygiene.
 
-The distribution of dental and hygiene kits further reinforced the importance of oral health and cleanliness among young learners. The children also received art materials such as pencils, modeling clay, and crayons, giving them an opportunity to explore their creativity.
-
 ![](/assets/images/bulletins/pe-michael-giving-kit.png)
+
+The distribution of dental and hygiene kits further reinforced the importance of oral health and cleanliness among young learners. The children also received art materials such as pencils, modeling clay, and crayons, giving them an opportunity to explore their creativity.
 
 ![](/assets/images/bulletins/hip-doms-giving-kit.png)
 
