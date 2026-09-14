@@ -236,6 +236,13 @@ export async function onRequest(context) {
   const files =
     filesResult.files || [];
 
+    console.log(
+    "Google Drive folder listing diagnostic:",
+    JSON.stringify(
+        filesResult.diagnostic
+    )
+    );    
+
   files.sort((a, b) => {
     const aFolder =
       a.mimeType ===
@@ -609,22 +616,30 @@ async function listFolderContents(
     };
   }
 
-  if (!response.ok) {
+    if (!response.ok) {
+    const errorText =
+        await response.text();
+
+    console.log(
+        "Google Drive API error:",
+        response.status,
+        errorText
+    );
+
     return {
-      error: true,
-      status: response.status,
+        error: true,
+        status: response.status,
     };
-  }
+    }
 
-  const data =
-    await response.json();
+const data =
+  await response.json();
 
-  return {
-    error: false,
-    files:
-      data.files || [],
-  };
-}
+return {
+  error: false,
+  files: data.files || [],
+  diagnostic: data,
+};
 
 
 /*
