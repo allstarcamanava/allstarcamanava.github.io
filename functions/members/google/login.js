@@ -65,7 +65,7 @@ export async function onRequest(context) {
         )}; ` +
         "Path=/members/google; " +
         "Max-Age=600; " +
-        "HttpOnly; Secure; SameSite=Lax",
+        "HttpOnly; Secure; SameSite=None",
     },
   });
 
