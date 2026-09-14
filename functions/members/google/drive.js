@@ -23,7 +23,11 @@ export async function onRequest(context) {
     );
   }
 
-  const rootFolderId = env.MEMBER_DRIVE_FOLDER_ID;
+  const rootFolderId =
+    env.MEMBER_DRIVE_FOLDER_ID;
+
+  const secondFolderId =
+    env.MEMBER_DRIVE_FOLDER_ID_2;
 
   if (!rootFolderId) {
     return htmlResponse(
@@ -33,23 +37,48 @@ export async function onRequest(context) {
     );
   }
 
+  /*
+   * The main Members Drive page displays both
+   * designated folders.
+   */
   const requestedFolderId =
     url.searchParams.get("folder") || rootFolderId;
+
+  const isRootFolder =
+    requestedFolderId === rootFolderId;
+
+  const isSecondFolder =
+    requestedFolderId === secondFolderId;
+
+  /*
+   * If no folder parameter was supplied, show
+   * the main folder as the landing page.
+   *
+   * The second folder can be opened directly using:
+   * /members/google/drive?folder=FOLDER_ID
+   */
 
   /*
    * Make sure the requested folder is either:
    *
-   * 1. The designated root folder, or
-   * 2. A descendant of that root folder.
+   * 1. The main designated root folder,
+   * 2. The second designated root folder, or
+   * 3. A descendant of either designated root folder.
    *
    * This prevents someone from changing ?folder= to an
    * unrelated Google Drive folder ID.
    */
-  const allowed = await isFolderInsideRoot(
-    requestedFolderId,
-    rootFolderId,
-    accessToken
-  );
+  const allowed =
+    isRootFolder ||
+    isSecondFolder ||
+    await isFolderInsideAnyRoot(
+      requestedFolderId,
+      [
+        rootFolderId,
+        secondFolderId,
+      ],
+      accessToken
+    );
 
   if (!allowed) {
     return htmlResponse(
@@ -72,7 +101,8 @@ export async function onRequest(context) {
 
   if (
     !folder ||
-    folder.mimeType !== "application/vnd.google-apps.folder"
+    folder.mimeType !==
+      "application/vnd.google-apps.folder"
   ) {
     return htmlResponse(
       "Folder Not Found",
@@ -87,10 +117,53 @@ export async function onRequest(context) {
     );
   }
 
-  const filesResult = await listFolderContents(
-    requestedFolderId,
-    accessToken
-  );
+  /*
+   * If the main folder is opened directly, list its
+   * contents and also provide access to the second
+   * designated folder.
+   */
+  let filesResult;
+
+  if (isRootFolder) {
+    filesResult = await listFolderContents(
+      requestedFolderId,
+      accessToken
+    );
+
+    if (!filesResult.error && secondFolderId) {
+      const secondFolder = await getDriveFile(
+        secondFolderId,
+        accessToken
+      );
+
+      if (
+        secondFolder &&
+        secondFolder.mimeType ===
+          "application/vnd.google-apps.folder"
+      ) {
+        const alreadyIncluded =
+          (filesResult.files || []).some(
+            (file) =>
+              file.id === secondFolderId
+          );
+
+        if (!alreadyIncluded) {
+          filesResult.files.push({
+            id: secondFolder.id,
+            name: secondFolder.name,
+            mimeType:
+              "application/vnd.google-apps.folder",
+            parents: [rootFolderId],
+          });
+        }
+      }
+    }
+  } else {
+    filesResult = await listFolderContents(
+      requestedFolderId,
+      accessToken
+    );
+  }
 
   if (filesResult.error) {
     if (filesResult.status === 401) {
@@ -126,10 +199,12 @@ export async function onRequest(context) {
 
   files.sort((a, b) => {
     const aFolder =
-      a.mimeType === "application/vnd.google-apps.folder";
+      a.mimeType ===
+      "application/vnd.google-apps.folder";
 
     const bFolder =
-      b.mimeType === "application/vnd.google-apps.folder";
+      b.mimeType ===
+      "application/vnd.google-apps.folder";
 
     if (aFolder !== bFolder) {
       return aFolder ? -1 : 1;
@@ -142,14 +217,28 @@ export async function onRequest(context) {
     );
   });
 
-  const parentFolder =
-    requestedFolderId === rootFolderId
-      ? null
-      : await getParentFolder(
-          requestedFolderId,
+  /*
+   * Determine the parent folder.
+   *
+   * Designated root folders have no parent link
+   * back to the Members Drive landing page.
+   */
+  let parentFolder = null;
+
+  if (
+    requestedFolderId !== rootFolderId &&
+    requestedFolderId !== secondFolderId
+  ) {
+    parentFolder =
+      await getParentFolder(
+        requestedFolderId,
+        [
           rootFolderId,
-          accessToken
-        );
+          secondFolderId,
+        ],
+        accessToken
+      );
+  }
 
   const fileRows = files.length
     ? files.map((file) => {
@@ -189,20 +278,28 @@ export async function onRequest(context) {
         </div>
       `;
 
-  const backLink = parentFolder
-    ? `
-        <a
-          class="back-link"
-          href="/members/google/drive?folder=${encodeURIComponent(parentFolder.id)}"
-        >
-          ← ${escapeHtml(parentFolder.name)}
-        </a>
-      `
-    : `
+  const backLink =
+    requestedFolderId === rootFolderId ||
+    requestedFolderId === secondFolderId
+      ? `
         <a class="back-link" href="/members/">
           ← Members Area
         </a>
-      `;
+      `
+      : parentFolder
+        ? `
+          <a
+            class="back-link"
+            href="/members/google/drive?folder=${encodeURIComponent(parentFolder.id)}"
+          >
+            ← ${escapeHtml(parentFolder.name)}
+          </a>
+        `
+        : `
+          <a class="back-link" href="/members/google/drive">
+            ← Members Drive
+          </a>
+        `;
 
   return htmlResponse(
     folder.name,
@@ -246,14 +343,17 @@ export async function onRequest(context) {
 
 /*
  * Check whether a folder is the designated root folder
- * or exists somewhere below it.
+ * or exists somewhere below any designated root folder.
  */
-async function isFolderInsideRoot(
+async function isFolderInsideAnyRoot(
   folderId,
-  rootFolderId,
+  rootFolderIds,
   accessToken
 ) {
-  if (folderId === rootFolderId) {
+  const validRootIds =
+    rootFolderIds.filter(Boolean);
+
+  if (validRootIds.includes(folderId)) {
     return true;
   }
 
@@ -273,19 +373,25 @@ async function isFolderInsideRoot(
       return false;
     }
 
-    const parents = file.parents || [];
+    const parents =
+      file.parents || [];
 
     if (!parents.length) {
       return false;
     }
 
-    if (parents.includes(rootFolderId)) {
+    const matchingRoot =
+      parents.find((parentId) =>
+        validRootIds.includes(parentId)
+      );
+
+    if (matchingRoot) {
       return true;
     }
 
     currentId = parents[0];
 
-    if (currentId === rootFolderId) {
+    if (validRootIds.includes(currentId)) {
       return true;
     }
   }
@@ -296,7 +402,7 @@ async function isFolderInsideRoot(
 
 async function getParentFolder(
   folderId,
-  rootFolderId,
+  rootFolderIds,
   accessToken
 ) {
   const file = await getDriveFile(
@@ -308,9 +414,10 @@ async function getParentFolder(
     return null;
   }
 
-  const parentId = file.parents.find(
-    (id) => id === rootFolderId
-  ) || file.parents[0];
+  const parentId =
+    file.parents.find((id) =>
+      rootFolderIds.includes(id)
+    ) || file.parents[0];
 
   if (!parentId) {
     return null;
@@ -412,7 +519,8 @@ async function listFolderContents(
     };
   }
 
-  const data = await response.json();
+  const data =
+    await response.json();
 
   return {
     error: false,
@@ -463,7 +571,10 @@ function getFileIcon(mimeType) {
 }
 
 
-function getCookie(request, name) {
+function getCookie(
+  request,
+  name
+) {
   const cookieHeader =
     request.headers.get("Cookie");
 
