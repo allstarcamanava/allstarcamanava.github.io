@@ -6,10 +6,7 @@ date: 2026-09-01
 categories: Service Projects
 comments: true
 image: /assets/images/bulletins/1.png
-gallery:
-  - /assets/images/bulletins/poa_banners_digital_1200x900_en21-3-.png
-  - /assets/images/bulletins/poa_banners_digital_1200x900_en21-1-.png
-  - /assets/images/bulletins/poa_banners_digital_1200x900_en21-2-.png
+gallery: []
 ---
 Heavy rain and flooded streets did not stop Rotary E-Club of All Star CAMANAVA’s Project BITUIN from bringing health education, essential supplies, and moments of joy to families in Longos, Malabon.
 
