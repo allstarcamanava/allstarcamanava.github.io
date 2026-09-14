@@ -55,3 +55,11 @@ members:
         id: 1wDsXxxQmZIK8FCbYTRGV1skR2gNryVfN
       - name: RY 2026-2027
         id: 105i-W4BRK-meTcoa8YeBIEU3p-D-PJh-
+  - active: true
+    id: "12345678"
+    first_name: Test account
+    folders:
+      - id: 1mxyK40l8JiNt3HR-ORemICYsKlFxKh5q
+        name: Test account
+      - id: 105i-W4BRK-meTcoa8YeBIEU3p-D-PJh-
+        name: RY 2026-2027
