@@ -40,16 +40,12 @@ export async function onRequest(context) {
     "google_oauth_state"
   );
 
-  if (!stateCookie) {
+  if (
+    !stateCookie ||
+    decodeURIComponent(stateCookie) !== returnedState
+  ) {
     return new Response(
-      "DEBUG: google_oauth_state cookie is missing.",
-      { status: 403 }
-    );
-  }
-
-  if (decodeURIComponent(stateCookie) !== returnedState) {
-    return new Response(
-      "DEBUG: google_oauth_state cookie exists, but does not match returned state.",
+      "Invalid OAuth state.",
       { status: 403 }
     );
   }
