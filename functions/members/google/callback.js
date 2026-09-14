@@ -126,14 +126,17 @@ export async function onRequest(context) {
     "Max-Age=0; " +
     "HttpOnly; Secure; SameSite=Lax";
 
-  return new Response(null, {
+    const headers = new Headers();
+
+    headers.set("Location", "/members/");
+    headers.append("Set-Cookie", googleAccessCookie);
+    headers.append("Set-Cookie", clearStateCookie);
+
+    return new Response(null, {
     status: 302,
-    headers: {
-      Location: "/members/",
-      "Set-Cookie":
-        `${googleAccessCookie}, ${clearStateCookie}`,
-    },
-  });
+    headers,
+    });
+
 }
 
 function getCookie(request, name) {
