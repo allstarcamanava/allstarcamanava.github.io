@@ -70,7 +70,7 @@ Number of Meetings: 10 sessions
 Session Duration: 3 hours per session, including a 15-minute break  
 Schedule: Weekends  
 
-If you have any questions or need further information, please feel free to email us at recallstarcamanava@gmail.com.
+If you have any questions or need further information, please feel free to email us at recallstarcamanava@gmail.com. 
 
 <div class="article-cta">
   <a
