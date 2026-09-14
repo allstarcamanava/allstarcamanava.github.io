@@ -4,27 +4,33 @@ title: Members Area
 permalink: /members/
 ---
 
-<h1>Members Area</h1>
+<section class="block">
+  <div class="container">
 
-<p>
-  Welcome to the Rotary E-Club of All Star CAMANAVA members area.
-</p>
+    <h1>Members Area</h1>
 
-<div class="members-drive-card">
+    <p>
+      Welcome to the Rotary E-Club of All Star CAMANAVA members area.
+    </p>
 
-  <h2>Google Drive</h2>
+    <div class="members-drive-card">
 
-  <p>
-    Access the members' shared documents, folders, and resources.
-  </p>
+      <h2>Google Drive</h2>
 
-  <p>
-    <a href="/members/google/drive">
-      Browse Members Drive
-    </a>
-  </p>
+      <p>
+        Access the members' shared documents, folders, and resources.
+      </p>
 
-</div>
+      <p>
+        <a href="/members/google/drive">
+          Browse Members Drive
+        </a>
+      </p>
+
+    </div>
+
+  </div>
+</section>
 
 <style>
   .members-drive-card {
