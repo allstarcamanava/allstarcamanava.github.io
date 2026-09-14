@@ -1,10 +1,10 @@
 ---
-layout: bulletin-full
+layout: bulletin
 title: 💡 𝐏𝐑𝐎𝐉𝐄𝐂𝐓 𝐒𝐏𝐎𝐓𝐋𝐈𝐆𝐇𝐓 | ReCASC's Project BITUIN Shines
   Light on Health, Hygiene, and Family Well-Being
 date: 2026-09-14
 categories: Service Projects
-comments: true
+comments: false
 image: /assets/images/bulletins/1.png
 gallery:
   - /assets/images/bulletins/poa_banners_digital_1200x900_en21-3-.png
