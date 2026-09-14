@@ -5,12 +5,8 @@ title: 💡 𝐏𝐑𝐎𝐉𝐄𝐂𝐓 𝐒𝐏𝐎𝐓𝐋𝐈𝐆𝐇𝐓 | 
 date: 2026-09-14
 categories: Service Projects
 comments: false
-image: ""
-gallery:
-  - /assets/images/bulletins/1.png
-  - /assets/images/bulletins/poa_banners_digital_1200x900_en21-3-.png
-  - /assets/images/bulletins/poa_banners_digital_1200x900_en21-1-.png
-  - /assets/images/bulletins/poa_banners_digital_1200x900_en21-2-.png
+image: /assets/images/bulletins/1.png
+gallery: []
 ---
 Heavy rain and flooded streets did not stop Rotary E-Club of All Star CAMANAVA’s Project BITUIN from bringing health education, essential supplies, and moments of joy to families in Longos, Malabon.
 
@@ -67,3 +63,9 @@ Meanwhile, the art materials were donated by SQI Group Int’l. Corp., while the
 With the support of its partners, ReCASC hopes to continue bringing similar activities to more families through Project BITUIN.
 
 ![](/assets/images/bulletins/13.png)
+
+![](/assets/images/bulletins/poa_banners_digital_1200x900_en21-3-.png)
+
+![](/assets/images/bulletins/poa_banners_digital_1200x900_en21-1-.png)
+
+![](/assets/images/bulletins/poa_banners_digital_1200x900_en21-2-.png)
