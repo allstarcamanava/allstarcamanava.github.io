@@ -1,0 +1,16 @@
+---
+layout: null
+permalink: /members-data.json
+---
+{
+  "members": [
+    {% for member in site.data.members.members %}
+    {
+      "id": {{ member.id | jsonify }},
+      "first_name": {{ member.first_name | jsonify }},
+      "folder_id": {{ member.folder_id | jsonify }},
+      "active": {{ member.active | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
