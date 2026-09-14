@@ -32,7 +32,12 @@ export async function onRequest(context) {
   if (!rootFolderId) {
     return htmlResponse(
       "Configuration Error",
-      "<h1>Configuration Error</h1><p>The members Drive folder has not been configured.</p>",
+      `
+        <h1>Configuration Error</h1>
+        <p>
+          The members Drive folder has not been configured.
+        </p>
+      `,
       500
     );
   }
@@ -44,18 +49,16 @@ export async function onRequest(context) {
    * ========================================
    * Members Drive Landing Page
    * ========================================
-   *
-   * When no folder is selected, show both
-   * designated folders as top-level choices.
    */
 
   if (!requestedFolderId) {
     const folders = [];
 
-    const rootFolder = await getDriveFile(
-      rootFolderId,
-      accessToken
-    );
+    const rootFolder =
+      await getDriveFile(
+        rootFolderId,
+        accessToken
+      );
 
     if (
       rootFolder &&
@@ -66,10 +69,11 @@ export async function onRequest(context) {
     }
 
     if (secondFolderId) {
-      const secondFolder = await getDriveFile(
-        secondFolderId,
-        accessToken
-      );
+      const secondFolder =
+        await getDriveFile(
+          secondFolderId,
+          accessToken
+        );
 
       if (
         secondFolder &&
@@ -80,22 +84,29 @@ export async function onRequest(context) {
       }
     }
 
-    const folderRows = folders.length
-      ? folders.map((folder) => `
-          <a
-            class="drive-item folder"
-            href="/members/google/drive?folder=${encodeURIComponent(folder.id)}"
-          >
-            <span class="icon">📁</span>
-            <span class="item-name">${escapeHtml(folder.name)}</span>
-            <span class="arrow">›</span>
-          </a>
-        `).join("")
-      : `
-          <div class="empty">
-            No Google Drive folders are available.
-          </div>
-        `;
+    const folderRows =
+      folders.length
+        ? folders
+            .map(
+              (folder) => `
+                <a
+                  class="drive-item folder"
+                  href="/members/google/drive?folder=${encodeURIComponent(folder.id)}"
+                >
+                  <span class="icon">📁</span>
+                  <span class="item-name">
+                    ${escapeHtml(folder.name)}
+                  </span>
+                  <span class="arrow">›</span>
+                </a>
+              `
+            )
+            .join("")
+        : `
+            <div class="empty">
+              No Google Drive folders are available.
+            </div>
+          `;
 
     return htmlResponse(
       "Google Drive",
@@ -108,20 +119,29 @@ export async function onRequest(context) {
               <h1>Google Drive</h1>
             </div>
 
-            <a class="members-link" href="/members/">
+            <a
+              class="members-link"
+              href="/members/"
+            >
               Members Area
             </a>
           </div>
 
-          <a class="back-link" href="/members/">
+          <a
+            class="back-link"
+            href="/members/"
+          >
             ← Members Area
           </a>
 
           <div class="folder-heading">
             <span class="folder-icon">📁</span>
+
             <div>
               <h2>Members Documents</h2>
-              <p>Select a folder to browse its contents.</p>
+              <p>
+                Select a folder to browse its contents.
+              </p>
             </div>
           </div>
 
@@ -140,7 +160,7 @@ export async function onRequest(context) {
 
   /*
    * ========================================
-   * Selected Folder
+   * Verify Requested Folder
    * ========================================
    */
 
@@ -159,7 +179,12 @@ export async function onRequest(context) {
       "Folder Not Available",
       `
         <h1>Folder Not Available</h1>
-        <p>This folder is not part of the members' Google Drive area.</p>
+
+        <p>
+          This folder is not part of the members'
+          Google Drive area.
+        </p>
+
         <p>
           <a href="/members/google/drive">
             Back to Members Drive
@@ -170,10 +195,17 @@ export async function onRequest(context) {
     );
   }
 
-  const folder = await getDriveFile(
-    requestedFolderId,
-    accessToken
-  );
+  /*
+   * ========================================
+   * Get Current Folder
+   * ========================================
+   */
+
+  const folder =
+    await getDriveFile(
+      requestedFolderId,
+      accessToken
+    );
 
   if (
     !folder ||
@@ -184,7 +216,12 @@ export async function onRequest(context) {
       "Folder Not Found",
       `
         <h1>Folder Not Found</h1>
-        <p>The requested folder could not be found or is no longer available.</p>
+
+        <p>
+          The requested folder could not be found
+          or is no longer available.
+        </p>
+
         <p>
           <a href="/members/google/drive">
             Back to Members Drive
@@ -195,6 +232,12 @@ export async function onRequest(context) {
     );
   }
 
+  /*
+   * ========================================
+   * List Folder Contents
+   * ========================================
+   */
+
   const filesResult =
     await listFolderContents(
       requestedFolderId,
@@ -202,14 +245,23 @@ export async function onRequest(context) {
     );
 
   if (filesResult.error) {
-    if (filesResult.status === 401) {
+    if (
+      filesResult.status === 401
+    ) {
       return htmlResponse(
         "Google Drive Connection Expired",
         `
           <h1>Google Drive Connection Expired</h1>
-          <p>Your Google Drive connection has expired.</p>
+
           <p>
-            <a class="button" href="/members/google/login">
+            Your Google Drive connection has expired.
+          </p>
+
+          <p>
+            <a
+              class="button"
+              href="/members/google/login"
+            >
               Reconnect Google Drive
             </a>
           </p>
@@ -222,7 +274,11 @@ export async function onRequest(context) {
       "Google Drive Error",
       `
         <h1>Google Drive Error</h1>
-        <p>Google Drive could not be accessed right now.</p>
+
+        <p>
+          Google Drive could not be accessed right now.
+        </p>
+
         <p>
           <a href="/members/google/drive">
             Try Again
@@ -236,34 +292,41 @@ export async function onRequest(context) {
   const files =
     filesResult.files || [];
 
-    console.log(
-    "Google Drive folder listing diagnostic:",
-    JSON.stringify(
-        filesResult.diagnostic
-    )
-    );    
+  /*
+   * ========================================
+   * Sort Folders Before Files
+   * ========================================
+   */
 
-  files.sort((a, b) => {
-    const aFolder =
-      a.mimeType ===
-      "application/vnd.google-apps.folder";
+  files.sort(
+    (a, b) => {
+      const aFolder =
+        a.mimeType ===
+        "application/vnd.google-apps.folder";
 
-    const bFolder =
-      b.mimeType ===
-      "application/vnd.google-apps.folder";
+      const bFolder =
+        b.mimeType ===
+        "application/vnd.google-apps.folder";
 
-    if (aFolder !== bFolder) {
-      return aFolder ? -1 : 1;
-    }
-
-    return a.name.localeCompare(
-      b.name,
-      undefined,
-      {
-        sensitivity: "base",
+      if (aFolder !== bFolder) {
+        return aFolder ? -1 : 1;
       }
-    );
-  });
+
+      return a.name.localeCompare(
+        b.name,
+        undefined,
+        {
+          sensitivity: "base",
+        }
+      );
+    }
+  );
+
+  /*
+   * ========================================
+   * Determine Parent
+   * ========================================
+   */
 
   const isDesignatedRoot =
     requestedFolderId === rootFolderId ||
@@ -281,43 +344,74 @@ export async function onRequest(context) {
           accessToken
         );
 
-  const fileRows = files.length
-    ? files.map((file) => {
-        const isFolder =
-          file.mimeType ===
-          "application/vnd.google-apps.folder";
+  /*
+   * ========================================
+   * Build File / Folder Rows
+   * ========================================
+   */
 
-        if (isFolder) {
-          return `
-            <a
-              class="drive-item folder"
-              href="/members/google/drive?folder=${encodeURIComponent(file.id)}"
-            >
-              <span class="icon">📁</span>
-              <span class="item-name">${escapeHtml(file.name)}</span>
-              <span class="arrow">›</span>
-            </a>
-          `;
-        }
+  const fileRows =
+    files.length
+      ? files
+          .map(
+            (file) => {
+              const isFolder =
+                file.mimeType ===
+                "application/vnd.google-apps.folder";
 
-        return `
-          <a
-            class="drive-item file"
-            href="${escapeHtml(file.webViewLink || "#")}"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span class="icon">${getFileIcon(file.mimeType)}</span>
-            <span class="item-name">${escapeHtml(file.name)}</span>
-            <span class="external">↗</span>
-          </a>
+              if (isFolder) {
+                return `
+                  <a
+                    class="drive-item folder"
+                    href="/members/google/drive?folder=${encodeURIComponent(file.id)}"
+                  >
+                    <span class="icon">📁</span>
+
+                    <span class="item-name">
+                      ${escapeHtml(file.name)}
+                    </span>
+
+                    <span class="arrow">
+                      ›
+                    </span>
+                  </a>
+                `;
+              }
+
+              return `
+                <a
+                  class="drive-item file"
+                  href="${escapeHtml(file.webViewLink || "#")}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span class="icon">
+                    ${getFileIcon(file.mimeType)}
+                  </span>
+
+                  <span class="item-name">
+                    ${escapeHtml(file.name)}
+                  </span>
+
+                  <span class="external">
+                    ↗
+                  </span>
+                </a>
+              `;
+            }
+          )
+          .join("")
+      : `
+          <div class="empty">
+            This folder is empty.
+          </div>
         `;
-      }).join("")
-    : `
-        <div class="empty">
-          This folder is empty.
-        </div>
-      `;
+
+  /*
+   * ========================================
+   * Back Navigation
+   * ========================================
+   */
 
   const backLink =
     isDesignatedRoot
@@ -347,33 +441,59 @@ export async function onRequest(context) {
             </a>
           `;
 
+  /*
+   * ========================================
+   * Folder Page
+   * ========================================
+   */
+
   return htmlResponse(
     folder.name,
     `
       <div class="drive-page">
 
         <div class="drive-header">
+
           <div>
-            <p class="eyebrow">Members Area</p>
-            <h1>Google Drive</h1>
+            <p class="eyebrow">
+              Members Area
+            </p>
+
+            <h1>
+              Google Drive
+            </h1>
           </div>
 
-          <a class="members-link" href="/members/">
+          <a
+            class="members-link"
+            href="/members/"
+          >
             Members Area
           </a>
+
         </div>
 
         ${backLink}
 
         <div class="folder-heading">
-          <span class="folder-icon">📁</span>
+
+          <span class="folder-icon">
+            📁
+          </span>
+
           <div>
-            <h2>${escapeHtml(folder.name)}</h2>
+
+            <h2>
+              ${escapeHtml(folder.name)}
+            </h2>
+
             <p>
               ${files.length}
               item${files.length === 1 ? "" : "s"}
             </p>
+
           </div>
+
         </div>
 
         <div class="drive-list">
@@ -394,11 +514,6 @@ export async function onRequest(context) {
  * ========================================
  * Folder Security
  * ========================================
- *
- * A requested folder must be:
- *
- * 1. One of the two designated root folders, or
- * 2. A descendant of either designated root folder.
  */
 
 async function isFolderInsideAnyRoot(
@@ -415,9 +530,14 @@ async function isFolderInsideAnyRoot(
     return true;
   }
 
-  let currentId = folderId;
+  let currentId =
+    folderId;
 
-  for (let i = 0; i < 50; i++) {
+  for (
+    let i = 0;
+    i < 50;
+    i++
+  ) {
     const file =
       await getDriveFile(
         currentId,
@@ -436,8 +556,11 @@ async function isFolderInsideAnyRoot(
     }
 
     if (
-      parents.some((parentId) =>
-        validRootIds.includes(parentId)
+      parents.some(
+        (parentId) =>
+          validRootIds.includes(
+            parentId
+          )
       )
     ) {
       return true;
@@ -484,8 +607,9 @@ async function getParentFolder(
   }
 
   const parentId =
-    file.parents.find((id) =>
-      rootFolderIds.includes(id)
+    file.parents.find(
+      (id) =>
+        rootFolderIds.includes(id)
     ) ||
     file.parents[0];
 
@@ -502,7 +626,7 @@ async function getParentFolder(
 
 /*
  * ========================================
- * Google Drive File
+ * Get Drive File
  * ========================================
  */
 
@@ -548,7 +672,7 @@ async function getDriveFile(
 
 /*
  * ========================================
- * List Folder Contents
+ * List Drive Folder Contents
  * ========================================
  */
 
@@ -582,8 +706,8 @@ async function listFolderContents(
   );
 
   /*
-   * Support folders/files that may be exposed
-   * through shared Drive structures.
+   * Support items that are located in
+   * Google Shared Drive structures.
    */
 
   driveUrl.searchParams.set(
@@ -616,30 +740,22 @@ async function listFolderContents(
     };
   }
 
-    if (!response.ok) {
-    const errorText =
-        await response.text();
-
-    console.log(
-        "Google Drive API error:",
-        response.status,
-        errorText
-    );
-
+  if (!response.ok) {
     return {
-        error: true,
-        status: response.status,
+      error: true,
+      status: response.status,
     };
-    }
+  }
 
-const data =
-  await response.json();
+  const data =
+    await response.json();
 
-return {
-  error: false,
-  files: data.files || [],
-  diagnostic: data,
-};
+  return {
+    error: false,
+    files:
+      data.files || [],
+  };
+}
 
 
 /*
@@ -680,19 +796,25 @@ function getFileIcon(
   }
 
   if (
-    mimeType.startsWith("image/")
+    mimeType.startsWith(
+      "image/"
+    )
   ) {
     return "🖼️";
   }
 
   if (
-    mimeType.startsWith("video/")
+    mimeType.startsWith(
+      "video/"
+    )
   ) {
     return "🎬";
   }
 
   if (
-    mimeType.startsWith("audio/")
+    mimeType.startsWith(
+      "audio/"
+    )
   ) {
     return "🎵";
   }
@@ -783,230 +905,247 @@ function htmlResponse(
 ) {
   return new Response(
     `<!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset="UTF-8">
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1"
-        >
-        <title>${escapeHtml(title)}</title>
+<html>
+<head>
+  <meta charset="UTF-8">
 
-        <style>
-          * {
-            box-sizing: border-box;
-          }
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
 
-          body {
-            margin: 0;
-            background: #f6fbfb;
-            color: #0b2b2e;
-            font-family:
-              -apple-system,
-              BlinkMacSystemFont,
-              "Segoe UI",
-              sans-serif;
-          }
+  <title>${escapeHtml(title)}</title>
 
-          /* ========================================
-             Main Page Container
-             ======================================== */
+  <style>
 
-          .drive-page {
-            width: min(1160px, calc(100% - 40px));
-            margin: 48px auto;
-          }
+    * {
+      box-sizing: border-box;
+    }
 
-          /* ========================================
-             Header
-             ======================================== */
+    body {
+      margin: 0;
+      background: #f6fbfb;
+      color: #0b2b2e;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    }
 
-          .drive-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 24px;
-            margin-bottom: 24px;
-          }
+    /* ========================================
+       Main Page Container
+       ======================================== */
 
-          .eyebrow {
-            margin: 0 0 4px;
-            color: #049393;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: .08em;
-            text-transform: uppercase;
-          }
+    .drive-page {
+      width: min(
+        1160px,
+        calc(100% - 40px)
+      );
 
-          h1 {
-            margin: 0;
-            font-size: 34px;
-          }
+      margin: 48px auto;
+    }
 
-          h2 {
-            margin: 0;
-            font-size: 22px;
-          }
+    /* ========================================
+       Header
+       ======================================== */
 
-          /* ========================================
-             Navigation Links
-             ======================================== */
+    .drive-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
 
-          .members-link,
-          .back-link {
-            color: #049393;
-            text-decoration: none;
-            font-weight: 600;
-          }
+    .eyebrow {
+      margin: 0 0 4px;
+      color: #049393;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
 
-          .members-link:hover,
-          .back-link:hover {
-            text-decoration: underline;
-          }
+    h1 {
+      margin: 0;
+      font-size: 34px;
+    }
 
-          .back-link {
-            display: inline-block;
-            margin-bottom: 20px;
-          }
+    h2 {
+      margin: 0;
+      font-size: 22px;
+    }
 
-          /* ========================================
-             Folder Heading
-             ======================================== */
+    /* ========================================
+       Navigation Links
+       ======================================== */
 
-          .folder-heading {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 20px;
-            margin-bottom: 16px;
-            background: white;
-            border: 1px solid #cfeaea;
-            border-radius: 14px;
-          }
+    .members-link,
+    .back-link {
+      color: #049393;
+      text-decoration: none;
+      font-weight: 600;
+    }
 
-          .folder-icon {
-            font-size: 30px;
-          }
+    .members-link:hover,
+    .back-link:hover {
+      text-decoration: underline;
+    }
 
-          .folder-heading p {
-            margin: 4px 0 0;
-            color: #607577;
-            font-size: 14px;
-          }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+    }
 
-          /* ========================================
-             Drive List
-             ======================================== */
+    /* ========================================
+       Folder Heading
+       ======================================== */
 
-          .drive-list {
-            overflow: hidden;
-            background: white;
-            border: 1px solid #cfeaea;
-            border-radius: 14px;
-          }
+    .folder-heading {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 20px;
+      margin-bottom: 16px;
+      background: white;
+      border: 1px solid #cfeaea;
+      border-radius: 14px;
+    }
 
-          .drive-item {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            min-height: 64px;
-            padding: 12px 18px;
-            color: inherit;
-            text-decoration: none;
-            border-bottom: 1px solid #eaf6f6;
-          }
+    .folder-icon {
+      font-size: 30px;
+    }
 
-          .drive-item:last-child {
-            border-bottom: 0;
-          }
+    .folder-heading p {
+      margin: 4px 0 0;
+      color: #607577;
+      font-size: 14px;
+    }
 
-          .drive-item:hover {
-            background: #f6fbfb;
-          }
+    /* ========================================
+       Drive List
+       ======================================== */
 
-          .icon {
-            width: 28px;
-            flex: 0 0 28px;
-            text-align: center;
-            font-size: 22px;
-          }
+    .drive-list {
+      overflow: hidden;
+      background: white;
+      border: 1px solid #cfeaea;
+      border-radius: 14px;
+    }
 
-          .item-name {
-            flex: 1;
-            overflow-wrap: anywhere;
-          }
+    .drive-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-height: 64px;
+      padding: 12px 18px;
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid #eaf6f6;
+    }
 
-          .arrow,
-          .external {
-            color: #049393;
-            font-size: 22px;
-          }
+    .drive-item:last-child {
+      border-bottom: 0;
+    }
 
-          /* ========================================
-             Empty State
-             ======================================== */
+    .drive-item:hover {
+      background: #f6fbfb;
+    }
 
-          .empty {
-            padding: 40px 20px;
-            text-align: center;
-            color: #607577;
-          }
+    .icon {
+      width: 28px;
+      flex: 0 0 28px;
+      text-align: center;
+      font-size: 22px;
+    }
 
-          /* ========================================
-             Note
-             ======================================== */
+    .item-name {
+      flex: 1;
+      overflow-wrap: anywhere;
+    }
 
-          .drive-note {
-            margin-top: 16px;
-            color: #607577;
-            font-size: 13px;
-          }
+    .arrow,
+    .external {
+      color: #049393;
+      font-size: 22px;
+    }
 
-          /* ========================================
-             Button
-             ======================================== */
+    /* ========================================
+       Empty State
+       ======================================== */
 
-          .button {
-            display: inline-block;
-            padding: 11px 18px;
-            background: #049393;
-            color: white;
-            border-radius: 9px;
-            text-decoration: none;
-            font-weight: 600;
-          }
+    .empty {
+      padding: 40px 20px;
+      text-align: center;
+      color: #607577;
+    }
 
-          /* ========================================
-             Mobile
-             ======================================== */
+    /* ========================================
+       Note
+       ======================================== */
 
-          @media (max-width: 600px) {
-            .drive-page {
-              width: min(100% - 24px, 1160px);
-              margin: 24px auto;
-            }
+    .drive-note {
+      margin-top: 16px;
+      color: #607577;
+      font-size: 13px;
+    }
 
-            .drive-header {
-              align-items: flex-start;
-              flex-direction: column;
-            }
+    /* ========================================
+       Button
+       ======================================== */
 
-            h1 {
-              font-size: 28px;
-            }
-          }
-        </style>
-      </head>
+    .button {
+      display: inline-block;
+      padding: 11px 18px;
+      background: #049393;
+      color: white;
+      border-radius: 9px;
+      text-decoration: none;
+      font-weight: 600;
+    }
 
-      <body>
-        ${content}
-      </body>
-    </html>`,
+    /* ========================================
+       Mobile
+       ======================================== */
+
+    @media (max-width: 600px) {
+
+      .drive-page {
+        width: min(
+          100% - 24px,
+          1160px
+        );
+
+        margin: 24px auto;
+      }
+
+      .drive-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  ${content}
+
+</body>
+</html>`,
     {
       status,
       headers: {
         "Content-Type":
           "text/html; charset=UTF-8",
+
         "Cache-Control":
           "private, no-store",
       },
