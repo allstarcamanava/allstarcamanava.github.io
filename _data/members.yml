@@ -9,7 +9,7 @@ members:
         name: RY 2026-2027
   - active: true
     id: "11725762"
-    first_name: Dominic
+    first_name: Doms
     folders:
       - id: 1YmUf9Bw3vkjFO_EzWlQltFoFbq4lPcBO
         name: Dominic Benedict Santos-Viola Faustino
@@ -25,9 +25,17 @@ members:
         name: RY 2026-2027
   - active: true
     id: "12425479"
-    first_name: Rhoda
+    first_name: Rhodz
     folders:
       - name: Rhoda Dasalla
         id: 1Wt8uG_OxqtcrMMjNP_58Qci92YMoB5kf
+      - id: 105i-W4BRK-meTcoa8YeBIEU3p-D-PJh-
+        name: RY 2026-2027
+  - active: true
+    id: "10517570"
+    first_name: Jaja
+    folders:
+      - id: 1xbpgSidSMQ3vv9xHpA3_UI1NqheOVJs0
+        name: Jacil Maris Luma-as
       - id: 105i-W4BRK-meTcoa8YeBIEU3p-D-PJh-
         name: RY 2026-2027
