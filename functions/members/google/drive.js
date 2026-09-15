@@ -164,8 +164,13 @@ export async function onRequest(context) {
         <h1>Member Assignment Not Found</h1>
 
         <p>
-          Your Google account is authorized, but it has
-          not been assigned to a member profile yet.
+          Debug mapping keys:
+          ${Object.keys(memberMap).join(", ")}
+        </p>
+
+        <p>
+          Debug authenticated email:
+          ${googleEmail}
         </p>
 
         <p>
