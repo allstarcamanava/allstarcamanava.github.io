@@ -148,15 +148,6 @@ export async function onRequest(context) {
   const memberId =
     memberMap[googleEmail];
 
-  console.log(
-    "GOOGLE_MEMBER_MAP keys:",
-    Object.keys(memberMap)
-  );
-  console.log(
-    "Authenticated Google email:",
-    googleEmail
-  );    
-
   if (!memberId) {
     return htmlResponse(
       "Member Assignment Not Found",
@@ -164,13 +155,8 @@ export async function onRequest(context) {
         <h1>Member Assignment Not Found</h1>
 
         <p>
-          Debug mapping keys:
-          ${Object.keys(memberMap).join(", ")}
-        </p>
-
-        <p>
-          Debug authenticated email:
-          ${googleEmail}
+          Your Google account is authorized, but it has not been assigned
+          to a member profile yet.
         </p>
 
         <p>
