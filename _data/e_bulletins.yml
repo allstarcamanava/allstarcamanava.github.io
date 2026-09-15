@@ -1,5 +1,5 @@
 bulletins:
-  - title: "SINAGTALA: The All Star Connection "
+  - title: "SINAGTALA: The All Star Connection July 2026"
     date: 2026-08-15
     type: flipbook
     thumbnail: /assets/images/bulletins/july-2026-issue-vol.-1-.png
@@ -7,10 +7,14 @@ bulletins:
     description: |-
       Rotary E-Club of All Star CAMANAVA 
       SINAGTALA: The All Star Connection 
-      July 2026 Issue (Vol. 1)
-  - title: "SINAGTALA: The All Star Connection PDF"
+      July 2026 Issue (Vol. 01 Issue 01)
+  - title: "SINAGTALA: The All Star Connection July 2026 PDF"
     type: pdf
     thumbnail: /assets/e-bulletin-files/la-madre.jpg
     pdf: /assets/e-bulletin-files/sinagtala-the-all-star-connection-july-2026-issue-vol.-1_compressed.pdf
     date: 2026-08-15
     flipbook_url: ""
+    description: |-
+      Rotary E-Club of All Star CAMANAVA 
+      SINAGTALA: The All Star Connection 
+      July 2026 Issue (Vol. 01 Issue 01)
