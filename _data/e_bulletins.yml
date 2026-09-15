@@ -22,10 +22,7 @@ bulletins:
     date: 2026-09-15
     type: flipbook
     thumbnail: /assets/e-bulletin-files/sinagtala-the-all-star-connection-august-2026-issue.png
-    flipbook_url: '<iframe allowfullscreen allow="autoplay; fullscreen;
-      clipboard-write" scrolling="no" style="width: 100%; height: 457px; border:
-      1px solid lightgray;"
-      src="https://heyzine.com/flip-book/8dfde5bcf4.html"></iframe>'
+    flipbook_url: https://heyzine.com/flip-book/8dfde5bcf4.html
     description: |
       Rotary E-Club of All Star CAMANAVA 
       SINAGTALA: The All Star Connection 
