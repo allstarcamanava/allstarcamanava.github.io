@@ -4,21 +4,20 @@ title: 💡 𝐏𝐑𝐎𝐉𝐄𝐂𝐓 𝐒𝐏𝐎𝐓𝐋𝐈𝐆𝐇𝐓 | 
   Light on Health, Hygiene, and Family Well-Being
 date: 2026-09-14
 categories: Service Projects
-comments: false
-image: ""
-gallery:
-  - /assets/images/bulletins/1.png
-  - /assets/images/bulletins/poa_banners_digital_1200x900_en21-3-.png
-  - /assets/images/bulletins/poa_banners_digital_1200x900_en21-1-.png
-  - /assets/images/bulletins/poa_banners_digital_1200x900_en21-2-.png
+comments: true
+image: /assets/images/bulletins/1.png
+post_image: ""
+gallery: []
 ---
 Heavy rain and flooded streets did not stop Rotary E-Club of All Star CAMANAVA’s Project BITUIN from bringing health education, essential supplies, and moments of joy to families in Longos, Malabon.
 
+![](/assets/images/bulletins/poa_banners_digital_1200x900_en21-3-.png)
+
 ![](/assets/images/bulletins/6.png)
 
-![](/assets/images/bulletins/8.png)
-
 After several postponements due to inclement weather, ReCASC finally conducted the first leg of Project BITUIN on August 26 at the Longos Pampano Child Development Center. The activity brought together daycare learners, parents, and guardians for a morning of health discussions, demonstrations, games, and fellowship.
+
+![](/assets/images/bulletins/8.png)
 
 ![](/assets/images/bulletins/9.png)
 
@@ -26,9 +25,11 @@ Despite the difficult weather conditions, the children eagerly joined the activi
 
 ![](/assets/images/bulletins/pe-michael-giving-kit.png)
 
+![](/assets/images/bulletins/hip-doms-giving-kit.png)
+
 Distributing dental and hygiene kits further reinforced the importance of oral health and cleanliness among young learners. The children also received art materials such as pencils, modeling clay, and crayons, giving them an opportunity to explore their creativity.
 
-![](/assets/images/bulletins/hip-doms-giving-kit.png)
+![](/assets/images/bulletins/poa_banners_digital_1200x900_en21-1-.png)
 
 For the parents, the program provided an opportunity to learn about an important but often less discussed aspect of women’s health. Resource speaker Mae Montalla-Rizardo, a professor at the College of Nursing of World Citi Colleges in Quezon City, discussed perimenopause and its possible effects on mothers’ physical and emotional well-being, behavior, and relationships. Professor Mae also briefly discussed andropause, a medical term commonly associated with “male menopause.”
 
@@ -67,6 +68,8 @@ Project BITUIN also highlighted the participation of dental clinics that helped 
 ![](/assets/images/bulletins/15.png)
 
 Their participation showed that the project opened opportunities for partners from different places to contribute to the well-being of a community. It also reflected that the spirit of Rotary knows no geographical bounds.
+
+![](/assets/images/bulletins/poa_banners_digital_1200x900_en21-2-.png)
 
 Meanwhile, the art materials were donated by SQI Group Int’l. Corp., while the snacks were provided by Kangkong King.
 
