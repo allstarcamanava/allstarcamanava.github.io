@@ -1482,6 +1482,23 @@ function base64UrlDecode(
 /*
  * ========================================
  * HTML Response
+ *
+ * This is the important change:
+ * Cloudflare-generated Drive pages now
+ * use the same site shell as the Jekyll
+ * pages, including:
+ *
+ * - Site header
+ * - Main navigation
+ * - Members Area
+ * - Logout
+ * - Search
+ * - Footer
+ * - Google Fonts
+ * - Favicon
+ * - Google Analytics
+ * - Shared site stylesheet
+ * - Mobile navigation
  * ========================================
  */
 
@@ -1503,39 +1520,72 @@ function htmlResponse(
     content="width=device-width, initial-scale=1.0"
   >
 
+  <meta
+    name="theme-color"
+    content="#00cccc"
+  >
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="/assets/Club_logo.png"
+  >
+
   <title>
     ${escapeHtml(title)}
   </title>
 
+  <!-- Google Analytics -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-HPTE0Z5MEC"
+  ></script>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag("js", new Date());
+
+    gtag(
+      "config",
+      "G-HPTE0Z5MEC"
+    );
+  </script>
+
+  <!-- Google Fonts -->
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Main Site Styles -->
+  <link
+    rel="stylesheet"
+    href="/assets/css/style.css"
+  >
+
   <style>
 
-    :root {
-      --tiffany: #00cccc;
-      --dark: #049393;
-      --ink: #0b2b2e;
-      --paper: #f6fbfb;
-      --paper-alt: #eaf6f6;
-      --line: #cfeaea;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      background: var(--paper);
-      color: var(--ink);
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-    }
-
-    a {
-      color: inherit;
-    }
+    /*
+     * ========================================
+     * Drive Page Specific Styles
+     * ========================================
+     */
 
     .drive-page {
       width: min(
@@ -1556,31 +1606,32 @@ function htmlResponse(
 
     .eyebrow {
       margin: 0 0 6px;
-      color: var(--dark);
+      color: var(--dark, #049393);
       font-size: 13px;
       font-weight: 700;
       letter-spacing: .08em;
       text-transform: uppercase;
     }
 
-    h1 {
+    .drive-page h1 {
       margin: 0;
+      font-family: "Fraunces", Georgia, serif;
       font-size: 36px;
       line-height: 1.1;
     }
 
     .members-link {
       padding: 10px 15px;
-      border: 1px solid var(--line);
+      border: 1px solid var(--line, #cfeaea);
       border-radius: 9px;
       background: white;
-      color: var(--dark);
+      color: var(--dark, #049393);
       text-decoration: none;
       font-weight: 600;
     }
 
     .members-link:hover {
-      background: var(--paper-alt);
+      background: var(--paper-alt, #eaf6f6);
     }
 
     .drive-welcome {
@@ -1591,9 +1642,13 @@ function htmlResponse(
     .back-link {
       display: inline-block;
       margin-bottom: 20px;
-      color: var(--dark);
+      color: var(--dark, #049393);
       text-decoration: none;
       font-weight: 600;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
     }
 
     .folder-heading {
@@ -1605,10 +1660,12 @@ function htmlResponse(
 
     .folder-icon {
       font-size: 36px;
+      line-height: 1;
     }
 
     .folder-heading h2 {
       margin: 0 0 4px;
+      font-family: "Fraunces", Georgia, serif;
       font-size: 24px;
     }
 
@@ -1620,7 +1677,7 @@ function htmlResponse(
     .drive-list {
       overflow: hidden;
       background: white;
-      border: 1px solid var(--line);
+      border: 1px solid var(--line, #cfeaea);
       border-radius: 14px;
     }
 
@@ -1632,7 +1689,7 @@ function htmlResponse(
       padding: 12px 18px;
       color: inherit;
       text-decoration: none;
-      border-bottom: 1px solid var(--paper-alt);
+      border-bottom: 1px solid var(--paper-alt, #eaf6f6);
     }
 
     .drive-item:last-child {
@@ -1640,7 +1697,7 @@ function htmlResponse(
     }
 
     .drive-item:hover {
-      background: var(--paper);
+      background: var(--paper, #f6fbfb);
     }
 
     .icon {
@@ -1657,7 +1714,7 @@ function htmlResponse(
 
     .arrow,
     .external {
-      color: var(--dark);
+      color: var(--dark, #049393);
       font-size: 22px;
     }
 
@@ -1676,12 +1733,66 @@ function htmlResponse(
     .button {
       display: inline-block;
       padding: 11px 18px;
-      background: var(--dark);
+      background: var(--dark, #049393);
       color: white;
       border-radius: 9px;
       text-decoration: none;
       font-weight: 600;
     }
+
+    .button:hover {
+      background: var(--tiffany, #00cccc);
+      color: var(--ink, #0b2b2e);
+    }
+
+    /*
+     * ========================================
+     * Site Navigation
+     * ========================================
+     */
+
+    .drive-site-nav {
+      width: 100%;
+    }
+
+    .drive-site-nav .nav-inner {
+      width: min(
+        100% - 32px,
+        1160px
+      );
+
+      margin: 0 auto;
+    }
+
+    .drive-site-nav .brand {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .drive-site-nav .brand span {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .drive-site-nav .brand small {
+      margin-top: 2px;
+    }
+
+    .drive-site-nav .nav-links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .drive-site-nav .nav-links a {
+      text-decoration: none;
+    }
+
+    /*
+     * ========================================
+     * Mobile Navigation
+     * ========================================
+     */
 
     @media (max-width: 600px) {
 
@@ -1699,8 +1810,12 @@ function htmlResponse(
         flex-direction: column;
       }
 
-      h1 {
+      .drive-page h1 {
         font-size: 28px;
+      }
+
+      .folder-heading {
+        align-items: flex-start;
       }
 
     }
@@ -1711,7 +1826,244 @@ function htmlResponse(
 
 <body>
 
-  ${content}
+  <!--
+   * ========================================
+   * Site Header
+   * ========================================
+   -->
+
+  <header class="site-nav drive-site-nav">
+
+    <div class="nav-inner">
+
+      <a
+        href="/"
+        class="brand"
+      >
+        <span>
+          Rotary E-Club of All Star CAMANAVA
+          <small>
+            Service Above Self
+          </small>
+        </span>
+      </a>
+
+      <nav aria-label="Main navigation">
+
+        <ul
+          class="nav-links"
+          id="navLinks"
+        >
+
+          <li>
+            <a href="/">
+              Home
+            </a>
+          </li>
+
+          <li>
+            <a href="/about/">
+              About
+            </a>
+          </li>
+
+          <li>
+            <a href="/services/">
+              Services
+            </a>
+          </li>
+
+          <li>
+            <a href="/partners/">
+              Partners
+            </a>
+          </li>
+
+          <li>
+            <a href="/contact/">
+              Contact
+            </a>
+          </li>
+
+          <li>
+            <a href="/members/">
+              Members Area
+            </a>
+          </li>
+
+          <li>
+            <a href="/members/logout">
+              Logout
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="/search/"
+              class="nav-search"
+              aria-label="Search"
+            >
+              <span>
+                Search
+              </span>
+
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="7"
+                ></circle>
+
+                <line
+                  x1="16.65"
+                  y1="16.65"
+                  x2="21"
+                  y2="21"
+                ></line>
+              </svg>
+
+            </a>
+          </li>
+
+        </ul>
+
+      </nav>
+
+      <button
+        class="nav-toggle"
+        id="navToggle"
+        type="button"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="navLinks"
+      >
+        <span></span>
+      </button>
+
+    </div>
+
+  </header>
+
+  <!--
+   * ========================================
+   * Main Content
+   * ========================================
+   -->
+
+  <main id="app">
+
+    ${content}
+
+  </main>
+
+  <!--
+   * ========================================
+   * Site Footer
+   * ========================================
+   -->
+
+  <footer class="site-footer">
+
+    <div class="footer-inner">
+
+      <div class="footer-brand">
+
+        <strong>
+          Rotary E-Club of All Star CAMANAVA
+        </strong>
+
+        <span>
+          Service Above Self
+        </span>
+
+      </div>
+
+      <div class="footer-meta">
+
+        <span>
+          © <span id="year"></span>
+          Rotary E-Club of All Star CAMANAVA
+        </span>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+  <!--
+   * ========================================
+   * Mobile Navigation + Footer Year
+   * ========================================
+   -->
+
+  <script>
+    (function() {
+      "use strict";
+
+      var navLinks =
+        document.getElementById(
+          "navLinks"
+        );
+
+      var navToggle =
+        document.getElementById(
+          "navToggle"
+        );
+
+      if (
+        navToggle &&
+        navLinks
+      ) {
+        navToggle.addEventListener(
+          "click",
+          function() {
+
+            var isOpen =
+              navLinks.classList.toggle(
+                "open"
+              );
+
+            navToggle.classList.toggle(
+              "open",
+              isOpen
+            );
+
+            navToggle.setAttribute(
+              "aria-expanded",
+              isOpen
+                ? "true"
+                : "false"
+            );
+
+          }
+        );
+      }
+
+      var yearEl =
+        document.getElementById(
+          "year"
+        );
+
+      if (yearEl) {
+        yearEl.textContent =
+          new Date().getFullYear();
+      }
+
+    })();
+  </script>
+
+  <script src="/assets/js/youtube-lightbox.js"></script>
 
 </body>
 
