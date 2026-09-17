@@ -348,13 +348,6 @@ export async function onRequest(context) {
             )}.
           </p>
 
-          <a
-            class="back-link"
-            href="/members/"
-          >
-            ← Members Area
-          </a>
-
           <div class="folder-heading">
 
             <span class="folder-icon">
