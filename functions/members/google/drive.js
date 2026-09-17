@@ -1965,35 +1965,6 @@ function htmlResponse(
    * ========================================
    -->
 
-  <footer class="site-footer">
-
-    <div class="footer-inner">
-
-      <div class="footer-brand">
-
-        <strong>
-          Rotary E-Club of All Star CAMANAVA
-        </strong>
-
-        <span>
-          Service Above Self
-        </span>
-
-      </div>
-
-      <div class="footer-meta">
-
-        <span>
-          © <span id="year"></span>
-          Rotary E-Club of All Star CAMANAVA
-        </span>
-
-      </div>
-
-    </div>
-
-  </footer>
-
   <!--
    * ========================================
    * Mobile Navigation + Footer Year
@@ -2041,16 +2012,6 @@ function htmlResponse(
 
           }
         );
-      }
-
-      var yearEl =
-        document.getElementById(
-          "year"
-        );
-
-      if (yearEl) {
-        yearEl.textContent =
-          new Date().getFullYear();
       }
 
     })();
