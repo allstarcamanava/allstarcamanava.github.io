@@ -25,6 +25,15 @@
             >
           </div>
 
+        {% elsif post.image %}
+
+          <div class="bulletin-thumb">
+            <img
+              src="{{ post.image | relative_url }}"
+              alt="{{ post.title }}"
+            >
+          </div>
+
         {% else %}
 
           <div class="bulletin-ico">
