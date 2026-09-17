@@ -24,8 +24,13 @@
       <a href="{{ '/contact/' | relative_url }}">Contact</a>
     </li>
     <li>
-      <a href="{{ '/members/login' | relative_url }}">Member Login</a>
-    </li>    
+      <a
+        href="{{ '/members/login' | relative_url }}"
+        id="memberNavLink"
+      >
+        Member Login
+      </a>
+    </li>
     <li>
       <a
         href="{{ '/search/' | relative_url }}"
@@ -65,3 +70,51 @@
 </button>
   </div>
 </header>
+
+<script>
+(function() {
+  "use strict";
+
+  var memberNavLink =
+    document.getElementById("memberNavLink");
+
+  if (!memberNavLink) {
+    return;
+  }
+
+  fetch("/members/", {
+    method: "GET",
+    credentials: "same-origin",
+    redirect: "follow",
+    cache: "no-store"
+  })
+    .then(function(response) {
+
+      var finalUrl =
+        response.url || "";
+
+      /*
+       * If /members/ did not redirect to the
+       * login page, the member session is valid.
+       */
+      if (
+        response.ok &&
+        !finalUrl.includes("/members/login")
+      ) {
+        memberNavLink.textContent =
+          "Members Area";
+
+        memberNavLink.href =
+          "/members/";
+      }
+
+    })
+    .catch(function() {
+      /*
+       * Keep the default "Member Login" link
+       * if the session check cannot be completed.
+       */
+    });
+
+})();
+</script>
