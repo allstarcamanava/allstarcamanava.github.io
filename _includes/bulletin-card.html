@@ -12,9 +12,26 @@
 
       <li>
 
-        <div class="bulletin-ico">
-          📌
-        </div>
+        {% assign first_image = post.content | split: '<img' | last %}
+
+        {% if first_image contains 'src=' %}
+
+          {% assign image_src = first_image | split: 'src="' | last | split: '"' | first %}
+
+          <div class="bulletin-thumb">
+            <img
+              src="{{ image_src }}"
+              alt="{{ post.title }}"
+            >
+          </div>
+
+        {% else %}
+
+          <div class="bulletin-ico">
+            📌
+          </div>
+
+        {% endif %}
 
         <div class="bulletin-text">
 

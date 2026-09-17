@@ -2669,3 +2669,25 @@ footer {
     padding: 28px;
   }
 }
+
+/* Latest bulletin thumbnails — uses the first image from each article */
+.bulletin-list li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.bulletin-thumb {
+  width: 90px;
+  height: 70px;
+  flex: 0 0 90px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.bulletin-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
