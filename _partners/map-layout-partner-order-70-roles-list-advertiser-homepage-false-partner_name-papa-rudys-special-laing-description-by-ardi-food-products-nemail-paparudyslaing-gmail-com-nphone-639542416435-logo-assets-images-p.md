@@ -2,7 +2,7 @@
 layout: partner
 partner_name: PAPA RUDY'S SPECIAL LAING
 order: 70
-logo: /assets/images/partners/papa-rudy-s-special-laing-by-ardi-food-products.png
+logo: /assets/images/partners/page-02inside-front-covercoloredl-premium-ads-1-.png
 roles:
   - Advertiser
 description: |-
