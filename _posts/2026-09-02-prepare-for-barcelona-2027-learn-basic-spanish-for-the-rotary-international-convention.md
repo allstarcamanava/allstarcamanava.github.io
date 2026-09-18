@@ -1,6 +1,6 @@
 ---
 layout: bulletin-full
-title: "🗣️ Prepare for Barcelona 2027: Learn Basic Spanish for the Rotary
+title: "🗣️ PREPARE FOR BARCELONA 2027: Learn Basic Spanish for the Rotary
   International Convention"
 date: 2026-09-03
 categories: Announcement
