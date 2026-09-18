@@ -1,6 +1,7 @@
 ---
 layout: bulletin
-title: 🏆 𝐌𝐈𝐋𝐄𝐒𝐓𝐎𝐍𝐄 𝐌𝐎𝐌𝐄𝐍𝐓𝐒 | District 3800 Handover & Induction
+title: 🏆 𝐌𝐈𝐋𝐄𝐒𝐓𝐎𝐍𝐄 𝐌𝐎𝐌𝐄𝐍𝐓𝐒 | District 3800 Welcomes New RY
+  Through Its Handover & Induction Ceremonies
 date: 2026-07-04
 categories: Event
 image: /assets/images/bulletins/handover-2.jpg
