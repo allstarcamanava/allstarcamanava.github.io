@@ -12,25 +12,37 @@
 
       <li>
 
-        {% assign first_image = post.content | split: '<img' | last %}
+        {% assign thumbnail = "" %}
 
-        {% if first_image contains 'src=' %}
+        {% case post.image %}
 
-          {% assign image_src = first_image | split: 'src="' | last | split: '"' | first %}
+          {% when "/assets/images/bulletins/adobe-express-hero_modal-1-1-.gif" %}
+            {% assign thumbnail = "/assets/images/bulletins/adobe-express-hero-modal-thumb.gif" %}
+
+          {% when "/assets/images/bulletins/screenshot-2026-08-26-at-3.26.50-pm.png" %}
+            {% assign thumbnail = "/assets/images/bulletins/screenshot-2026-08-26-at-3.26.50-pm-thumb.jpg" %}
+
+          {% when "/assets/images/bulletins/handover-2.jpg" %}
+            {% assign thumbnail = "/assets/images/bulletins/handover-2-thumb.jpg" %}
+
+          {% when "/assets/images/bulletins/1.png" %}
+            {% assign thumbnail = "/assets/images/bulletins/1-thumb.jpg" %}
+
+          {% when "/assets/images/bulletins/pdl-01.png" %}
+            {% assign thumbnail = "/assets/images/bulletins/pdl-01-thumb.jpg" %}
+
+          {% when "/assets/images/bulletins/kuya_1.jpg" %}
+            {% assign thumbnail = "/assets/images/bulletins/kuya_1-thumb.jpg" %}
+
+        {% endcase %}
+
+        {% if thumbnail != "" %}
 
           <div class="bulletin-thumb">
             <img
-              src="{{ image_src }}"
+              src="{{ thumbnail | relative_url }}"
               alt="{{ post.title }}"
-            >
-          </div>
-
-        {% elsif post.image %}
-
-          <div class="bulletin-thumb">
-            <img
-              src="{{ post.image | relative_url }}"
-              alt="{{ post.title }}"
+              loading="lazy"
             >
           </div>
 
