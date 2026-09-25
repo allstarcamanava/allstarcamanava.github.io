@@ -101,7 +101,7 @@ jobs:
       - name: Commit generated thumbnails
         shell: bash
         run: |
-          if git diff --quiet; then
+          if [ -z "$(git status --porcelain)" ]; then
             echo "No new thumbnails to commit."
             exit 0
           fi
