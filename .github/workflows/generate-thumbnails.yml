@@ -23,30 +23,45 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y imagemagick
 
-      - name: Generate thumbnails for changed images
+      - name: Generate thumbnails for changed posts
         shell: bash
         run: |
           set -e
 
           generated=0
 
-          while IFS= read -r image; do
+          while IFS= read -r post; do
+
+            [ -f "$post" ] || continue
+
+            echo "Checking post: $post"
+
+            image="$(
+              sed -n '1,/^---$/p' "$post" |
+              sed -n 's/^image:[[:space:]]*//p' |
+              head -n 1 |
+              tr -d '"' |
+              tr -d "'"
+            )"
+
+            if [ -z "$image" ]; then
+              echo "No featured image."
+              continue
+            fi
+
+            image="${image#/}"
 
             case "$image" in
               *.jpg|*.JPG|*.jpeg|*.JPEG|*.png|*.PNG)
                 ;;
               *)
-                continue
-                ;;
-            esac
-
-            case "$image" in
-              *-thumb.jpg|*-thumb.jpeg|*-thumb.png)
+                echo "Unsupported image type: $image"
                 continue
                 ;;
             esac
 
             if [ ! -f "$image" ]; then
+              echo "Image not found: $image"
               continue
             fi
 
@@ -73,7 +88,12 @@ jobs:
             generated=$((generated + 1))
 
           done < <(
-            git diff-tree --no-commit-id --name-only -r "$GITHUB_SHA" -- assets/images/bulletins/
+            git diff-tree \
+              --no-commit-id \
+              --name-only \
+              -r \
+              "$GITHUB_SHA" |
+            grep '^_posts/.*\.md$' || true
           )
 
           echo "Generated $generated thumbnail(s)."
