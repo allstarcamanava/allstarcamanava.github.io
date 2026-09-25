@@ -1,6 +1,6 @@
 ---
 layout: bulletin
-title: Test post kitty-o 2
+title: Test post kitty-o
 date: 2026-09-25
 categories: Service Projects
 comments: true
