@@ -78,7 +78,7 @@ jobs:
 
             echo "Generating: $thumbnail"
 
-            magick "$image" \
+            convert "$image" \
               -resize '400x300^' \
               -gravity center \
               -crop '400x300+0+0' \
