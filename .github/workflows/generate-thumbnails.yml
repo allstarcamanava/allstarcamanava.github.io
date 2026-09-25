@@ -1,0 +1,96 @@
+name: Generate bulletin thumbnails
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  thumbnails:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Install ImageMagick
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+
+      - name: Generate thumbnails for changed images
+        shell: bash
+        run: |
+          set -e
+
+          generated=0
+
+          while IFS= read -r image; do
+
+            case "$image" in
+              *.jpg|*.JPG|*.jpeg|*.JPEG|*.png|*.PNG)
+                ;;
+              *)
+                continue
+                ;;
+            esac
+
+            case "$image" in
+              *-thumb.jpg|*-thumb.jpeg|*-thumb.png)
+                continue
+                ;;
+            esac
+
+            if [ ! -f "$image" ]; then
+              continue
+            fi
+
+            directory="$(dirname "$image")"
+            filename="$(basename "$image")"
+            name="${filename%.*}"
+
+            thumbnail="$directory/${name}-thumb.jpg"
+
+            if [ -f "$thumbnail" ]; then
+              echo "Thumbnail already exists: $thumbnail"
+              continue
+            fi
+
+            echo "Generating: $thumbnail"
+
+            magick "$image" \
+              -resize '400x300^' \
+              -gravity center \
+              -crop '400x300+0+0' \
+              -quality 80 \
+              "$thumbnail"
+
+            generated=$((generated + 1))
+
+          done < <(
+            git diff-tree --no-commit-id --name-only -r "$GITHUB_SHA" -- assets/images/bulletins/
+          )
+
+          echo "Generated $generated thumbnail(s)."
+
+      - name: Commit generated thumbnails
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "No new thumbnails to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add 'assets/images/bulletins/*-thumb.jpg'
+
+          git commit -m "Generate bulletin thumbnails"
+
+          git push

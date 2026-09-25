@@ -14,29 +14,43 @@
 
         {% assign thumbnail = "" %}
 
-        {% case post.image %}
+        {% if post.image contains "adobe-express-hero_modal-1-1-.gif" %}
 
-          {% when "/assets/images/bulletins/adobe-express-hero_modal-1-1-.gif" %}
-            {% assign thumbnail = "/assets/images/bulletins/adobe-express-hero-modal-thumb.gif" %}
+          {% assign thumbnail = "/assets/images/bulletins/adobe-express-hero-modal-thumb.gif" %}
 
-          {% when "/assets/images/bulletins/screenshot-2026-08-26-at-3.26.50-pm.png" %}
-            {% assign thumbnail = "/assets/images/bulletins/screenshot-2026-08-26-at-3.26.50-pm-thumb.jpg" %}
+        {% elsif post.image contains ".gif" %}
 
-          {% when "/assets/images/bulletins/handover-2.jpg" %}
-            {% assign thumbnail = "/assets/images/bulletins/handover-2-thumb.jpg" %}
+          {% assign thumbnail = post.image | replace: ".gif", "-thumb.gif" %}
 
-          {% when "/assets/images/bulletins/1.png" %}
-            {% assign thumbnail = "/assets/images/bulletins/1-thumb.jpg" %}
+        {% elsif post.image contains ".jpg" %}
 
-          {% when "/assets/images/bulletins/pdl-01.png" %}
-            {% assign thumbnail = "/assets/images/bulletins/pdl-01-thumb.jpg" %}
+          {% assign thumbnail = post.image | replace: ".jpg", "-thumb.jpg" %}
 
-          {% when "/assets/images/bulletins/kuya_1.jpg" %}
-            {% assign thumbnail = "/assets/images/bulletins/kuya_1-thumb.jpg" %}
+        {% elsif post.image contains ".jpeg" %}
 
-        {% endcase %}
+          {% assign thumbnail = post.image | replace: ".jpeg", "-thumb.jpg" %}
 
-        {% if thumbnail != "" %}
+        {% elsif post.image contains ".png" %}
+
+          {% assign thumbnail = post.image | replace: ".png", "-thumb.jpg" %}
+
+        {% endif %}
+
+        {% assign thumbnail_exists = false %}
+
+        {% for file in site.static_files %}
+
+          {% if file.path == thumbnail %}
+
+            {% assign thumbnail_exists = true %}
+
+            {% break %}
+
+          {% endif %}
+
+        {% endfor %}
+
+        {% if thumbnail != "" and thumbnail_exists %}
 
           <div class="bulletin-thumb">
             <img
