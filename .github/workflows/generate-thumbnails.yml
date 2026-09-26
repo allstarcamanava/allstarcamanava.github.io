@@ -95,6 +95,7 @@ jobs:
             "${GITHUB_SHA}^1" \
             "$GITHUB_SHA" |
           grep '^_posts/.*\.md$' || true
+          )
 
           echo "Generated $generated thumbnail(s)."
 
