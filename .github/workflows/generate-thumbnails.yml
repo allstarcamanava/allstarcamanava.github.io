@@ -16,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
       - name: Install ImageMagick
         run: |
@@ -88,13 +88,13 @@ jobs:
             generated=$((generated + 1))
 
           done < <(
-            git diff-tree \
-              --no-commit-id \
-              --name-only \
-              -r \
-              "$GITHUB_SHA" |
-            grep '^_posts/.*\.md$' || true
-          )
+          git diff-tree \
+            --no-commit-id \
+            --name-only \
+            -r \
+            "${GITHUB_SHA}^1" \
+            "$GITHUB_SHA" |
+          grep '^_posts/.*\.md$' || true
 
           echo "Generated $generated thumbnail(s)."
 
