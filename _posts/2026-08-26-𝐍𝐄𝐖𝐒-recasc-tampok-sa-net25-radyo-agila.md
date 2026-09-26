@@ -4,6 +4,11 @@ title: " 𝐍𝐄𝐖𝐒 | ReCASC, tampok sa Net25 Radyo Agila"
 date: 2026-08-27
 categories: Service Projects
 image: /assets/images/bulletins/net25.png
+custom_embed: <iframe width="560" height="315"
+  src="https://www.youtube.com/embed/S9XQhZe5GZQ?si=vHyVUpGKNHdmRNQT"
+  title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
+  clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 ---
 Lubos na ikinagagalak ng Rotary E-Club of All Star CAMANAVA (ReCASC) ang pagkakapili ng Net25 Radyo Agila sa aming proyektong RENEW Life upang ibalita sa kanilang himpilan ng radyo.
 
