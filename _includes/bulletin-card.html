@@ -14,7 +14,11 @@
 
         {% assign thumbnail = "" %}
 
-        {% if post.image contains "adobe-express-hero_modal-1-1-.gif" %}
+        {% if post.thumbnail %}
+
+          {% assign thumbnail = post.thumbnail %}
+
+        {% elsif post.image contains "adobe-express-hero_modal-1-1-.gif" %}
 
           {% assign thumbnail = "/assets/images/bulletins/adobe-express-hero-modal-thumb.gif" %}
 

@@ -74,6 +74,12 @@ collections:
         widget: "image"
         required: false
 
+      - label: "Thumbnail"
+        name: "thumbnail"
+        widget: "image"
+        required: false
+        hint: "Optional. This image is used as the thumbnail in the Recent Posts & Bulletins card."        
+
       - label: "Post Image"
         name: "post_image"
         widget: "image"
