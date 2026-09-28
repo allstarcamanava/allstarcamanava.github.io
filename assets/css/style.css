@@ -2678,9 +2678,9 @@ footer {
 }
 
 .bulletin-thumb {
-  width: 180px;
-  height: 140px;
-  flex: 0 0 180px;
+  width: 90px;
+  height: 70px;
+  flex: 0 0 90px;
   overflow: hidden;
   border-radius: 8px;
 }
@@ -2690,4 +2690,12 @@ footer {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+@media (min-width: 768px) {
+  .bulletin-thumb {
+    width: 180px;
+    height: 140px;
+    flex: 0 0 180px;
+  }
 }
