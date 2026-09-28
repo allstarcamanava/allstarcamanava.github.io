@@ -1,16 +1,6 @@
 <div class="hero{% if site.data.site.hero_overlay %} hero-overlay{% endif %}">
 
-  <img
-    class="hero-image"
-    src="{{ site.data.site.hero_image | relative_url }}"
-    alt=""
-    width="1280"
-    height="720"
-    fetchpriority="high"
-    loading="eager"
-    decoding="async"
-    aria-hidden="true"
-  >
+  <img class="hero-image" src="{{ site.data.site.hero_image | relative_url }}" srcset="/assets/images/bulletins/hero_laptop_480.webp 480w, /assets/images/bulletins/hero_laptop_640.webp 640w, /assets/images/bulletins/hero_laptop_828.webp 828w, /assets/images/bulletins/hero_laptop_version.webp 1280w" sizes="100vw" alt="" width="1280" height="720" fetchpriority="high" loading="eager" decoding="async" aria-hidden="true">
 
 {% if site.data.site.hero_decoration %}
   <svg
