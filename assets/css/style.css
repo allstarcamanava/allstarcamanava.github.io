@@ -2678,41 +2678,25 @@ footer {
 }
 
 .bulletin-list li {
-
   display: block;
-
 }
 
 .bulletin-thumb {
-
   width: 180px;
-
   height: 140px;
-
   overflow: hidden;
-
   border-radius: 8px;
-
   float: left;
-
   margin: 0 16px 8px 0;
-
 }
 
 .bulletin-thumb img {
-
   width: 100%;
-
   height: 100%;
-
   object-fit: cover;
-
   display: block;
-
 }
 
 .bulletin-text {
-
   display: block;
-
 }
