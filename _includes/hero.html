@@ -1,14 +1,16 @@
-<div class="hero"
-  style="background-image:
-    {% if site.data.site.hero_overlay %}
-      linear-gradient(
-        180deg,
-        rgba(6,40,42,.72) 0%,
-        rgba(3,64,66,.80) 55%,
-        rgba(0,204,204,.55) 100%
-      ),
-    {% endif %}
-    url('{{ site.data.site.hero_image | relative_url }}');">
+<div class="hero{% if site.data.site.hero_overlay %} hero-overlay{% endif %}">
+
+  <img
+    class="hero-image"
+    src="{{ site.data.site.hero_image | relative_url }}"
+    alt=""
+    width="1280"
+    height="720"
+    fetchpriority="high"
+    loading="eager"
+    decoding="async"
+    aria-hidden="true"
+  >
 
 {% if site.data.site.hero_decoration %}
   <svg

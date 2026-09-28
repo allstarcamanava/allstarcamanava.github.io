@@ -329,10 +329,45 @@ img {
   align-items: center;
   color: #fff;
   overflow: hidden;
-  background-position: center;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
   background-color: var(--ink);
+}
+
+/*
+  The hero image replaces the previous CSS background image.
+
+  object-fit: fill intentionally matches the previous:
+  background-size: 100% 100%;
+*/
+.hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: block;
+  z-index: 0;
+}
+
+/*
+  Hero overlay.
+
+  The hero.html opening tag should be:
+
+  <div class="hero{% if site.data.site.hero_overlay %} hero-overlay{% endif %}">
+*/
+.hero-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(6,40,42,.72) 0%,
+      rgba(3,64,66,.80) 55%,
+      rgba(0,204,204,.55) 100%
+    );
+  z-index: 1;
+  pointer-events: none;
 }
 
 @media (max-width: 720px) {
@@ -359,7 +394,7 @@ img {
   transform: translateY(-50%);
   animation: heroMoveUp 10s linear infinite alternate;
   pointer-events: none;
-  z-index: 0;
+  z-index: 2;
 }
 
 @keyframes heroMoveUp {
@@ -374,7 +409,7 @@ img {
 
 .hero-inner {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   width: 100%;
   max-width: 1160px;
   margin: 0 auto;
@@ -2670,7 +2705,11 @@ footer {
   }
 }
 
-/* Latest bulletin thumbnails — uses the first image from each article */
+
+/* ============================================================
+   LATEST BULLETIN THUMBNAILS
+   ============================================================ */
+
 .bulletin-list li {
   display: flex;
   align-items: center;
