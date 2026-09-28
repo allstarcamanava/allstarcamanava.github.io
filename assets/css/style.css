@@ -2678,9 +2678,9 @@ footer {
 }
 
 .bulletin-thumb {
-  width: 90px;
-  height: 70px;
-  flex: 0 0 90px;
+  width: 180px;
+  height: 140px;
+  flex: 0 0 180px;
   overflow: hidden;
   border-radius: 8px;
 }
