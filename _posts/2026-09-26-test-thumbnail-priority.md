@@ -6,6 +6,8 @@ categories: Service Projects
 comments: true
 image: /assets/images/bulletins/img_5557.jpg
 thumbnail: /assets/images/bulletins/img_5617.jpg
-custom_embed: Test thumbnail priority
+custom_embed: ""
 ---
+Test thumbnail priority
+
 Mini-O and Mapa
