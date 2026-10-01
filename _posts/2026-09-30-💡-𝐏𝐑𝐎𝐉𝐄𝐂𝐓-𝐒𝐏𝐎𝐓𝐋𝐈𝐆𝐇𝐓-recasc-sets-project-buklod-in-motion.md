@@ -5,7 +5,7 @@ date: 2026-09-30
 categories: Service Projects
 comments: true
 image: /assets/images/bulletins/buklod-1.png
-thumbnail: /assets/images/bulletins/untitled-design-2-.png
+thumbnail: /assets/images/bulletins/untitled-design.jpg
 ---
 This month of September, the members of the Rotary E-Club of All Star CAMANAVA (RECASC), led by High Impact President Dominic Santos-Viola Faustino, met with leaders from different organizations to discuss the club’s high-impact project, Project BUKLOD, which promotes Rotary’s mission towards Diversity, Equity, and Inclusion; Peacebuilding & Conflict Prevention; and Basic Education & Literacy.
 
@@ -31,7 +31,7 @@ Bahay Nakpil-Bautista, which is known as “Tahanan ng mga Katipunero,” is a 1
 
 Other attendees at the September 5 meeting were PP Liza Hizon, PE Cecil Apolinario, and Adsec Bing Cabanela from the Rotary Club of Plaza Miranda - Quiapo; IPP Cristina Chua, CP Jacil Luma-as, PP Jemuel Pilapil, and PN Rhoda Dasalla from the Rotary E-Club of All Star CAMANAVA. They were also joined by representatives of the newly formed Rotaract E-Club of All Star CAMANAVA.
 
-![](/assets/images/bulletins/untitled-design-2-.png)
+![](/assets/images/bulletins/untitled-design.jpg)
 
 A follow-up meeting was also held on September 20 between ICP Dario and HIP Dominic to discuss updates regarding ICP Dario’s recent visit to Zamboanga, where he met with Fr. Sebastiano D’Ambra, PIME, an Italian missionary based in Zamboanga who authored the foundational modules and publications of the Silsilah Dialogue Movement.
 
