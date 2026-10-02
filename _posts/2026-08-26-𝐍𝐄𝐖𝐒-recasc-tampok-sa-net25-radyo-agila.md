@@ -4,7 +4,7 @@ title: " 𝐍𝐄𝐖𝐒 | ReCASC, tampok sa Net25 Radyo Agila"
 date: 2026-08-27
 categories: Service Projects
 image: /assets/images/bulletins/net25.png
-thumbnail: /assets/images/bulletins/net25.png
+thumbnail: /assets/images/bulletins/net25-thumb.webp
 custom_embed: <iframe width="560" height="315"
   src="https://www.youtube.com/embed/S9XQhZe5GZQ?si=vHyVUpGKNHdmRNQT"
   title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
