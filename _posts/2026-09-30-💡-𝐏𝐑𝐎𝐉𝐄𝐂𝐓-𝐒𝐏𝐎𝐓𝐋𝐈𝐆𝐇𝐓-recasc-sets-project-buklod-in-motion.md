@@ -5,7 +5,7 @@ date: 2026-09-30
 categories: Service Projects
 comments: true
 image: /assets/images/bulletins/buklod-1.png
-thumbnail: /assets/images/bulletins/untitled-design.jpg
+thumbnail: /assets/images/bulletins/untitled-design.webp
 ---
 This month of September, the members of the Rotary E-Club of All Star CAMANAVA (RECASC), led by High Impact President Dominic Santos-Viola Faustino, met with leaders from different organizations to discuss the club’s high-impact project, Project BUKLOD, which promotes Rotary’s mission towards Diversity, Equity, and Inclusion; Peacebuilding & Conflict Prevention; and Basic Education & Literacy.
 
