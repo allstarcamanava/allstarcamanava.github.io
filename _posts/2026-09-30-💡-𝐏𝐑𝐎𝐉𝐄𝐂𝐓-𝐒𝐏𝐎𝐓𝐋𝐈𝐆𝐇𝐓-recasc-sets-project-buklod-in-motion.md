@@ -37,4 +37,4 @@ A follow-up meeting was also held on September 20 between ICP Dario and HIP Domi
 
 One of the key recommendations brought up during the meeting was the orientation and capacity-building of volunteer teachers who will undergo training and immersion at Fr. Sebastiano’s Harmony Village in Zamboanga. The final arrangement will still depend on the availability of the selected educators, funding, schedules, and other logistical considerations.
 
-Another meeting will be held on October 11 to specifically address the tasks delegated to each club and organization, among other agenda items. ▪️
+Another meeting will be held on October 10 to specifically address the tasks delegated to each club and organization, among other agenda items. ▪️
