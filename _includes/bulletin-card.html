@@ -58,7 +58,7 @@
 
           <a href="{{ post.url | relative_url }}" class="bulletin-thumb">
             <img
-              src="https://res.cloudinary.com/qvmxnrsp/image/fetch/f_auto,q_auto,w_300,c_limit/https://allstarcamanava.org{{ thumbnail | relative_url }}"
+              src="{{ thumbnail | relative_url }}"
               alt="{{ post.title }}"
               loading="lazy"
             >
