@@ -70,7 +70,7 @@
             {% if page.image and page.image != "" %}
               <div class="bulletin-featured-image">
                 <img
-                  src="{{ page.image | relative_url }}"
+                  src="https://res.cloudinary.com/qvmxnrsp/image/fetch/f_auto,q_auto,w_1200,c_limit/https://allstarcamanava.org{{ page.image | relative_url }}"
                   alt="{{ page.image_alt | default: page.title }}"
                 >
               </div>
@@ -100,9 +100,39 @@
               </div>
             {% endif %}
 
-            <div class="bulletin-content">
+            <div class="bulletin-content" id="bulletinContent">
               {{ content }}
-            </div>            
+            </div>
+
+            <script>
+            document.addEventListener("DOMContentLoaded", function () {
+              const content = document.getElementById("bulletinContent");
+
+              if (!content) return;
+
+              content.querySelectorAll("img").forEach(function (img) {
+                const src = img.getAttribute("src");
+
+                if (!src || src.startsWith("https://res.cloudinary.com/")) return;
+
+                let imageUrl;
+
+                if (src.startsWith("/")) {
+                  imageUrl = "https://allstarcamanava.org" + src;
+                } else if (src.startsWith("https://allstarcamanava.org/")) {
+                  imageUrl = src;
+                } else {
+                  return;
+                }
+
+                img.src =
+                  "https://res.cloudinary.com/qvmxnrsp/image/fetch/f_auto,q_auto,w_1200,c_limit/" +
+                  imageUrl;
+
+                img.loading = "lazy";
+              });
+            });
+            </script>                     
 
             <!-- ==================================================
                  DISQUS COMMENTS — START
