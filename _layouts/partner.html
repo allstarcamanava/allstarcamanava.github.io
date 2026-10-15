@@ -28,7 +28,7 @@ layout: default
       {% if page.logo and page.logo != "" %}
         <div class="partner-detail-logo">
           <img
-            src="{{ page.logo | relative_url }}"
+            src="{% if page.logo contains '://' %}{{ page.logo }}{% else %}{{ page.logo | relative_url }}{% endif %}"
             alt="{{ page.partner_name }}"
           >
         </div>

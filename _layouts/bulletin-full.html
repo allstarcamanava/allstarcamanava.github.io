@@ -64,7 +64,7 @@
             {% if page.post_image and page.post_image != "" %}
               <div class="bulletin-featured-image">
                 <img
-                  src="{{ page.post_image | relative_url }}"
+                  src="{% if page.post_image contains '://' %}{{ page.post_image }}{% else %}{{ page.post_image | relative_url }}{% endif %}"
                   alt="{{ page.image_alt | default: page.title }}"
                 >
               </div>
@@ -77,7 +77,7 @@
 
                 <div class="bulletin-gallery-item">
                   <img
-                    src="{{ image | relative_url }}"
+                    src="{% if image contains '://' %}{{ image }}{% else %}{{ image | relative_url }}{% endif %}"
                     alt="{{ page.title }}"
                     loading="lazy"
                   >

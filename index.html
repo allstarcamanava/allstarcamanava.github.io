@@ -43,7 +43,7 @@ permalink: /
               {% if site.data.featured_post.thumbnail %}
                 <a href="{{ featured_post.url | relative_url }}" class="featured-post-image">
                   <img
-                    src="{{ site.data.featured_post.thumbnail | relative_url }}"
+                    src="{% if site.data.featured_post.thumbnail contains '://' %}{{ site.data.featured_post.thumbnail }}{% else %}{{ site.data.featured_post.thumbnail | relative_url }}{% endif %}"
                     alt="{{ featured_post.title | escape }}"
                   >
                 </a>
@@ -92,7 +92,7 @@ permalink: /
             aria-label="Play {{ site.data.featured_youtube.video_title | default: 'featured video' | escape }}"
           >
             <img
-              src="{{ site.data.featured_youtube.thumbnail | relative_url }}"
+              src="{% if site.data.featured_youtube.thumbnail contains '://' %}{{ site.data.featured_youtube.thumbnail }}{% else %}{{ site.data.featured_youtube.thumbnail | relative_url }}{% endif %}"
               alt="{{ site.data.featured_youtube.video_title | default: 'Featured YouTube video' | escape }}"
             >
             <span class="featured-youtube-play">
@@ -359,7 +359,7 @@ permalink: /
       {% if site.data.homepage_modal.image and site.data.homepage_modal.image != "" %}
         <div class="homepage-modal-image">
           <img
-            src="{{ site.data.homepage_modal.image | relative_url }}"
+            src="{% if site.data.homepage_modal.image contains '://' %}{{ site.data.homepage_modal.image }}{% else %}{{ site.data.homepage_modal.image | relative_url }}{% endif %}"
             alt="{{ site.data.homepage_modal.title | escape }}"
           >
         </div>

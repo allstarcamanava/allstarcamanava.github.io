@@ -18,6 +18,10 @@
 
           {% assign thumbnail = post.thumbnail %}
 
+        {% elsif post.image contains "://" %}
+
+          {% assign thumbnail = post.image %}
+
         {% elsif post.image contains "adobe-express-hero_modal-1-1-.gif" %}
 
           {% assign thumbnail = "/assets/images/bulletins/adobe-express-hero-modal-thumb.gif" %}
@@ -41,28 +45,43 @@
         {% endif %}
 
         {% assign thumbnail_exists = false %}
+        {% assign thumbnail_is_external = false %}
 
-        {% for file in site.static_files %}
+        {% if thumbnail contains "https://" or thumbnail contains "http://" %}
 
-          {% if file.path == thumbnail %}
+          {% assign thumbnail_exists = true %}
+          {% assign thumbnail_is_external = true %}
 
-            {% assign thumbnail_exists = true %}
+        {% else %}
 
-            {% break %}
+          {% for file in site.static_files %}
 
-          {% endif %}
+            {% if file.path == thumbnail %}
 
-        {% endfor %}
+              {% assign thumbnail_exists = true %}
+
+              {% break %}
+
+            {% endif %}
+
+          {% endfor %}
+
+        {% endif %}
 
         {% if thumbnail != "" and thumbnail_exists %}
 
           <a href="{{ post.url | relative_url }}" class="bulletin-thumb">
             <img
-              src="{{ thumbnail | relative_url }}"
+              {% if thumbnail_is_external %}
+                src="{{ thumbnail }}"
+              {% else %}
+                src="{{ thumbnail | relative_url }}"
+              {% endif %}
               alt="{{ post.title }}"
               loading="lazy"
             >
           </a>
+
 
         {% else %}
 
