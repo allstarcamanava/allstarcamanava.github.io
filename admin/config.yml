@@ -62,10 +62,10 @@ collections:
           - label: "Event"
             value: "Event"
           - label: "Club Bulletin"
-            value: "Club Bulletin"
+            value: "club-bulletin"
           - label: "Other"
             value: "Other"
-        default: "Club Bulletin"
+        default: "club-bulletin"
 
       - label: "Show in Club Bulletins?"
         name: "show_in_bulletins"
