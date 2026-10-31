@@ -23,7 +23,7 @@ permalink: /service-projects/
 
       {% for post in site.posts %}
 
-        {% if post.categories contains "Service Projects" %}
+        {% if post.categories contains "service-projects" %}
 
           {% assign project_count = project_count | plus: 1 %}
           {% assign archive_image = post.image | default: post.thumbnail %}
