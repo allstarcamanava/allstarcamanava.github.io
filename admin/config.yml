@@ -650,3 +650,10 @@ collections:
         name: "homepage"
         widget: "boolean"
         default: false
+
+      - label: "Show in Club Bulletins?"
+        name: "show_in_bulletins"
+        widget: "boolean"
+        default: true
+        required: false
+        hint: "When enabled, this post will also appear in the Club Bulletins archive."        
