@@ -62,6 +62,13 @@ collections:
           - "Other"
         default: "Service Projects"
 
+      - label: "Show in Club Bulletins?"
+        name: "show_in_bulletins"
+        widget: "boolean"
+        default: true
+        required: false
+        hint: "When enabled, this post will also appear in the Club Bulletins archive."              
+
       - label: "Permalink"
         name: "permalink"
         widget: "string"
@@ -122,7 +129,7 @@ collections:
 
       - label: "Body"
         name: "body"
-        widget: "markdown"
+        widget: "markdown"        
 
   - name: "site"
     label: "Site Settings"
@@ -649,11 +656,4 @@ collections:
       - label: "Show on Homepage"
         name: "homepage"
         widget: "boolean"
-        default: false
-
-      - label: "Show in Club Bulletins?"
-        name: "show_in_bulletins"
-        widget: "boolean"
-        default: true
-        required: false
-        hint: "When enabled, this post will also appear in the Club Bulletins archive."        
+        default: false  
