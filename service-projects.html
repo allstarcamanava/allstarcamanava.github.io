@@ -1,0 +1,89 @@
+---
+layout: default
+title: "Service Projects — Rotary E-Club of All Star CAMANAVA"
+description: "Explore the community service projects and initiatives of Rotary E-Club of All Star CAMANAVA."
+permalink: /service-projects/
+---
+
+<section class="block bulletin-archive-page">
+  <div class="container">
+
+    <div class="block-head">
+      <span class="eyebrow">Our Community Impact</span>
+      <h1>Service Projects</h1>
+      <p>
+        Discover the projects and initiatives through which Rotary E-Club
+        of All Star CAMANAVA serves communities across CAMANAVA and beyond.
+      </p>
+    </div>
+
+    <div class="bulletin-archive-grid">
+
+      {% assign project_count = 0 %}
+
+      {% for post in site.posts %}
+
+        {% if post.categories contains "Service Projects" %}
+
+          {% assign project_count = project_count | plus: 1 %}
+          {% assign archive_image = post.image | default: post.thumbnail %}
+
+          <article class="bulletin-archive-item">
+
+            {% if archive_image and archive_image != "" %}
+              <a href="{{ post.url | relative_url }}" class="bulletin-archive-image">
+                <img
+                  {% if archive_image contains "://" %}
+                    src="{{ archive_image }}"
+                  {% else %}
+                    src="{{ archive_image | relative_url }}"
+                  {% endif %}
+                  alt="{{ post.image_alt | default: post.title }}"
+                  loading="lazy"
+                >
+              </a>
+            {% endif %}
+
+            <div class="bulletin-archive-content">
+              <div class="bulletin-archive-date">
+                {{ post.date | date: "%B %d, %Y" }}
+              </div>
+
+              <h2>
+                <a href="{{ post.url | relative_url }}">
+                  {{ post.title }}
+                </a>
+              </h2>
+
+              {% if post.excerpt %}
+                <p>
+                  {{ post.excerpt | strip_html | truncatewords: 30 }}
+                </p>
+              {% endif %}
+
+              <a href="{{ post.url | relative_url }}" class="btn btn-solid">
+                Read More
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+
+          </article>
+
+        {% endif %}
+
+      {% endfor %}
+
+      {% if project_count == 0 %}
+        <div class="card bulletin-empty">
+          <div class="bulletin-ico">🤝</div>
+          <h2>No Service Projects Yet</h2>
+          <p>
+            Our community service projects and initiatives will appear here
+            as they are published.
+          </p>
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</section>

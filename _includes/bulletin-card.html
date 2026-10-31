@@ -8,7 +8,9 @@
 
   <ul class="bulletin-list">
 
-    {% for post in site.posts limit:6 %}
+    {% assign bulletin_posts = site.posts | where_exp: "post", "post.show_in_bulletins != false" %}
+
+    {% for post in bulletin_posts limit:6 %}
 
       <li>
 

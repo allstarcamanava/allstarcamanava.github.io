@@ -67,7 +67,7 @@ collections:
         widget: "boolean"
         default: true
         required: false
-        hint: "When enabled, this post will also appear in the Club Bulletins archive."              
+        hint: "When enabled, this post will also appear in the Club Bulletins and Service Projects page simultaneously."              
 
       - label: "Permalink"
         name: "permalink"
