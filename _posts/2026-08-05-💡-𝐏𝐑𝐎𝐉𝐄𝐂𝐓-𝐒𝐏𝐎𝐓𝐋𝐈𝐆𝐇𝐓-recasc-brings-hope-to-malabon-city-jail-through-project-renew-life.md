@@ -5,6 +5,7 @@ title: 💡 𝐏𝐑𝐎𝐉𝐄𝐂𝐓 𝐒𝐏𝐎𝐓𝐋𝐈𝐆𝐇𝐓 | 
 date: 2026-08-06
 categories: service-projects
 show_in_bulletins: true
+comments: true
 image: /assets/images/bulletins/pdl-01.png
 ---
 Sometimes, the best stories are the ones that were never part of the original plan.
