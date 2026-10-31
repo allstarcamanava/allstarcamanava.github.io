@@ -2,7 +2,7 @@
 layout: bulletin
 title: 💡 𝐏𝐑𝐎𝐉𝐄𝐂𝐓 𝐒𝐏𝐎𝐓𝐋𝐈𝐆𝐇𝐓 | RECASC Sets Project BUKLOD in Motion
 date: 2026-09-30
-categories: service-projects
+categories: Event
 comments: true
 image: /assets/images/bulletins/buklod-1.png
 thumbnail: /assets/images/bulletins/untitled-design.webp
