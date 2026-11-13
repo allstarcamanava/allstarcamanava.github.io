@@ -1,0 +1,41 @@
+# Fixed lists used by the Service Projects directory and project pages.
+# Keep these values in sync with the matching options in admin/config.yml.
+
+# Rotary International's seven Areas of Focus — exact official names.
+areas_of_focus:
+  - name: "Peacebuilding and Conflict Prevention"
+    icon: "handshake"
+  - name: "Disease Prevention and Treatment"
+    icon: "stethoscope"
+  - name: "Water, Sanitation, and Hygiene"
+    icon: "droplets"
+  - name: "Maternal and Child Health"
+    icon: "baby"
+  - name: "Basic Education and Literacy"
+    icon: "book-open"
+  - name: "Community Economic Development"
+    icon: "store"
+  - name: "Supporting the Environment"
+    icon: "trees"
+
+categories:
+  - value: "flagship"
+    label: "Flagship / Continuing Programs"
+    singular: "Flagship / Continuing Program"
+    short: "Flagship Program"
+  - value: "individual"
+    label: "Individual Service Projects"
+    singular: "Individual Service Project"
+    short: "Service Project"
+  - value: "community"
+    label: "Community Activities"
+    singular: "Community Activity"
+    short: "Community Activity"
+
+statuses:
+  - value: "ongoing"
+    label: "Ongoing"
+  - value: "completed"
+    label: "Completed"
+  - value: "archived"
+    label: "Archived"

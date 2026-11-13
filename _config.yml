@@ -17,3 +17,14 @@ collections:
   partners:
     output: true
     permalink: /partners/:name/
+
+  projects:
+    output: true
+    permalink: /service-projects/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "project"

@@ -1,0 +1,51 @@
+{%- comment -%}
+  Service project card. Usage: {% include project-card.html project=project %}
+{%- endcomment -%}
+{%- assign p = include.project -%}
+{%- assign p_category = site.data.service_projects.categories | where: "value", p.category | first -%}
+{%- assign p_status = site.data.service_projects.statuses | where: "value", p.status | first -%}
+{%- capture p_keywords -%}{{ p.title }} {{ p.acronym }} {{ p.full_name }} {{ p.description }} {{ p.location }} {{ p.city }} {{ p.areas_of_focus | join: " " }} {{ p.partners | join: " " }}{%- for op in p.other_partners %} {{ op.name }}{%- endfor -%}{%- endcapture -%}
+<article
+  class="project-card"
+  data-project-card
+  data-category="{{ p.category }}"
+  data-year="{{ p.rotary_year }}"
+  data-city="{{ p.city | escape }}"
+  data-status="{{ p.status }}"
+  data-areas="{{ p.areas_of_focus | join: '|' | escape }}"
+  data-search="{{ p_keywords | strip_newlines | escape }}"
+>
+  <div class="project-card-top">
+    <span class="project-card-icon">{% include icon.html name=p.icon %}</span>
+    {%- if p_status %}
+      <span class="project-status project-status--{{ p.status }}">{{ p_status.label }}</span>
+    {%- endif %}
+  </div>
+
+  {%- if p.acronym and p.acronym != "" %}
+    <span class="project-card-acronym">{{ p.acronym }}</span>
+  {%- endif %}
+
+  <h3 class="project-card-title">
+    <a href="{{ p.url | relative_url }}" class="project-card-link">{{ p.title }}</a>
+  </h3>
+
+  {%- if p.full_name and p.full_name != "" %}
+    <p class="project-card-fullname">{{ p.full_name }}</p>
+  {%- endif %}
+
+  <p class="project-card-desc">{{ p.description | strip_html | truncatewords: 32 }}</p>
+
+  <ul class="project-card-meta">
+    {%- if p.city and p.city != "" %}
+      <li>{% include icon.html name="map-pin" %}<span class="sr-only">Location: </span>{{ p.city }}</li>
+    {%- endif %}
+    {%- if p.rotary_year %}
+      <li>{% include icon.html name="calendar" %}<span class="sr-only">Rotary Year: </span>RY {{ p.rotary_year }}</li>
+    {%- endif %}
+  </ul>
+
+  <span class="project-card-cta" aria-hidden="true">
+    Explore Project {% include icon.html name="arrow-right" %}
+  </span>
+</article>

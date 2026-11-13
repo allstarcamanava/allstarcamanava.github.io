@@ -1,89 +1,133 @@
 ---
 layout: default
-title: "Service Projects — Rotary E-Club of All Star CAMANAVA"
-description: "Explore the community service projects and initiatives of Rotary E-Club of All Star CAMANAVA."
+title: "Our Service Projects — Rotary E-Club of All Star CAMANAVA"
+description: "Explore the service projects, partnerships and community stories of Rotary E-Club of All Star CAMANAVA across every Rotary Year."
 permalink: /service-projects/
 ---
+{%- assign projects = site.projects | sort: "start_date" | reverse -%}
+{%- assign sp = site.data.service_projects -%}
 
-<section class="block bulletin-archive-page">
+<section class="page-hero projects-hero">
   <div class="container">
-
-    <div class="block-head">
-      <span class="eyebrow">Our Community Impact</span>
-      <h1>Service Projects</h1>
-      <p>
-        Discover the projects and initiatives through which Rotary E-Club
-        of All Star CAMANAVA serves communities across CAMANAVA and beyond.
-      </p>
-    </div>
-
-    <div class="bulletin-archive-grid">
-
-      {% assign project_count = 0 %}
-
-      {% for post in site.posts %}
-
-        {% if post.categories contains "service-projects" %}
-
-          {% assign project_count = project_count | plus: 1 %}
-          {% assign archive_image = post.image | default: post.thumbnail %}
-
-          <article class="bulletin-archive-item">
-
-            {% if archive_image and archive_image != "" %}
-              <a href="{{ post.url | relative_url }}" class="bulletin-archive-image">
-                <img
-                  {% if archive_image contains "://" %}
-                    src="{{ archive_image }}"
-                  {% else %}
-                    src="{{ archive_image | relative_url }}"
-                  {% endif %}
-                  alt="{{ post.image_alt | default: post.title }}"
-                  loading="lazy"
-                >
-              </a>
-            {% endif %}
-
-            <div class="bulletin-archive-content">
-              <div class="bulletin-archive-date">
-                {{ post.date | date: "%B %d, %Y" }}
-              </div>
-
-              <h2>
-                <a href="{{ post.url | relative_url }}">
-                  {{ post.title }}
-                </a>
-              </h2>
-
-              {% if post.excerpt %}
-                <p>
-                  {{ post.excerpt | strip_html | truncatewords: 30 }}
-                </p>
-              {% endif %}
-
-              <a href="{{ post.url | relative_url }}" class="btn btn-solid">
-                Read More
-                <span aria-hidden="true">→</span>
-              </a>
-            </div>
-
-          </article>
-
-        {% endif %}
-
-      {% endfor %}
-
-      {% if project_count == 0 %}
-        <div class="card bulletin-empty">
-          <div class="bulletin-ico">🤝</div>
-          <h2>No Service Projects Yet</h2>
-          <p>
-            Our community service projects and initiatives will appear here
-            as they are published.
-          </p>
-        </div>
-      {% endif %}
-
-    </div>
+    <span class="eyebrow">Service Above Self</span>
+    <h1>Our Service Projects</h1>
+    <p class="projects-tagline">Stories of Service. Legacies of Impact.</p>
+    <p class="page-intro">
+      Explore the initiatives, partnerships, and community stories that reflect our
+      commitment to Service Above Self. Discover how RECASC works with communities and
+      partners to create meaningful and lasting impact.
+    </p>
   </div>
 </section>
+
+<section class="projects-directory">
+  <div class="container">
+
+    {%- if projects.size > 0 -%}
+
+    {%- comment -%} Filter options come from the projects themselves, so no option ever returns nothing. {%- endcomment -%}
+    {%- assign years = projects | map: "rotary_year" | compact | uniq | sort | reverse -%}
+    {%- assign cities = projects | map: "city" | compact | uniq | sort -%}
+    {%- assign used_areas = "" | split: "" -%}
+    {%- for p in projects -%}{%- if p.areas_of_focus -%}{%- assign used_areas = used_areas | concat: p.areas_of_focus -%}{%- endif -%}{%- endfor -%}
+    {%- assign used_areas = used_areas | uniq -%}
+
+    <form class="project-filters" id="projectFilters" role="search" aria-label="Search and filter service projects" hidden>
+      <div class="project-filters-search">
+        <label for="pf-q" class="sr-only">Search projects by name or keyword</label>
+        <span class="project-filters-search-icon">{% include icon.html name="search" %}</span>
+        <input type="search" id="pf-q" name="q" placeholder="Search projects or keywords" autocomplete="off">
+      </div>
+
+      <div class="project-filters-grid">
+        <div class="project-filter">
+          <label for="pf-year">Rotary Year</label>
+          <select id="pf-year" name="year">
+            <option value="">All years</option>
+            {%- for y in years %}<option value="{{ y }}">{{ y }}</option>{% endfor %}
+          </select>
+        </div>
+
+        <div class="project-filter">
+          <label for="pf-category">Category</label>
+          <select id="pf-category" name="category">
+            <option value="">All categories</option>
+            {%- for c in sp.categories %}<option value="{{ c.value }}">{{ c.label }}</option>{% endfor %}
+          </select>
+        </div>
+
+        <div class="project-filter">
+          <label for="pf-city">Location</label>
+          <select id="pf-city" name="city">
+            <option value="">All locations</option>
+            {%- for c in cities %}<option value="{{ c | escape }}">{{ c }}</option>{% endfor %}
+          </select>
+        </div>
+
+        <div class="project-filter">
+          <label for="pf-status">Status</label>
+          <select id="pf-status" name="status">
+            <option value="">Any status</option>
+            {%- for s in sp.statuses %}<option value="{{ s.value }}">{{ s.label }}</option>{% endfor %}
+          </select>
+        </div>
+
+        <div class="project-filter project-filter--wide">
+          <label for="pf-area">Rotary Area of Focus</label>
+          <select id="pf-area" name="area">
+            <option value="">All Areas of Focus</option>
+            {%- for a in sp.areas_of_focus -%}
+              {%- if used_areas contains a.name %}<option value="{{ a.name | escape }}">{{ a.name }}</option>{% endif -%}
+            {%- endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="project-filters-footer">
+        <p class="project-filters-status" id="pf-status-text" aria-live="polite">
+          Showing all {{ projects.size }} project{% if projects.size != 1 %}s{% endif %}
+        </p>
+        <button type="reset" class="project-filters-clear" id="pf-clear">
+          {% include icon.html name="x" %} Clear filters
+        </button>
+      </div>
+    </form>
+
+    {%- for c in sp.categories -%}
+      {%- assign group = projects | where: "category", c.value -%}
+      {%- if group.size > 0 %}
+      <section class="project-group" data-project-group aria-labelledby="group-{{ c.value }}">
+        <div class="project-group-head">
+          <h2 id="group-{{ c.value }}">{{ c.label }}</h2>
+          <span class="project-group-count" data-group-count>{{ group.size }}</span>
+        </div>
+        <div class="project-grid">
+          {%- for p in group %}
+            {% include project-card.html project=p %}
+          {%- endfor %}
+        </div>
+      </section>
+      {%- endif -%}
+    {%- endfor %}
+
+    <div class="projects-empty card" id="projectsNoMatch" hidden>
+      <span class="projects-empty-icon">{% include icon.html name="search" %}</span>
+      <h2>No projects match these filters</h2>
+      <p>Try a different keyword or clear the filters to see every project.</p>
+      <button type="button" class="btn btn-solid" data-clear-filters>Clear filters</button>
+    </div>
+
+    {%- else %}
+
+    <div class="projects-empty card">
+      <span class="projects-empty-icon">{% include icon.html name="heart-handshake" %}</span>
+      <h2>Projects are on their way</h2>
+      <p>Our community service projects will appear here as they are published.</p>
+    </div>
+
+    {%- endif %}
+
+  </div>
+</section>
+
+<script src="{{ '/assets/js/project-directory.js' | relative_url }}" defer></script>

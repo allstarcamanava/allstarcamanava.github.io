@@ -1,0 +1,369 @@
+---
+layout: default
+---
+{%- assign sp = site.data.service_projects -%}
+{%- assign p_category = sp.categories | where: "value", page.category | first -%}
+{%- assign p_status = sp.statuses | where: "value", page.status | first -%}
+{%- assign approved_testimonials = page.testimonials | where: "permission", true -%}
+{%- assign has_about = false -%}
+{%- if page.background or page.community_needs or page.rationale or page.objectives or page.target_beneficiaries or page.areas_of_focus -%}{%- assign has_about = true -%}{%- endif -%}
+{%- assign has_partners = false -%}
+{%- if page.partners.size > 0 or page.other_partners.size > 0 -%}{%- assign has_partners = true -%}{%- endif -%}
+
+<article class="project-page">
+
+  {%- comment -%} ---------- A. Hero ---------- {%- endcomment -%}
+  <header class="project-hero{% if page.cover_image %} project-hero--has-image{% endif %}">
+    <div class="container project-hero-inner">
+      <div class="project-hero-text">
+        <a href="{{ '/service-projects/' | relative_url }}" class="project-back">
+          {% include icon.html name="arrow-left" %} All Service Projects
+        </a>
+
+        <div class="project-hero-badges">
+          {%- if p_category %}<span class="project-chip">{% include icon.html name="layers" %}{{ p_category.short }}</span>{% endif %}
+          {%- if p_status %}<span class="project-status project-status--{{ page.status }}">{{ p_status.label }}</span>{% endif %}
+        </div>
+
+        <h1 class="project-title">
+          <span class="project-title-icon">{% include icon.html name=page.icon %}</span>
+          {{ page.title }}
+        </h1>
+
+        {%- if page.full_name and page.full_name != "" %}
+          <p class="project-fullname">
+            {%- if page.acronym and page.acronym != "" %}<abbr title="{{ page.full_name | escape }}">{{ page.acronym }}</abbr>: {% endif -%}
+            {{ page.full_name }}
+          </p>
+        {%- endif %}
+
+        <dl class="project-facts">
+          {%- if page.rotary_year %}
+            <div><dt>Rotary Year</dt><dd>{{ page.rotary_year }}</dd></div>
+          {%- endif %}
+          {%- if page.location %}
+            <div class="project-fact--wide"><dt>Location</dt><dd>{{ page.location }}{% if page.city and page.city != "" %}, {{ page.city }}{% endif %}</dd></div>
+          {%- endif %}
+          {%- if p_category %}
+            <div><dt>Category</dt><dd>{{ p_category.singular }}</dd></div>
+          {%- endif %}
+        </dl>
+      </div>
+
+      {%- if page.cover_image and page.cover_image != "" %}
+        <figure class="project-hero-image">
+          <img src="{{ page.cover_image | relative_url }}" alt="{{ page.cover_alt | default: page.title | escape }}" fetchpriority="high">
+        </figure>
+      {%- endif %}
+    </div>
+  </header>
+
+  <div class="container project-body">
+
+    {%- comment -%} ---------- B. About ---------- {%- endcomment -%}
+    {%- if content != "" or has_about %}
+    <section class="project-section" id="about" aria-labelledby="about-title">
+      <h2 id="about-title" class="project-section-title">About the Project</h2>
+
+      {%- if content != "" %}
+        <div class="project-prose project-overview">{{ content }}</div>
+      {%- endif %}
+
+      <div class="project-about-grid">
+        {%- if page.background %}
+          <div class="project-about-item">
+            <h3>Background</h3>
+            <div class="project-prose">{{ page.background | markdownify }}</div>
+          </div>
+        {%- endif %}
+        {%- if page.community_needs %}
+          <div class="project-about-item">
+            <h3>Community Needs Addressed</h3>
+            <div class="project-prose">{{ page.community_needs | markdownify }}</div>
+          </div>
+        {%- endif %}
+        {%- if page.rationale %}
+          <div class="project-about-item">
+            <h3>Project Rationale</h3>
+            <div class="project-prose">{{ page.rationale | markdownify }}</div>
+          </div>
+        {%- endif %}
+        {%- if page.objectives.size > 0 %}
+          <div class="project-about-item">
+            <h3>Objectives</h3>
+            <ul class="project-list">
+              {%- for o in page.objectives %}<li>{{ o }}</li>{% endfor %}
+            </ul>
+          </div>
+        {%- endif %}
+        {%- if page.target_beneficiaries %}
+          <div class="project-about-item">
+            <h3>Target Beneficiaries</h3>
+            <p>{{ page.target_beneficiaries }}</p>
+          </div>
+        {%- endif %}
+      </div>
+
+      {%- if page.areas_of_focus.size > 0 %}
+        <div class="project-areas">
+          <h3>Rotary Areas of Focus</h3>
+          <ul class="project-area-list">
+            {%- for a in sp.areas_of_focus -%}
+              {%- if page.areas_of_focus contains a.name %}
+              <li>
+                <a href="{{ '/service-projects/' | relative_url }}?area={{ a.name | uri_escape }}" class="project-area">
+                  <span class="project-area-icon">{% include icon.html name=a.icon %}</span>
+                  {{ a.name }}
+                </a>
+              </li>
+              {%- endif -%}
+            {%- endfor %}
+          </ul>
+        </div>
+      {%- endif %}
+    </section>
+    {%- endif %}
+
+    {%- comment -%} ---------- C. Partners ---------- {%- endcomment -%}
+    {%- if has_partners %}
+    <section class="project-section" id="partners" aria-labelledby="partners-title">
+      <h2 id="partners-title" class="project-section-title">Project Partners</h2>
+      <ul class="project-partner-grid">
+        {%- for name in page.partners -%}
+          {%- assign partner = site.partners | where: "partner_name", name | first -%}
+          <li class="project-partner">
+            {%- if partner and partner.logo and partner.logo != "" %}
+              <img src="{{ partner.logo | relative_url }}" alt="" class="project-partner-logo" loading="lazy">
+            {%- else %}
+              <span class="project-partner-logo project-partner-logo--blank">{% include icon.html name="handshake" %}</span>
+            {%- endif %}
+            <div>
+              <h3>{{ name }}</h3>
+              {%- if partner %}
+                <a href="{{ partner.url | relative_url }}" class="project-partner-link">View partner {% include icon.html name="arrow-right" %}</a>
+              {%- endif %}
+            </div>
+          </li>
+        {%- endfor -%}
+        {%- for op in page.other_partners %}
+          <li class="project-partner">
+            {%- if op.logo and op.logo != "" %}
+              <img src="{{ op.logo | relative_url }}" alt="" class="project-partner-logo" loading="lazy">
+            {%- else %}
+              <span class="project-partner-logo project-partner-logo--blank">{% include icon.html name="handshake" %}</span>
+            {%- endif %}
+            <div>
+              <h3>{{ op.name }}</h3>
+              {%- if op.description and op.description != "" %}<p>{{ op.description }}</p>{% endif %}
+              {%- if op.url and op.url != "" %}
+                {%- assign op_href = op.url -%}
+                {%- unless op_href contains "://" %}{% assign op_href = "https://" | append: op_href %}{% endunless %}
+                <a href="{{ op_href }}" class="project-partner-link" target="_blank" rel="noopener">Visit {% include icon.html name="external-link" %}<span class="sr-only"> (opens in a new tab)</span></a>
+              {%- endif %}
+            </div>
+          </li>
+        {%- endfor %}
+      </ul>
+    </section>
+    {%- endif %}
+
+    {%- comment -%} ---------- D. Implementation & Activities ---------- {%- endcomment -%}
+    {%- if page.activities.size > 0 %}
+    {%- assign activities = page.activities | sort: "date" -%}
+    <section class="project-section" id="activities" aria-labelledby="activities-title">
+      <h2 id="activities-title" class="project-section-title">Project Implementation &amp; Activities</h2>
+      <ol class="project-activities">
+        {%- for a in activities %}
+        <li class="project-activity">
+          <div class="project-activity-head">
+            <span class="project-activity-num">{% if activities.size > 1 %}Phase {{ forloop.index }}{% else %}Activity{% endif %}</span>
+            <h3>{{ a.title }}</h3>
+            <ul class="project-activity-meta">
+              {%- if a.date %}<li>{% include icon.html name="calendar" %}{{ a.date | date: "%B %-d, %Y" }}</li>{% endif %}
+              {%- if a.location and a.location != "" %}<li>{% include icon.html name="map-pin" %}{{ a.location }}</li>{% endif %}
+              {%- if a.beneficiaries and a.beneficiaries != "" %}<li>{% include icon.html name="users" %}{{ a.beneficiaries }}</li>{% endif %}
+            </ul>
+          </div>
+
+          {%- if a.description %}<div class="project-prose">{{ a.description | markdownify }}</div>{% endif %}
+
+          {%- if a.accomplishments.size > 0 %}
+            <h4>Significant Accomplishments</h4>
+            <ul class="project-list">
+              {%- for item in a.accomplishments %}<li>{{ item }}</li>{% endfor %}
+            </ul>
+          {%- endif %}
+
+          {%- if a.photos.size > 0 %}
+            <ul class="project-photo-strip" data-lightbox-group>
+              {%- for ph in a.photos %}
+              <li>
+                <a href="{{ ph.image | relative_url }}" data-lightbox data-caption="{{ ph.caption | escape }}">
+                  <img src="{{ ph.image | relative_url }}" alt="{{ ph.caption | default: a.title | escape }}" loading="lazy">
+                </a>
+              </li>
+              {%- endfor %}
+            </ul>
+          {%- endif %}
+        </li>
+        {%- endfor %}
+      </ol>
+    </section>
+    {%- endif %}
+
+    {%- comment -%} ---------- E. Impact at a Glance ---------- {%- endcomment -%}
+    {%- if page.impact_metrics.size > 0 %}
+    <section class="project-section" id="impact" aria-labelledby="impact-title">
+      <h2 id="impact-title" class="project-section-title">Project Impact at a Glance</h2>
+      <ul class="project-metrics">
+        {%- for m in page.impact_metrics %}
+        <li class="project-metric">
+          <span class="project-metric-value">{{ m.value }}</span>
+          <span class="project-metric-label">{{ m.label }}</span>
+          {%- if m.note and m.note != "" %}<span class="project-metric-note">{{ m.note }}</span>{% endif %}
+        </li>
+        {%- endfor %}
+      </ul>
+    </section>
+    {%- endif %}
+
+    {%- comment -%} ---------- F. Photo Gallery ---------- {%- endcomment -%}
+    {%- if page.gallery.size > 0 %}
+    <section class="project-section" id="gallery" aria-labelledby="gallery-title" data-gallery>
+      <div class="project-section-title project-gallery-head">
+        <h2 id="gallery-title">Photo Gallery</h2>
+        {%- if page.gallery.size > 12 %}
+        <div class="project-gallery-nav" data-gallery-nav hidden>
+          <span class="project-gallery-range" data-gallery-range aria-live="polite"></span>
+          <button type="button" class="project-gallery-arrow" data-gallery-prev aria-controls="project-gallery-list" aria-label="Previous 12 photos">{% include icon.html name="chevron-left" stroke=2 %}</button>
+          <button type="button" class="project-gallery-arrow" data-gallery-next aria-controls="project-gallery-list" aria-label="Next 12 photos">{% include icon.html name="chevron-right" stroke=2 %}</button>
+        </div>
+        {%- endif %}
+      </div>
+      <ul class="project-gallery" id="project-gallery-list" data-lightbox-group>
+        {%- for g in page.gallery %}
+        {%- capture g_caption -%}{{ g.caption }}{% if g.credit and g.credit != "" %}{% if g.caption and g.caption != "" %} · {% endif %}Photo: {{ g.credit }}{% endif %}{%- endcapture -%}
+        <li data-gallery-item>
+          <figure>
+            <a href="{{ g.image | relative_url }}" data-lightbox data-caption="{{ g_caption | escape }}">
+              <img src="{{ g.image | relative_url }}" alt="{{ g.caption | default: page.title | escape }}" loading="lazy">
+            </a>
+            {%- if g_caption != "" %}<figcaption>{{ g_caption }}</figcaption>{% endif %}
+          </figure>
+        </li>
+        {%- endfor %}
+      </ul>
+      {%- if page.gallery.size > 12 %}
+      <div class="project-gallery-nav project-gallery-nav--bottom" data-gallery-nav hidden>
+        <button type="button" class="project-gallery-arrow" data-gallery-prev aria-controls="project-gallery-list" aria-label="Previous 12 photos">{% include icon.html name="chevron-left" stroke=2 %}</button>
+        <span class="project-gallery-range" data-gallery-range></span>
+        <button type="button" class="project-gallery-arrow" data-gallery-next aria-controls="project-gallery-list" aria-label="Next 12 photos">{% include icon.html name="chevron-right" stroke=2 %}</button>
+      </div>
+      {%- endif %}
+    </section>
+    {%- endif %}
+
+    {%- comment -%} ---------- H. Timeline & Milestones ---------- {%- endcomment -%}
+    {%- if page.timeline.size > 0 %}
+    {%- assign timeline = page.timeline | sort: "date" -%}
+    <section class="project-section" id="timeline" aria-labelledby="timeline-title">
+      <h2 id="timeline-title" class="project-section-title">Timeline &amp; Milestones</h2>
+      <ol class="project-timeline">
+        {%- for t in timeline %}
+        <li class="project-timeline-item project-timeline-item--{{ t.type | default: 'milestone' }}">
+          <span class="project-timeline-dot" aria-hidden="true"></span>
+          <time datetime="{{ t.date | date: '%Y-%m-%d' }}">{{ t.date | date: "%B %-d, %Y" }}</time>
+          <h3>{{ t.title }}</h3>
+          {%- if t.description and t.description != "" %}<p>{{ t.description }}</p>{% endif %}
+        </li>
+        {%- endfor %}
+      </ol>
+    </section>
+    {%- endif %}
+
+    {%- comment -%} ---------- I. Voices of Impact (only with permission) ---------- {%- endcomment -%}
+    {%- if approved_testimonials.size > 0 %}
+    <section class="project-section" id="voices" aria-labelledby="voices-title">
+      <h2 id="voices-title" class="project-section-title">Voices of Impact</h2>
+      <div class="project-voices">
+        {%- for v in approved_testimonials %}
+        <figure class="project-voice">
+          <span class="project-voice-mark">{% include icon.html name="quote" %}</span>
+          <blockquote>
+            <p>{{ v.quote }}</p>
+            {%- if v.translation and v.translation != "" %}<p class="project-voice-translation">{{ v.translation }}</p>{% endif %}
+          </blockquote>
+          <figcaption>
+            {%- if v.photo and v.photo != "" %}<img src="{{ v.photo | relative_url }}" alt="" loading="lazy">{% endif %}
+            <span>
+              {%- if v.name and v.name != "" %}<strong>{{ v.name }}</strong>{% endif %}
+              {%- capture v_role -%}{{ v.role }}{% if v.organization and v.organization != "" %}{% if v.role and v.role != "" %}, {% endif %}{{ v.organization }}{% endif %}{%- endcapture -%}
+              {%- if v_role == "" %}{% assign v_role = v.speaker_type %}{% endif -%}
+              {%- if v_role and v_role != "" %}<span>{{ v_role }}</span>{% endif %}
+            </span>
+          </figcaption>
+        </figure>
+        {%- endfor %}
+      </div>
+    </section>
+    {%- endif %}
+
+    {%- comment -%} ---------- J. Related projects & navigation ---------- {%- endcomment -%}
+    {%- assign all_projects = site.projects | sort: "start_date" -%}
+    {%- assign related = "" | split: "" -%}
+    {%- for other in all_projects -%}
+      {%- if other.url != page.url -%}
+        {%- assign shares_area = false -%}
+        {%- for a in other.areas_of_focus -%}{%- if page.areas_of_focus contains a -%}{%- assign shares_area = true -%}{%- endif -%}{%- endfor -%}
+        {%- if shares_area -%}{%- assign related = related | push: other -%}{%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if related.size == 0 -%}
+      {%- assign related = all_projects | where: "category", page.category | where_exp: "o", "o.url != page.url" -%}
+    {%- endif -%}
+
+    {%- if related.size > 0 %}
+    <section class="project-section" id="related" aria-labelledby="related-title">
+      <h2 id="related-title" class="project-section-title">Related Projects</h2>
+      <div class="project-grid project-grid--related">
+        {%- assign related = related | reverse -%}
+        {%- for r in related limit: 3 %}
+          {% include project-card.html project=r %}
+        {%- endfor %}
+      </div>
+    </section>
+    {%- endif %}
+
+    {%- comment -%} Previous = older project, Next = newer project, by start date. {%- endcomment -%}
+    {%- for other in all_projects -%}
+      {%- if other.url == page.url -%}
+        {%- assign prev_index = forloop.index0 | minus: 1 -%}
+        {%- assign next_index = forloop.index0 | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+    <nav class="project-pager" aria-label="More service projects">
+      {%- if prev_index >= 0 -%}
+        {%- assign prev_project = all_projects[prev_index] -%}
+        <a href="{{ prev_project.url | relative_url }}" class="project-pager-link project-pager-prev">
+          <span>{% include icon.html name="chevron-left" %} Previous Project</span>
+          <strong>{{ prev_project.title }}</strong>
+        </a>
+      {%- else -%}<span></span>{%- endif %}
+
+      <a href="{{ '/service-projects/' | relative_url }}" class="project-pager-all">
+        {% include icon.html name="layers" %} All Service Projects
+      </a>
+
+      {%- if next_index < all_projects.size -%}
+        {%- assign next_project = all_projects[next_index] -%}
+        <a href="{{ next_project.url | relative_url }}" class="project-pager-link project-pager-next">
+          <span>Next Project {% include icon.html name="chevron-right" %}</span>
+          <strong>{{ next_project.title }}</strong>
+        </a>
+      {%- else -%}<span></span>{%- endif %}
+    </nav>
+
+  </div>
+</article>
+
+<script src="{{ '/assets/js/project-gallery.js' | relative_url }}" defer></script>
