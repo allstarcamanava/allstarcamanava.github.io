@@ -44,12 +44,6 @@ history:
         time, the District Governor was PDG Arturo “Bobby” Tanyag, who had
         previously served as an All Star President during the 2016–2017 All Star
         year.
-    - number: "04"
-      title: Growing the Archive
-      description: >+
-        Years of postings, trivia nights, and celebrations are preserved as a
-        living record of the club's story.
-
     - number: "3"
       title: Chartering Rotaract Club of All Star CAMANAVA
       description: >-
@@ -59,4 +53,10 @@ history:
 
 
         It’s the result of the hard work of our founding officers and members, and it’s only the beginning!
+    - number: "04"
+      title: Growing the Archive
+      description: >+
+        Years of postings, trivia nights, and celebrations are preserved as a
+        living record of the club's story.
+
 feature_cards: []
