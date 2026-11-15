@@ -603,6 +603,331 @@ collections:
                 required: false
                 hint: "Turn off to temporarily disable this member's Drive access."
 
+  - name: "projects"
+    label: "Service Projects"
+    label_singular: "Service Project"
+    description: "Each entry here becomes a card on the Service Projects page and its own project page at /service-projects/<slug>/. Fill in only what has been verified; empty sections are hidden automatically."
+    folder: "_projects/"
+    create: true
+    delete: true
+    slug: "{{fields.slug}}"
+    identifier_field: "title"
+    summary: "{{title}} — {{rotary_year}} ({{status}})"
+    sortable_fields: ["title", "start_date", "rotary_year", "status"]
+    view_filters:
+      - label: "Ongoing"
+        field: "status"
+        pattern: "ongoing"
+      - label: "Completed"
+        field: "status"
+        pattern: "completed"
+      - label: "Archived"
+        field: "status"
+        pattern: "archived"
+
+    fields:
+      - label: "Layout"
+        name: "layout"
+        widget: "hidden"
+        default: "project"
+
+      # ---------- Basics ----------
+      - label: "Project Name"
+        name: "title"
+        widget: "string"
+        hint: "Official project title, e.g. Project BITUIN."
+
+      - label: "Page Address (slug)"
+        name: "slug"
+        widget: "string"
+        pattern: ["^[a-z0-9]+(-[a-z0-9]+)*$", "Use lowercase letters, numbers and hyphens only, e.g. project-bituin"]
+        hint: "Used in the link: /service-projects/<slug>/. Set it once and don't change it afterwards, or old links will break."
+
+      - label: "Acronym"
+        name: "acronym"
+        widget: "string"
+        required: false
+        hint: "Optional, e.g. BITUIN."
+
+      - label: "Full Name"
+        name: "full_name"
+        widget: "string"
+        required: false
+        hint: "What the acronym stands for, e.g. Building Impact Through Unified Initiatives for Nurturing Families."
+
+      - label: "Icon"
+        name: "icon"
+        widget: "select"
+        default: "star"
+        hint: "Line icon shown on the project's card."
+        options:
+          - { label: "Star", value: "star" }
+          - { label: "Heart and handshake", value: "heart-handshake" }
+          - { label: "Helping hand", value: "hand-heart" }
+          - { label: "Handshake", value: "handshake" }
+          - { label: "Baby", value: "baby" }
+          - { label: "Smile / dental", value: "smile" }
+          - { label: "Water drops", value: "droplets" }
+          - { label: "Stethoscope", value: "stethoscope" }
+          - { label: "Heartbeat", value: "heart-pulse" }
+          - { label: "Open book", value: "book-open" }
+          - { label: "Graduation cap", value: "graduation-cap" }
+          - { label: "School", value: "school" }
+          - { label: "Pen / writing", value: "pen-line" }
+          - { label: "Newspaper", value: "newspaper" }
+          - { label: "Sprout", value: "sprout" }
+          - { label: "Trees", value: "trees" }
+          - { label: "Leaf", value: "leaf" }
+          - { label: "People", value: "users" }
+          - { label: "Globe", value: "globe" }
+          - { label: "Shop / livelihood", value: "store" }
+          - { label: "Growth", value: "trending-up" }
+          - { label: "House", value: "house" }
+          - { label: "Meals", value: "utensils" }
+          - { label: "Clothing", value: "shirt" }
+          - { label: "Church / interfaith", value: "church" }
+          - { label: "Scales / justice", value: "scale" }
+          - { label: "Shield", value: "shield-check" }
+          - { label: "Light bulb", value: "lightbulb" }
+          - { label: "Sun", value: "sun" }
+          - { label: "Target", value: "target" }
+
+      - label: "Short Description"
+        name: "description"
+        widget: "text"
+        hint: "One or two sentences for the project card and search results (about 30 words)."
+
+      - label: "Cover Image"
+        name: "cover_image"
+        widget: "image"
+        required: false
+        hint: "Wide (landscape) photo from the project, shown at the top of the project page."
+
+      - label: "Cover Image Alt Text"
+        name: "cover_alt"
+        widget: "string"
+        required: false
+        hint: "Describe what the photo shows, for visitors who can't see it."
+
+      - label: "Location"
+        name: "location"
+        widget: "string"
+        hint: "Where the project is carried out, e.g. Longos Pampano Child Development Center, Barangay Longos."
+
+      - label: "City / Municipality"
+        name: "city"
+        widget: "string"
+        hint: "Used by the Location filter. Spell it the same way every time, e.g. Malabon City."
+
+      - label: "Rotary Year"
+        name: "rotary_year"
+        widget: "select"
+        default: "2026–2027"
+        options: ["2030–2031", "2029–2030", "2028–2029", "2027–2028", "2026–2027", "2025–2026", "2024–2025", "2023–2024", "2022–2023", "2021–2022", "2020–2021", "2019–2020", "2018–2019", "2017–2018", "2016–2017", "2015–2016"]
+
+      - label: "Start Date"
+        name: "start_date"
+        widget: "datetime"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        format: "YYYY-MM-DD"
+        picker_utc: true
+        hint: "When the project started or its first activity took place. Used to sort projects, newest first."
+
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Flagship / Continuing Program", value: "flagship" }
+          - { label: "Individual Service Project", value: "individual" }
+          - { label: "Community Activity", value: "community" }
+
+      - label: "Status"
+        name: "status"
+        widget: "select"
+        default: "ongoing"
+        options:
+          - { label: "Ongoing", value: "ongoing" }
+          - { label: "Completed", value: "completed" }
+          - { label: "Archived", value: "archived" }
+
+      - label: "Rotary Areas of Focus"
+        name: "areas_of_focus"
+        widget: "select"
+        multiple: true
+        required: false
+        hint: "Choose only the areas this project actually works on."
+        options:
+          - "Peacebuilding and Conflict Prevention"
+          - "Disease Prevention and Treatment"
+          - "Water, Sanitation, and Hygiene"
+          - "Maternal and Child Health"
+          - "Basic Education and Literacy"
+          - "Community Economic Development"
+          - "Supporting the Environment"
+
+      # ---------- About ----------
+      - label: "Project Overview"
+        name: "body"
+        widget: "markdown"
+        required: false
+        hint: "Opening paragraphs on the project page."
+
+      - label: "Background"
+        name: "background"
+        widget: "markdown"
+        required: false
+
+      - label: "Community Needs Addressed"
+        name: "community_needs"
+        widget: "markdown"
+        required: false
+
+      - label: "Project Rationale"
+        name: "rationale"
+        widget: "markdown"
+        required: false
+
+      - label: "Objectives"
+        name: "objectives"
+        widget: "list"
+        required: false
+        field: { label: "Objective", name: "objective", widget: "string" }
+
+      - label: "Target Beneficiaries"
+        name: "target_beneficiaries"
+        widget: "text"
+        required: false
+
+      # ---------- Partners ----------
+      - label: "Partners (from the Partners list)"
+        name: "partners"
+        widget: "relation"
+        collection: "partners"
+        value_field: "partner_name"
+        search_fields: ["partner_name"]
+        display_fields: ["partner_name"]
+        multiple: true
+        required: false
+        hint: "Pick partners already saved under Partners. Their logo and description are reused automatically."
+
+      - label: "Other Partners"
+        name: "other_partners"
+        widget: "list"
+        required: false
+        hint: "Partners that aren't in the Partners list (offices, foundations, other clubs)."
+        summary: "{{fields.name}}"
+        fields:
+          - { label: "Organization Name", name: "name", widget: "string" }
+          - { label: "Logo", name: "logo", widget: "image", required: false, hint: "Only if the organization allows its logo to be used." }
+          - { label: "Short Description", name: "description", widget: "text", required: false }
+          - { label: "Website or Social Media Link", name: "url", widget: "string", required: false }
+
+      # ---------- Implementation ----------
+      - label: "Implementation Phases & Activities"
+        name: "activities"
+        widget: "list"
+        required: false
+        summary: "{{fields.date}} — {{fields.title}}"
+        hint: "Add one entry per activity or phase. Continuing programs can have many."
+        fields:
+          - { label: "Activity Title", name: "title", widget: "string" }
+          - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD", picker_utc: true, required: false }
+          - { label: "Location", name: "location", widget: "string", required: false }
+          - { label: "Description", name: "description", widget: "markdown", required: false }
+          - { label: "Number of Beneficiaries", name: "beneficiaries", widget: "string", required: false, hint: "Verified figure with what it counts, e.g. 148 PDLs." }
+          - label: "Significant Accomplishments"
+            name: "accomplishments"
+            widget: "list"
+            required: false
+            field: { label: "Accomplishment", name: "item", widget: "string" }
+          - label: "Photos"
+            name: "photos"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Caption", name: "caption", widget: "string", required: false }
+
+      # ---------- Impact ----------
+      - label: "Impact at a Glance"
+        name: "impact_metrics"
+        widget: "list"
+        required: false
+        summary: "{{fields.value}} {{fields.label}}"
+        hint: "Verified figures only. Choose the metrics that fit this project."
+        fields:
+          - { label: "Value", name: "value", widget: "string", hint: "e.g. 130" }
+          - { label: "Label", name: "label", widget: "string", hint: "e.g. Daycare learners served" }
+          - { label: "Note / Source", name: "note", widget: "string", required: false, hint: "Optional, e.g. First phase, August 2026." }
+
+      # ---------- Gallery ----------
+      - label: "Photo Gallery"
+        name: "gallery"
+        widget: "list"
+        required: false
+        summary: "{{fields.caption}}"
+        hint: "Shows 12 photos at a time (4 per row on desktop). With more than 12, visitors use the arrows to see the next 12. Resize photos to about 1600 pixels wide before uploading."
+        fields:
+          - { label: "Image", name: "image", widget: "image" }
+          - { label: "Caption", name: "caption", widget: "string", required: false }
+          - { label: "Photo Credit", name: "credit", widget: "string", required: false }
+
+      # ---------- Timeline ----------
+      - label: "Timeline & Milestones"
+        name: "timeline"
+        widget: "list"
+        required: false
+        summary: "{{fields.date}} — {{fields.title}}"
+        fields:
+          - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD", picker_utc: true }
+          - { label: "Milestone", name: "title", widget: "string" }
+          - label: "Type"
+            name: "type"
+            widget: "select"
+            default: "milestone"
+            options:
+              - { label: "Project launch", value: "launch" }
+              - { label: "Partnership agreement / meeting", value: "partnership" }
+              - { label: "Implementation", value: "implementation" }
+              - { label: "Milestone", value: "milestone" }
+              - { label: "New phase", value: "phase" }
+              - { label: "Completed / continuing", value: "status" }
+          - { label: "Description", name: "description", widget: "text", required: false }
+
+      # ---------- Testimonials ----------
+      - label: "Voices of Impact (Testimonials)"
+        name: "testimonials"
+        widget: "list"
+        required: false
+        summary: "{{fields.name}}"
+        hint: "A testimonial only appears on the site when 'Permission confirmed' is ticked."
+        fields:
+          - { label: "Statement", name: "quote", widget: "text" }
+          - { label: "Translation (optional)", name: "translation", widget: "text", required: false }
+          - { label: "Name", name: "name", widget: "string", required: false, hint: "Leave blank to show it without a name." }
+          - label: "Speaker Type"
+            name: "speaker_type"
+            widget: "select"
+            required: false
+            options: ["Beneficiary", "Community Leader", "Partner Organization", "Volunteer", "Rotarian"]
+          - { label: "Role", name: "role", widget: "string", required: false }
+          - { label: "Organization", name: "organization", widget: "string", required: false }
+          - { label: "Photo", name: "photo", widget: "image", required: false }
+          - { label: "Permission confirmed", name: "permission", widget: "boolean", default: false, hint: "Tick only when the person agreed to be quoted (and pictured, if a photo is added)." }
+
+      # ---------- SEO ----------
+      - label: "SEO & Sharing"
+        name: "seo"
+        widget: "object"
+        required: false
+        collapsed: true
+        hint: "Optional. If left blank, the project name, short description and cover image are used."
+        fields:
+          - { label: "Page Title", name: "title", widget: "string", required: false }
+          - { label: "Meta Description", name: "description", widget: "text", required: false, hint: "About 150 characters." }
+          - { label: "Sharing Image", name: "image", widget: "image", required: false }
+
   - name: "partners"
     label: "Partners"
     folder: "_partners/"

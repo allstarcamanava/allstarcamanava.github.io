@@ -8,12 +8,32 @@
 
   <link rel="icon" type="image/png" href="{{ '/assets/Club_logo.png' | relative_url }}">
 
+  {%- if page.collection == "projects" -%}
+    {%- capture project_page_title -%}{{ page.seo.title | default: page.title }} — Service Projects | Rotary E-Club of All Star CAMANAVA{%- endcapture -%}
+    {%- if page.seo.title and page.seo.title != "" -%}{%- assign project_page_title = page.seo.title -%}{%- endif -%}
+    {%- assign project_page_desc = page.seo.description | default: page.description | strip_html | strip_newlines | truncate: 200 -%}
+    {%- assign project_page_image = page.seo.image | default: page.cover_image -%}
+  <title>{{ project_page_title }}</title>
+  <meta name="description" content="{{ project_page_desc | escape }}">
+  <link rel="canonical" href="https://www.allstarcamanava.org{{ page.url }}">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Rotary E-Club of All Star CAMANAVA">
+  <meta property="og:title" content="{{ project_page_title | escape }}">
+  <meta property="og:description" content="{{ project_page_desc | escape }}">
+  <meta property="og:url" content="https://www.allstarcamanava.org{{ page.url }}">
+  {%- if project_page_image and project_page_image != "" %}
+    {%- if project_page_image contains "://" -%}{%- assign og_img = project_page_image -%}{%- else -%}{%- assign og_img = "https://www.allstarcamanava.org" | append: project_page_image -%}{%- endif %}
+  <meta property="og:image" content="{{ og_img }}">
+  <meta name="twitter:card" content="summary_large_image">
+  {%- endif %}
+  {%- else %}
   <title>{{ page.title | default: site.title }}</title>
 
   <meta
     name="description"
     content="{{ page.description | default: site.description }}"
   >
+  {%- endif %}
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
