@@ -22,6 +22,10 @@ collections:
     output: true
     permalink: /service-projects/:name/
 
+  # One file per e-bulletin issue, shown on the E-Bulletin Files page (/files/).
+  e_bulletins:
+    output: false
+
 defaults:
   - scope:
       path: ""
