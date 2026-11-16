@@ -5,6 +5,30 @@ description: "Browse the e-bulletins of the Rotary E-Club of All Star CAMANAVA."
 permalink: /files/
 ---
 
+<style>
+  .bulletin-file-actions {
+    display: grid;
+    gap: 10px;
+    margin-top: 6px;
+  }
+
+  .bulletin-file-actions .btn {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .btn-outline {
+    background: #fff;
+    color: var(--tiffany-dark);
+    border-color: var(--tiffany-dark);
+  }
+
+  .btn-outline:hover {
+    background: var(--tiffany-dark);
+    color: #fff;
+  }
+</style>
+
 <section class="block">
   <div class="container">
 
@@ -24,19 +48,37 @@ permalink: /files/
 
     </div>
 
-    {% if site.data.e_bulletins.bulletins and site.data.e_bulletins.bulletins.size > 0 %}
+    {%- comment -%}
+      E-bulletins come from Decap's E-Bulletins section (_e_bulletins/), one file per issue.
+      Newest issue first. Title and description are built from the issue month,
+      volume and issue number unless a custom one is filled in.
+    {%- endcomment -%}
+    {% assign bulletins = site.e_bulletins | sort: "issue_month" | reverse %}
+
+    {% if bulletins.size > 0 %}
 
       <div class="feature-grid">
 
-        {% for bulletin in site.data.e_bulletins.bulletins %}
+        {% for bulletin in bulletins %}
+
+          {% assign issue_label = bulletin.issue_month | date: "%B %Y" %}
+          {% capture auto_title %}SINAGTALA: The All Star Connection {{ issue_label }}{% endcapture %}
+          {% capture auto_description %}Rotary E-Club of All Star CAMANAVA SINAGTALA: The All Star Connection {{ issue_label }} Issue (Vol. {{ bulletin.volume }}, Issue {{ bulletin.issue_number }}){% endcapture %}
+          {% assign card_title = bulletin.custom_title | default: auto_title %}
+          {% assign card_description = bulletin.custom_description | default: auto_description %}
+
+          {% assign has_flipbook = false %}
+          {% assign has_pdf = false %}
+          {% if bulletin.flipbook_url and bulletin.flipbook_url != "" %}{% assign has_flipbook = true %}{% endif %}
+          {% if bulletin.pdf and bulletin.pdf != "" %}{% assign has_pdf = true %}{% endif %}
 
           <div class="card">
 
-            {% if bulletin.thumbnail %}
+            {% if bulletin.thumbnail and bulletin.thumbnail != "" %}
               <div class="bulletin-file-thumbnail">
                 <img
                   src="{{ bulletin.thumbnail | relative_url }}"
-                  alt="{{ bulletin.title | escape }}"
+                  alt="{{ card_title | escape }}"
                   loading="lazy"
                 >
               </div>
@@ -50,61 +92,39 @@ permalink: /files/
                 </span>
               {% endif %}
 
-              {% if bulletin.title %}
-                <h3>
-                  {{ bulletin.title }}
-                </h3>
-              {% endif %}
+              <h3>
+                {{ card_title }}
+              </h3>
 
-              {% if bulletin.description %}
-                <p>
-                  {{ bulletin.description }}
-                </p>
-              {% endif %}
+              <p>
+                {{ card_description }}
+              </p>
 
+              {% if has_flipbook or has_pdf %}
+                <div class="bulletin-file-actions">
 
-              {% if bulletin.type == "pdf" and bulletin.pdf %}
+                  {% if has_flipbook %}
+                    <button
+                      type="button"
+                      class="btn btn-solid"
+                      onclick="openFlipbookModal('{{ bulletin.flipbook_url | escape }}')"
+                    >
+                      Read Flipbook →
+                    </button>
+                  {% endif %}
 
-                <a
-                  href="{{ bulletin.pdf | relative_url }}"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="btn btn-solid"
-                >
-                  View PDF →
-                </a>
+                  {% if has_pdf %}
+                    <a
+                      href="{{ bulletin.pdf | relative_url }}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="btn {% if has_flipbook %}btn-outline{% else %}btn-solid{% endif %}"
+                    >
+                      View PDF →
+                    </a>
+                  {% endif %}
 
-
-              {% elsif bulletin.type == "flipbook" and bulletin.flipbook_url %}
-
-                <button
-                  type="button"
-                  class="btn btn-solid"
-                  onclick="openFlipbookModal('{{ bulletin.flipbook_url | escape }}')"
-                >
-                  Read Flipbook →
-                </button>
-
-
-              {% elsif bulletin.pdf and bulletin.flipbook_url %}
-
-                <a
-                  href="{{ bulletin.pdf | relative_url }}"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="btn btn-solid"
-                >
-                  View PDF →
-                </a>
-
-                <button
-                  type="button"
-                  class="btn btn-outline"
-                  onclick="openFlipbookModal('{{ bulletin.flipbook_url | escape }}')"
-                >
-                  Read Flipbook →
-                </button>
-
+                </div>
               {% endif %}
 
             </div>

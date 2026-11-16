@@ -136,6 +136,84 @@ collections:
         name: "body"
         widget: "markdown"        
 
+  - name: "e_bulletins"
+    label: "E-Bulletins"
+    label_singular: "E-Bulletin"
+    description: "One entry per SINAGTALA issue. Each issue shows as a single card on the E-Bulletin Files page (/files/), newest issue first, with a Read Flipbook button, a View PDF button, or both."
+    folder: "_e_bulletins/"
+    create: true
+    delete: true
+    extension: "md"
+    format: "frontmatter"
+    slug: "sinagtala-{{fields.issue_month}}"
+    identifier_field: "issue_month"
+    summary: "{{fields.issue_month | date('MMMM YYYY')}} — Vol. {{fields.volume}}, Issue {{fields.issue_number}}"
+    sortable_fields: ["issue_month", "date"]
+
+    fields:
+      - label: "Issue Month"
+        name: "issue_month"
+        widget: "datetime"
+        date_format: "MMMM YYYY"
+        time_format: false
+        format: "YYYY-MM-DD"
+        picker_utc: true
+        hint: "The month this issue covers, e.g. October 2026. Pick any day in that month. Used for the title and to put the newest issue first."
+
+      - label: "Volume"
+        name: "volume"
+        widget: "string"
+        default: "01"
+        pattern: ["^[0-9]{2}$", "Use two digits, e.g. 01"]
+
+      - label: "Issue Number"
+        name: "issue_number"
+        widget: "string"
+        pattern: ["^[0-9]{2}$", "Use two digits, e.g. 04"]
+
+      - label: "Release Date"
+        name: "date"
+        widget: "datetime"
+        date_format: "MMMM D, YYYY"
+        time_format: false
+        format: "YYYY-MM-DD"
+        picker_utc: true
+        hint: "The date the issue was released. Shown on its card."
+
+      - label: "Cover Image"
+        name: "thumbnail"
+        widget: "image"
+        media_folder: "/assets/e-bulletin-files"
+        public_folder: "/assets/e-bulletin-files"
+        hint: "The issue's cover page, shown on its card."
+
+      - label: "Heyzine Flipbook Link"
+        name: "flipbook_url"
+        widget: "string"
+        required: false
+        pattern: ["^https://heyzine\\.com/", "Paste the full Heyzine link, starting with https://heyzine.com/"]
+        hint: "Optional. Shows a Read Flipbook button."
+
+      - label: "PDF File"
+        name: "pdf"
+        widget: "file"
+        required: false
+        media_folder: "/assets/e-bulletin-files"
+        public_folder: "/assets/e-bulletin-files"
+        hint: "Optional. Shows a View PDF button."
+
+      - label: "Custom Title (optional)"
+        name: "custom_title"
+        widget: "string"
+        required: false
+        hint: "Leave blank to use the standard title, e.g. SINAGTALA: The All Star Connection October 2026."
+
+      - label: "Custom Description (optional)"
+        name: "custom_description"
+        widget: "text"
+        required: false
+        hint: "Leave blank to use the standard description with the month, volume and issue number."
+
   - name: "site"
     label: "Site Settings"
     description: "Manage homepage content and other site settings."
@@ -421,66 +499,6 @@ collections:
             widget: "string"
             default: "Watch on YouTube →"
             required: false
-
-      - name: "e_bulletins"
-        label: "E-Bulletin Files"
-        file: "_data/e_bulletins.yml"
-        fields:
-
-          - label: "E-Bulletins"
-            name: "bulletins"
-            widget: "list"
-            required: false
-            allow_add: true
-            allow_delete: true
-            fields:
-
-              - label: "Title"
-                name: "title"
-                widget: "string"
-
-              - label: "Date"
-                name: "date"
-                widget: "datetime"
-                required: false
-                date_format: "YYYY-MM-DD"
-                time_format: false
-
-              - label: "Type"
-                name: "type"
-                widget: "select"
-                options:
-                  - label: "PDF"
-                    value: "pdf"
-                  - label: "Heyzine Flipbook"
-                    value: "flipbook"
-
-              - label: "Thumbnail"
-                name: "thumbnail"
-                widget: "image"
-                required: false
-                media_folder: "/assets/e-bulletin-files"
-                public_folder: "/assets/e-bulletin-files"
-                hint: "Optional. Cover image shown on the E-Bulletin Files page."
-
-              - label: "PDF File"
-                name: "pdf"
-                widget: "file"
-                required: false
-                media_folder: "/assets/e-bulletin-files"
-                public_folder: "/assets/e-bulletin-files"
-                hint: "Upload the PDF file here if this bulletin is a PDF."
-
-              - label: "Heyzine Flipbook URL"
-                name: "flipbook_url"
-                widget: "string"
-                required: false
-                hint: "Paste the Heyzine flipbook URL if this bulletin is an interactive flipbook."
-
-              - label: "Description"
-                name: "description"
-                widget: "text"
-                required: false
 
       - name: "homepage_modal"
         label: "Homepage Modal"
