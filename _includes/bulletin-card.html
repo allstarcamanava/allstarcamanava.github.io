@@ -6,11 +6,20 @@
     <span class="badge">Latest</span>
   </div>
 
-  <ul class="bulletin-list">
+  {%- comment -%}
+    Shows up to 20 of the latest posts. The first 5 are visible; when there are
+    more, the list scrolls inside the card (see the script at the end of this file).
+  {%- endcomment -%}
+  <ul
+    class="bulletin-list"
+    data-visible-posts="5"
+    tabindex="0"
+    aria-label="Recent posts and bulletins"
+  >
 
     {% assign bulletin_posts = site.posts | where_exp: "post", "post.show_in_bulletins != false" %}
 
-    {% for post in bulletin_posts limit:6 %}
+    {% for post in bulletin_posts limit:20 %}
 
       <li>
 
@@ -146,5 +155,87 @@
     </a>
 
   </div>
+
+  <style>
+    /* Scrolling list: kept here so it applies right away, even with an older saved style.css. */
+    .bulletin-list.is-scrollable {
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding-right: 8px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--tiffany-dark) transparent;
+      -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 36px), transparent);
+      mask-image: linear-gradient(to bottom, #000 calc(100% - 36px), transparent);
+    }
+
+    .bulletin-list.is-scrollable.is-at-end {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+
+    .bulletin-list.is-scrollable:focus-visible {
+      outline: 2px solid var(--tiffany-dark);
+      outline-offset: 4px;
+      border-radius: 6px;
+    }
+
+    .bulletin-list.is-scrollable::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .bulletin-list.is-scrollable::-webkit-scrollbar-thumb {
+      background: var(--tiffany-dark);
+      border-radius: 999px;
+    }
+  </style>
+
+  <script>
+    // Keep the first 5 posts visible and let the rest scroll inside the card.
+    (function () {
+      var list = document.querySelector(".bulletin-list[data-visible-posts]");
+      if (!list) return;
+
+      var visible = parseInt(list.getAttribute("data-visible-posts"), 10) || 5;
+
+      function fit() {
+        var items = list.children;
+        if (items.length <= visible) {
+          list.classList.remove("is-scrollable");
+          list.style.maxHeight = "";
+          return;
+        }
+        // Height from the top of the list to the bottom of the 5th post,
+        // measured without disturbing where the visitor has scrolled to.
+        var last = items[visible - 1];
+        var height = last.getBoundingClientRect().bottom - list.getBoundingClientRect().top + list.scrollTop;
+        list.style.maxHeight = Math.ceil(height) + "px";
+        list.classList.add("is-scrollable");
+        markEnd();
+      }
+
+      function markEnd() {
+        var atEnd = list.scrollTop + list.clientHeight >= list.scrollHeight - 4;
+        list.classList.toggle("is-at-end", atEnd);
+      }
+
+      list.addEventListener("scroll", markEnd, { passive: true });
+
+      var timer;
+      window.addEventListener("resize", function () {
+        clearTimeout(timer);
+        timer = setTimeout(fit, 150);
+      });
+
+      // Thumbnails and fonts change the posts' heights as they load.
+      Array.prototype.slice.call(list.children, 0, visible).forEach(function (item) {
+        Array.prototype.forEach.call(item.querySelectorAll("img"), function (img) {
+          if (!img.complete) img.addEventListener("load", fit, { once: true });
+        });
+      });
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+
+      fit();
+    })();
+  </script>
 
 </div>
