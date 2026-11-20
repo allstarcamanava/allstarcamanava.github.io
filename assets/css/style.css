@@ -2727,12 +2727,14 @@ footer {
   border-radius: 8px;
   float: left;
   margin: 0 16px 8px 0;
+  background: var(--paper-alt);
 }
 
+/* Show the whole image; tall photos sit on a soft background instead of being cut off. */
 .bulletin-thumb img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 

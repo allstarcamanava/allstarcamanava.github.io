@@ -78,10 +78,11 @@ jobs:
 
             echo "Generating: $thumbnail"
 
+            # Shrink to fit within 400x400 without cutting anything off,
+            # so tall (portrait) photos keep their top and bottom.
             convert "$image" \
-              -resize '400x300^' \
-              -gravity center \
-              -crop '400x300+0+0' \
+              -auto-orient \
+              -resize '400x400>' \
               -quality 80 \
               "$thumbnail"
 
