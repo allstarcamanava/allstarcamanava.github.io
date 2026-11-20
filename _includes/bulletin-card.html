@@ -35,7 +35,7 @@
 
         {% elsif post.image contains "adobe-express-hero_modal-1-1-.gif" %}
 
-          {% assign thumbnail = "/assets/images/bulletins/adobe-express-hero-modal-thumb.gif" %}
+          {% assign thumbnail = "/assets/images/bulletins/adobe-express-hero-modal-thumb.mp4" %}
 
         {% elsif post.image contains ".gif" %}
 
@@ -82,15 +82,29 @@
         {% if thumbnail != "" and thumbnail_exists %}
 
           <a href="{{ post.url | relative_url }}" class="bulletin-thumb">
-            <img
-              {% if thumbnail_is_external %}
-                src="{{ thumbnail }}"
-              {% else %}
-                src="{{ thumbnail | relative_url }}"
-              {% endif %}
-              alt="{{ post.title }}"
-              loading="lazy"
-            >
+            {% assign thumbnail_ext = thumbnail | split: "." | last | downcase %}
+            {% if thumbnail_ext == "mp4" %}
+              {%- comment -%} A short looping video thumbnail (much smaller than an animated GIF). {%- endcomment -%}
+              <video
+                src="{% if thumbnail_is_external %}{{ thumbnail }}{% else %}{{ thumbnail | relative_url }}{% endif %}"
+                autoplay
+                muted
+                loop
+                playsinline
+                aria-label="{{ post.title | escape }}"
+                style="display: block; width: 100%; height: 100%; object-fit: contain;"
+              ></video>
+            {% else %}
+              <img
+                {% if thumbnail_is_external %}
+                  src="{{ thumbnail }}"
+                {% else %}
+                  src="{{ thumbnail | relative_url }}"
+                {% endif %}
+                alt="{{ post.title }}"
+                loading="lazy"
+              >
+            {% endif %}
           </a>
 
 
