@@ -814,10 +814,13 @@ section.block.tight {
   margin-top: 4px;
 }
 
+/* The image runs edge to edge across the top of the card (which has 26px padding)
+   and follows the card's rounded top corners. */
 .featured-post-image {
   display: block;
-  margin: -24px -24px 20px;
+  margin: -26px -26px 20px;
   overflow: hidden;
+  border-radius: var(--radius) var(--radius) 0 0;
 }
 
 .featured-post-image img {
