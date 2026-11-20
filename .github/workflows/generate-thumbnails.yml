@@ -18,10 +18,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install ImageMagick
+      - name: Install ImageMagick and FFmpeg
         run: |
           sudo apt-get update
-          sudo apt-get install -y imagemagick
+          sudo apt-get install -y imagemagick ffmpeg
 
       - name: Generate thumbnails for changed posts
         shell: bash
@@ -100,6 +100,65 @@ jobs:
 
           echo "Generated $generated thumbnail(s)."
 
+      - name: Make small MP4 versions of animated GIFs
+        shell: bash
+        run: |
+          set -e
+
+          # A GIF used as a post image or in the homepage pop-up gets an MP4 with the
+          # same name. The site plays the MP4 instead, which is usually 20 to 75 times
+          # smaller. Existing MP4s are left alone.
+          converted=0
+
+          while IFS= read -r file; do
+
+            [ -f "$file" ] || continue
+
+            while IFS= read -r gif; do
+
+              gif="${gif#/}"
+              [ -n "$gif" ] || continue
+              [ -f "$gif" ] || { echo "GIF not found: $gif"; continue; }
+
+              video="${gif%.*}.mp4"
+
+              if [ -f "$video" ]; then
+                echo "MP4 already exists: $video"
+                continue
+              fi
+
+              echo "Making: $video"
+
+              ffmpeg -v error -y -i "$gif" \
+                -vf "scale='min(1330,iw)':-2:flags=lanczos,format=yuv420p" \
+                -c:v libx264 -preset veryfast -crf 24 \
+                -movflags +faststart -an \
+                "$video"
+
+              converted=$((converted + 1))
+
+            done < <(
+              sed -n '1,/^---$/p' "$file" |
+              sed -n 's/^\(image\|post_image\):[[:space:]]*//p' |
+              tr -d '"' |
+              tr -d "'" |
+              grep -i '\.gif$' |
+              grep -v '://' |
+              sort -u || true
+            )
+
+          done < <(
+          git diff-tree \
+            --no-commit-id \
+            --name-only \
+            -r \
+            "${GITHUB_SHA}^1" \
+            "$GITHUB_SHA" |
+          grep -E '^(_posts/.*\.md|_data/homepage_modal\.yml)$' || true
+          )
+
+          echo "Made $converted MP4(s)."
+
       - name: Commit generated thumbnails
         shell: bash
         run: |
@@ -112,7 +171,8 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add 'assets/images/bulletins/*-thumb.jpg'
+          git add '*.mp4' 2>/dev/null || true
 
-          git commit -m "Generate bulletin thumbnails"
+          git commit -m "Generate bulletin thumbnails and GIF videos"
 
           git push

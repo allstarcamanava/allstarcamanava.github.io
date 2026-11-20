@@ -94,6 +94,8 @@ permalink: /
             <img
               src="{% if site.data.featured_youtube.thumbnail contains '://' %}{{ site.data.featured_youtube.thumbnail }}{% else %}{{ site.data.featured_youtube.thumbnail | relative_url }}{% endif %}"
               alt="{{ site.data.featured_youtube.video_title | default: 'Featured YouTube video' | escape }}"
+              loading="lazy"
+              decoding="async"
             >
             <span class="featured-youtube-play">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -331,13 +333,15 @@ permalink: /
 
 {% if site.data.homepage_modal.enabled %}
 
+  {%- assign modal_has_title = false -%}
+  {%- if site.data.homepage_modal.title and site.data.homepage_modal.title != "" -%}{%- assign modal_has_title = true -%}{%- endif -%}
   <div
     class="homepage-modal"
     id="homepage-modal"
     aria-hidden="true"
     role="dialog"
     aria-modal="true"
-    aria-labelledby="homepage-modal-title"
+    {% if modal_has_title %}aria-labelledby="homepage-modal-title"{% else %}aria-label="{{ site.data.homepage_modal.button_text | default: 'Announcement' | escape }}"{% endif %}
   >
 
     <div
@@ -357,11 +361,31 @@ permalink: /
       </button>
 
       {% if site.data.homepage_modal.image and site.data.homepage_modal.image != "" %}
+        {%- comment -%}
+          The picture is only downloaded when the pop-up opens (data-src), so visitors
+          who already closed it don't download it again. An animated GIF plays as its
+          much smaller MP4 version when one exists.
+        {%- endcomment -%}
+        {% include find-gif-video.html src=site.data.homepage_modal.image %}
         <div class="homepage-modal-image">
-          <img
-            src="{% if site.data.homepage_modal.image contains '://' %}{{ site.data.homepage_modal.image }}{% else %}{{ site.data.homepage_modal.image | relative_url }}{% endif %}"
-            alt="{{ site.data.homepage_modal.title | escape }}"
-          >
+          {% if gif_video != "" %}
+            <video
+              data-modal-media
+              data-src="{{ gif_video | relative_url }}"
+              muted
+              loop
+              playsinline
+              preload="none"
+              style="display: block; width: 100%; height: auto;"
+              aria-label="{{ site.data.homepage_modal.title | default: site.data.homepage_modal.button_text | default: 'Announcement' | escape }}"
+            ></video>
+          {% else %}
+            <img
+              data-modal-media
+              data-src="{% if site.data.homepage_modal.image contains '://' %}{{ site.data.homepage_modal.image }}{% else %}{{ site.data.homepage_modal.image | relative_url }}{% endif %}"
+              alt="{{ site.data.homepage_modal.title | default: site.data.homepage_modal.button_text | default: 'Announcement' | escape }}"
+            >
+          {% endif %}
         </div>
       {% endif %}
 
@@ -445,6 +469,37 @@ permalink: /
         modal.classList.add("is-visible");
 
         document.body.style.overflow = "hidden";
+
+        const video = modal.querySelector("video[data-modal-media]");
+        if (video) video.play().catch(function () {});
+      }
+
+      // Load the pop-up picture or video only when the pop-up is about to open,
+      // and open it once the picture is ready so the pop-up doesn't jump in size.
+      function loadMediaThenOpen() {
+
+        const media = modal.querySelector("[data-modal-media]");
+
+        if (!media || !media.getAttribute("data-src")) {
+          openModal();
+          return;
+        }
+
+        let opened = false;
+        function openOnce() {
+          if (opened) return;
+          opened = true;
+          openModal();
+        }
+
+        const readyEvent = media.tagName === "VIDEO" ? "loadeddata" : "load";
+        media.addEventListener(readyEvent, openOnce, { once: true });
+        media.addEventListener("error", openOnce, { once: true });
+        setTimeout(openOnce, 4000);
+
+        if (media.tagName === "VIDEO") media.preload = "auto";
+        media.src = media.getAttribute("data-src");
+        media.removeAttribute("data-src");
       }
 
       function closeModal() {
@@ -467,7 +522,7 @@ permalink: /
         !showOnce ||
         localStorage.getItem(storageKey) !== "true"
       ) {
-        setTimeout(openModal, 500);
+        setTimeout(loadMediaThenOpen, 500);
       }
 
     });

@@ -1,0 +1,26 @@
+{%- comment -%}
+  Looks for a small MP4 version of an animated GIF.
+
+  Usage: {% include find-gif-video.html src=page.post_image %}
+  Sets:  gif_video = the MP4's path (e.g. /assets/images/bulletins/banner.mp4)
+         when src is a site GIF and an MP4 with the same name exists, otherwise "".
+
+  The "Generate bulletin thumbnails" workflow creates these MP4s automatically.
+  An MP4 is usually 20 to 75 times smaller than the GIF, so pages load much faster.
+{%- endcomment -%}
+{%- assign gif_video = "" -%}
+{%- assign gif_src = include.src | default: "" -%}
+{%- assign gif_ext = gif_src | split: "." | last | downcase -%}
+{%- unless gif_src contains "://" -%}
+  {%- if gif_ext == "gif" -%}
+    {%- assign gif_ext_len = gif_src | split: "." | last | size | plus: 1 -%}
+    {%- assign gif_base_len = gif_src | size | minus: gif_ext_len -%}
+    {%- assign gif_candidate = gif_src | slice: 0, gif_base_len | append: ".mp4" -%}
+    {%- for file in site.static_files -%}
+      {%- if file.path == gif_candidate -%}
+        {%- assign gif_video = gif_candidate -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endunless -%}

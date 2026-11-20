@@ -62,11 +62,25 @@
           </div>
 
             {% if page.post_image and page.post_image != "" %}
+              {% include find-gif-video.html src=page.post_image %}
               <div class="bulletin-featured-image">
-                <img
-                  src="{% if page.post_image contains '://' %}{{ page.post_image }}{% else %}{{ page.post_image | relative_url }}{% endif %}"
-                  alt="{{ page.image_alt | default: page.title }}"
-                >
+                {% if gif_video != "" %}
+                  {%- comment -%} Animated GIFs play as their much smaller MP4 version. {%- endcomment -%}
+                  <video
+                    src="{{ gif_video | relative_url }}"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    style="display: block; width: 100%; height: auto;"
+                    aria-label="{{ page.image_alt | default: page.title | escape }}"
+                  ></video>
+                {% else %}
+                  <img
+                    src="{% if page.post_image contains '://' %}{{ page.post_image }}{% else %}{{ page.post_image | relative_url }}{% endif %}"
+                    alt="{{ page.image_alt | default: page.title }}"
+                  >
+                {% endif %}
               </div>
             {% endif %}
 
